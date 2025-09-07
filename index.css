@@ -1,0 +1,579 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --name-width: 190px;
+    --enrollment-width: 120px;
+    --subject-width: 1fr;
+    --grade-width: 45px;
+    --internal-gap: 5px;
+    --container-gap: 0px;
+
+    --top-header-color: #040714;
+    --header-color: #4a5168;
+    --container-color: #ffffff;
+    --header-font-size: 18px;
+    --content-font-size: 12px;
+}
+body {
+    font-family: 'BebasNeue', 'Open-Sans', 'Inter', sans-serif;
+
+    background-color: #e1e4ea;
+    background-image: url("Assets/img_1.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+
+    color: #212529;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes SlideUp{
+    from {
+        transform: translateY(30px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+@keyframes SlideUpForTopPerformer{
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.animate-slide-up-body {
+    animation: SlideUp .4s ease-out forwards;
+}
+
+.top-header {
+    height: 50px;
+    width: 100%;
+    background-color: var(--top-header-color);
+}
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 1900px;
+    width: 100%;
+    margin: 0 auto;
+    gap: 10px;
+}
+
+/*
+* CONTAINER
+*/
+.tools-container {
+    padding: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+.content-row {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    min-height: 0;
+}
+.student-list-container {
+    flex: 7;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.analytics-container {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.analytics-header {
+    display: flex;
+    height: 40px;
+    background-color: var(--header-color);
+    justify-content: center;
+    align-items: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: var(--header-font-size);
+    color: white;
+}
+.analytics-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+}
+.analytics-card {
+    background-color: #e1e4ea;
+    padding: 0;
+}
+.analytics-card-title {
+    display: flex;
+    height: 40px;
+    justify-content: left;
+    align-items: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: var(--header-font-size);
+    color: #1e1e1e;
+    align-content: center;
+}
+
+/*
+*  TOP_PERFORMER
+*/
+.top-students-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.top-performer-item {
+    display: flex;
+    align-items: stretch;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+.rank-box {
+    background-color: #000000;
+    color: #FFD700FF;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.student-info-section {
+    flex-grow: 1;
+    padding: 4px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.student-name {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+}
+.student-sgpa {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #43465A;
+    background-color: #e0e7ff;
+    padding: 3px 8px;
+    border-radius: 2px;
+}
+
+/*
+*  PASS/FAIL
+*/
+.pass-fail-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+}
+.stat-column {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.stat-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 10px 5px;
+    text-align: center;
+}
+.stat-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.stat-value {
+    font-size: 28px;
+    font-family: 'Bebas Neue', 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: #333333;
+    vertical-align: text-bottom;
+}
+.stat-value sub {
+    font-size: 10px;
+    font-family: 'Open Sans', sans-serif;
+    color: #8c8c8c;
+    vertical-align: text-bottom;
+    margin-left: 1px;
+}
+.passed { color: #24A84C; }
+.promoted { color: #d5a822; }
+.failed { color: #AE3C3C; }
+
+#pass-fail-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+
+
+.student-list-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    height: 468px;
+    overflow-y: auto;
+}
+
+.student-list-header, .student-data-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 15px;
+    gap: var(--container-gap);
+
+}
+.student-list-header {
+    height: 40px;
+    background-color: var(--header-color);
+    font-family: 'Bebas Neue', 'Open Sans', 'Inter', sans-serif;
+    font-size: var(--header-font-size);
+    color: white;
+}
+.unskew-wrapper {
+    display: contents;
+}
+.student-data-row {
+    height: 45px;
+    flex-shrink: 0;
+    background-color: var(--container-color);
+    font-size: var(--content-font-size);
+    font-family: 'Open Sans', 'Inter', 'sans-serif';
+    color: #333;
+    border: 1px solid transparent;
+    transition: border-color 0.01s ease-in-out;
+}
+.student-data-row:hover {
+    cursor: pointer;
+    border-color: #FFD700;
+    background-color: #f8f9fa;
+}
+.selected-student-row {
+    background-color: #16161D;
+    color: #FFD700FF;
+    transform: skewX(-7deg);
+}
+.selected-student-row:hover {
+    background-color: #16161D;
+}
+.selected-student-row .unskew-wrapper {
+    transform: skewX(7deg);
+}
+
+.studentinfo-header-container, .studentinfo-data-container {
+    display: grid;
+    grid-template-columns: var(--name-width) var(--enrollment-width);
+    align-items: center;
+    gap: var(--internal-gap);
+}
+.grades-header-container, .grades-data-container {
+    display: grid;
+    grid-template-columns: var(--grade-width) var(--grade-width);
+    align-items: center;
+    gap: var(--internal-gap);
+}
+.subject-header-container, .subject-data-container {
+    display: grid;
+    grid-template-columns: repeat(var(--num-subjects, 15), var(--subject-width));
+    min-width: 0;
+    flex-grow: 1;
+}
+.studentinfo-header-container,
+.studentinfo-data-container,
+.grades-header-container,
+.grades-data-container {
+    flex-shrink: 0;
+}
+
+
+.name-header, .name-data {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.name-data {
+    font-weight: 650;
+}
+.enrollment-header, .enrollment-data {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.enrollment-data {
+    font-weight: 650;
+}
+.subject-header, .subject-data,
+.sgpa-header, .sgpa-data,
+.cgpa-header, .cgpa-data {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.studentinfo-header-container > div:not(:last-child) {
+    border-right: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.loading {
+    text-align: center;
+    align-items: center;
+    padding: 15px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+
+
+/*
+*  TOOLS CONTAINER
+*/
+
+.view-container {
+    position: relative;
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    cursor: pointer;
+    width: auto;
+}
+
+.selected-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 120px;
+    background-color: #ffffff;
+    padding: 0 12px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: var(--content-font-size);
+}
+
+.dropdown-view-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 127px;
+    width: 120px;
+
+    text-align: center;
+    background-color: #ffffff;
+    border-top: 2px solid #e1e4ea;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+
+.view-container.open .dropdown-view-menu {
+    display: block;
+}
+
+.dropdown-view-menu a {
+    display: block;
+    padding: 10px 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: var(--content-font-size);
+    color: #333;
+    text-decoration: none;
+}
+
+.dropdown-view-menu a:hover {
+    background-color: #f0f2ff;
+}
+
+.tool-title {
+    height: 40px;
+    width: 120px;
+    background-color: var(--top-header-color);
+    Color: white;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: var(--header-font-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.search-container {
+    display: flex;
+    position: relative;
+    width: 100%;
+    gap: 7px;
+}
+.semester-container {
+    position: relative;
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    cursor: pointer;
+    width: auto;
+}
+.selected-semester {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 50px;
+    background-color: #ffffff;
+    padding: 0 12px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: var(--content-font-size);
+}
+.dropdown-semester-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 127px;
+    width: 50px;
+
+    text-align: center;
+    background-color: #ffffff;
+    border-top: 2px solid #e1e4ea;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+.semester-container.open .dropdown-semester-menu {
+    display: block;
+}
+.dropdown-semester-menu a {
+    display: block;
+    padding: 10px 0;
+
+    font-family: 'Open Sans', sans-serif;
+    font-size: var(--content-font-size);
+    color: #333;
+    text-decoration: none;
+}
+.dropdown-semester-menu a:hover {
+    background-color: #f0f2ff;
+}
+
+
+
+
+#search-bar {
+    font-family: 'Open Sans', sans-serif;
+    font-size: var(--content-font-size);
+    padding: 12px 40px 12px 15px;
+    border: 1px solid #d1d4ed;
+    outline: none;
+    transition: border-color 0.01s ease;
+}
+#search-bar:focus {
+    border-color: #43465A;
+}
+#search-clear-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 45px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #888;
+    cursor: pointer;
+    display: none;
+}
+#search-clear-btn:hover {
+    color: #000;
+}
+
+
+
+#student-list-body {
+    overflow-y: auto;
+    border-top: 1px solid #ddd;
+}
+#student-list-body::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+.top-performer-item {
+    opacity: 0;
+}
+.start-top-performer-animation .top-performer-item {
+    animation: SlideUpForTopPerformer 0.6s ease forwards;
+}
+
+.student-analysis-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.analysis-card {
+    background-color: #ffffff;
+    padding: 15px 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+.analysis-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 2.2;
+    border-bottom: 1px solid #f0f0f0;
+}
+.analysis-stat-row:last-of-type {
+    border-bottom: none;
+}
+
+.stat-value-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+
+.stat-value-main.passed { color: #24A84C; }
+.stat-value-main.promoted { color: #d5a822; }
+.stat-value-main.failed { color: #AE3C3C; }
+
+
+.arrears-list {
+    list-style-type: none;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+
+.arrear-item {
+    font-size: 13px;
+    color: #ae3c3c;
+    padding: 4px 0;
+}

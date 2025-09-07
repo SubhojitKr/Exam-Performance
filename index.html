@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ExamPerformance</title>
+
+    <link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2025.8.1/core.js"></script>
+
+    <script defer src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<header class="top-header">
+    <div class="top-header-container"></div>
+</header>
+
+<main class="main-container">
+    <div class="tools-container">
+        <div class="view-container">
+            <div id="view-tool-title" class="tool-title">View</div>
+            <span class="selected-view">TABLE MODE</span>
+            <div class="dropdown-view-menu">
+                <a href="#" data-view="Table">TABLE MODE</a>
+                <a href="#" data-view="Chart">CHART MODE</a>
+            </div>
+        </div>
+        <div class="semester-container">
+            <div id="semester-tool-title" class="tool-title">Semester</div>
+            <span class="selected-semester">VI</span>
+            <div class="dropdown-semester-menu">
+                <a href="#" data-filename="1st_sem_result.csv">I</a>
+                <a href="#" data-filename="6th_sem_result.csv">VI</a>
+            </div>
+        </div>
+        <div class="search-container">
+            <div id="search-tool-title" class="tool-title">Search</div>
+            <input type="text" id="search-bar" placeholder="Name/Enrollment No.">
+            <button id="search-clear-btn">&times;</button>
+        </div>
+    </div>
+    <div class="content-row">
+        <div id="student-list-container" class="student-list-container">
+            <div id="student-list-header" class="student-list-header">
+                <div class="studentinfo-header-container">
+                    <div class="name-header">Name</div>
+                    <div class="enrollment-header">Enrollment</div>
+                </div>
+                <div id="subject-header-container" class="subject-header-container"></div>
+                <div class="grades-header-container">
+                    <div class="sgpa-header">SGPA</div>
+                    <div class="cgpa-header">CGPA</div>
+                </div>
+            </div>
+            <div id="student-list-body" class="student-list-body">
+                <div class="loading">Loading student data...</div>
+            </div>
+        </div>
+        <div id="analytics-container" class="analytics-container">
+            <div class="analytics-header">OVERALL ANALYSIS</div>
+            <div id="analytics-body" class="analytics-body">
+                <div id="pass-fail-container" class="pass-fail-container"></div>
+                <div id="top-students-container" class="top-students-container"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<py-config>
+    packages = ["pandas", "numpy"]
+    [[fetch]]
+    files = [
+    "/Datasets/6th_sem_result.csv",
+    "/Datasets/1st_sem_result.csv"
+    ]
+</py-config>
+<py-script src="Backend/main.py"></py-script>
+
+</body>
+</html>
