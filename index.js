@@ -261,6 +261,7 @@ function buildStudentAnalysis(student) {
                 </div>
                 <div class="analysis-stat-row">
                     <span>Backlogs: (${failCount}):</span>
+                    
                 </div>
                 <ul class="arrears-list">
                     ${arrearsHtml}
