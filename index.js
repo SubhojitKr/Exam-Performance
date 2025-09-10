@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewSelectedText = viewContainer.querySelector('.selected-view');
     const viewMenu = viewContainer.querySelector('.dropdown-view-menu');
 
-    // Toggles the dropdown open/closed when clicking the container
+    // Toggle dropdown
     viewContainer.addEventListener('click', (e) => {
         if (!viewMenu.contains(e.target)) {
             viewContainer.classList.toggle('open');
@@ -39,8 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             viewSelectedText.textContent = newViewText;
             viewContainer.classList.remove('open');
-
-
 
             // TODO: switchDashboardView(viewName);
         }
@@ -84,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 window.pyLoadSemester(filename);
             } catch (err) {
-                console.error("JavaScript Error calling Python function:", err);
+                console.error("JavaScript Error couldn't call Python Function:", err);
                 showLoadingError(err);
             }
         }
@@ -126,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /*
-    * Search Bar
+    * SEARCH BAR
     */
     const searchBar = document.getElementById('search-bar');
     const clearBtn = document.getElementById('search-clear-btn');
@@ -244,7 +242,7 @@ function buildStudentAnalysis(student) {
     const arrearsList = ALL_SUBJECTS.filter(sub => failingGrades.includes(student[sub]));
     const arrearsHtml = arrearsList.length > 0
         ? arrearsList.map(sub => `<li class="arrear-item">${sub}</li>`).join('')
-        : '<li>No Arrears</li>';
+        : '<li>No Backlog</li>';
 
     analyticsBody.innerHTML = `
         <div class="student-analysis-container">
@@ -262,7 +260,7 @@ function buildStudentAnalysis(student) {
                     <span class="stat-value-main">#${rank}</span>
                 </div>
                 <div class="analysis-stat-row">
-                    <span>Arrears (${failCount}):</span>
+                    <span>Backlogs: (${failCount}):</span>
                 </div>
                 <ul class="arrears-list">
                     ${arrearsHtml}

@@ -53,6 +53,7 @@ def load_semester_data(filename):
 
         analytics_data = get_analytics_data(df, subject_columns)
         top_students_list = get_top_students_data(df)
+        df.fillna('-', inplace=True)
         all_students_list = df.to_dict('records')
 
         dashboard_data = {

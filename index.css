@@ -13,7 +13,7 @@
     --internal-gap: 5px;
     --container-gap: 0px;
 
-    --top-header-color: #040714;
+    --top-header-color: #16161D;
     --header-color: #4a5168;
     --container-color: #ffffff;
     --header-font-size: 18px;
@@ -147,7 +147,7 @@ body {
     overflow: hidden;
 }
 .rank-box {
-    background-color: #000000;
+    background-color: #16161D;
     color: #FFD700FF;
     font-family: 'Bebas Neue', sans-serif;
     font-size: 18px;
