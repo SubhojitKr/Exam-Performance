@@ -26,49 +26,91 @@
     <!-- TOOLS -->
     <div class="tools-container">
 
-        <!-- Department Hover Tool -->
-        <div id="department-tool-container" class="general-tool-container custom-dropdown-container">
-            <div class="general-tool-title">Department</div>
-            <div id="department-tool-content" class="general-tool-content">
-                <span id="selected-department-text">Select Department</span>
+        <div class="tools-row">
+            <!-- Department Dropdown Tool -->
+            <div id="department-tool-container" class="general-tool-container custom-dropdown-container">
+                <div id="department-tool-title" class="general-tool-title">Department</div>
+                <div id="department-tool-content" class="general-tool-content">
+                    <span id="selected-department-text">Select Department</span>
+                </div>
+                <div id="department-dropdown-menu" class="general-dropdown-menu"></div>
+                <div id="department-submenu" class="department-submenu"></div>
             </div>
-            <div id="department-dropdown-menu" class="general-dropdown-menu"></div>
-            <div id="department-submenu" class="department-submenu"></div>
+
+            <!-- Program Dropdown Tool -->
+            <div id="program-tool-container" class="general-tool-container custom-dropdown-container">
+                <div id="program-tool-title" class="general-tool-title">Program</div>
+                <div id="program-tool-content" class="general-tool-content">
+                    <span id="selected-program-text">Select Program</span>
+                </div>
+                <ul id="program-dropdown-menu" class="general-dropdown-menu"></ul>
+            </div>
+
+            <!-- Batch Dropdown Tool -->
+            <div id="batch-tool-container" class="general-tool-container custom-dropdown-container">
+                <div id="batch-tool-title" class="general-tool-title">Batch</div>
+                <div id="batch-tool-content" class="general-tool-content">
+                    <span id="selected-batch-text">-</span>
+                </div>
+                <ul id="batch-dropdown-menu" class="general-dropdown-menu"></ul>
+            </div>
+
+            <!-- Semester Dropdown Tool -->
+            <div id="semester-tool-container" class="general-tool-container custom-dropdown-container">
+                <div id="semester-tool-title" class="general-tool-title">Semester</div>
+                <div id="semester-tool-content" class="general-tool-content">
+                    <span id="selected-semester-text">-</span>
+                </div>
+                <ul id="semester-dropdown-menu" class="general-dropdown-menu"></ul>
+            </div>
         </div>
 
-        <!-- Program Tool -->
-        <div id="program-tool-container" class="general-tool-container custom-dropdown-container">
-            <div class="general-tool-title">Program</div>
-            <div id="program-tool-content" class="general-tool-content">
-                <span id="selected-program-text">Select Program</span>
+        <div class="tools-row">
+            <!-- View Dropdown Tool -->
+            <div id="view-tool-container" class="vertical-tool-container">
+                <div class="vertical-tool-title">VIEW</div>
+                <div class="view-dropdown-container vertical-dropdown-wrapper">
+                    <div id="view-tool-content" class="vertical-tool-content">
+                        <span id="selected-view-text">RESULT</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <div id="view-dropdown-menu" class="vertical-dropdown-menu">
+                      <div class="vertical-dropdown-item">RESULT</div>
+                       <div class="vertical-dropdown-item">SUBJECTS</div>
+                    </div>
+                </div>
             </div>
-            <ul id="program-dropdown-menu" class="general-dropdown-menu"></ul>
-        </div>
 
-        <!-- Batch Tool -->
-        <div id="batch-tool-container" class="general-tool-container custom-dropdown-container">
-            <div class="general-tool-title">Batch</div>
-            <div id="batch-tool-content" class="general-tool-content">
-                <span id="selected-batch-text">-</span>
+            <!-- Program-Type Dropdown Tool -->
+            <div id="program-type-tool-container" class="vertical-tool-container">
+                <div class="vertical-tool-title">PROGRAM TYPE</div>
+                <div class="program-dropdown-container vertical-dropdown-wrapper">
+                    <div id="program-type-tool-content" class="vertical-tool-content">
+                        <span id="selected-program-type-text">ALL</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <div id="program-type-dropdown-menu" class="vertical-dropdown-menu">
+                        <div class="vertical-dropdown-item">ALL</div>
+                        <div class="vertical-dropdown-item">REGULAR</div>
+                        <div class="vertical-dropdown-item">SPECIALIZATION</div>
+                    </div>
+                </div>
             </div>
-            <ul id="batch-dropdown-menu" class="general-dropdown-menu"></ul>
-        </div>
 
-        <!-- Semester Tool -->
-        <div id="semester-tool-container" class="general-tool-container custom-dropdown-container">
-            <div class="general-tool-title">Semester</div>
-            <div id="semester-tool-content" class="general-tool-content">
-                <span id="selected-semester-text">-</span>
+            <!-- Specialization Selection Panel Tool -->
+            <div id="specialization-tool-container" class="selection-tool-container hidden">
+                <div class="selection-tool-item">DS-AI</div>
+                <div class="selection-tool-item">AIML</div>
+                <div class="selection-tool-item">IOT</div>
             </div>
-            <ul id="semester-dropdown-menu" class="general-dropdown-menu"></ul>
-        </div>
 
-        <!-- Search Tool -->
-        <div id="search-tool-container" class="general-tool-container search-tool">
-            <div class="general-tool-title">Search</div>
-            <div class="general-tool-content search-wrapper">
-                <input type="text" id="search-bar" placeholder="Name/Enrollment No.">
-                <button id="search-clear-btn">&times;</button>
+            <!-- Search Tool -->
+            <div id="search-tool-container" class="general-tool-container search-tool">
+                <div class="general-tool-title">Search</div>
+                <div class="general-tool-content search-wrapper">
+                    <input type="text" id="search-bar" placeholder="Name/Enrollment No.">
+                    <button id="search-clear-btn">&times;</button>
+                </div>
             </div>
         </div>
 
