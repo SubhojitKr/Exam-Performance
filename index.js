@@ -215,10 +215,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     tooltip.textContent = textSpan.textContent;
 
                     const rect = targetDiv.getBoundingClientRect();
-                    tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2)}px`;
-                    tooltip.style.top = `${rect.top - rect.height - 5}px`;
+                    const leftPosition = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2);
+                    const topPosition = rect.top - tooltip.offsetHeight - 5;
+
+                    tooltip.style.left = `${leftPosition}px`;
+                    tooltip.style.top = `${topPosition}px`;
                     tooltip.classList.add('visible');
-                }, 200);
+                }, 100);
             }
         });
         content.addEventListener('mouseleave', () => {
