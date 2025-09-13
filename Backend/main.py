@@ -4,7 +4,7 @@ import json
 from js import console
 from pyscript import window
 from pyodide.http  import pyfetch
-import asyncio
+
 
 
 def get_analytics_data(df, subject_columns):
@@ -68,10 +68,10 @@ def load_semester_data(filepath):
         console.error(f"Python Error loading {filepath}: {str(e)}")
         window.showLoadingError(str(e))
 
-async def main():
+def main():
     try:
-        response = await pyfetch("directory_map.json")
-        json_map = await response.string()
+        with open("directory_map.json", "r") as f:
+            json_map = f.read()
         window.startApp(json_map)
     except Exception as e:
         console.error(f"Python Error during initialization: {str(e)}")
@@ -79,4 +79,4 @@ async def main():
 
 
 window.pyLoadSemester = load_semester_data
-asyncio.ensure_future(main())
+main()

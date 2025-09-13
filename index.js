@@ -195,6 +195,37 @@ document.addEventListener('DOMContentLoaded', () => {
             buildOverallAnalysis();
         }
     });
+
+    /*
+    * TOOLTIP
+    */
+    const tooltip = document.getElementById('tooltip');
+    const toolContents = document.querySelectorAll('.general-tool-content');
+    let tooltipTimeout;
+
+    toolContents.forEach(content => {
+        content.addEventListener('mouseenter', (event) => {
+            const targetDiv = event.currentTarget;
+            const textSpan = targetDiv.querySelector('span');
+            if (!textSpan) return;
+            const isOverflowing = textSpan.scrollWidth > textSpan.clientWidth;
+
+            if (isOverflowing) {
+                tooltipTimeout = setTimeout(() => {
+                    tooltip.textContent = textSpan.textContent;
+
+                    const rect = targetDiv.getBoundingClientRect();
+                    tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2)}px`;
+                    tooltip.style.top = `${rect.top - rect.height - 5}px`;
+                    tooltip.classList.add('visible');
+                }, 200);
+            }
+        });
+        content.addEventListener('mouseleave', () => {
+            clearTimeout(tooltipTimeout);
+            tooltip.classList.remove('visible');
+        });
+    });
 });
 
 
@@ -285,7 +316,7 @@ function loadSelectedData() {
         showLoadingError("Please complete all selections.");
         return;
     }
-    const fullPath = `Datasets/${selectedSchool}/${selectedDepartment}/${selectedProgram}/${selectedBatch}/${selectedSemester}`;
+    const fullPath = `./Datasets/${selectedSchool}/${selectedDepartment}/${selectedProgram}/${selectedBatch}/${selectedSemester}`;
 
     clearDashboardForLoading("Loading student data...");
     try {
