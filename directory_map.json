@@ -1,0 +1,107 @@
+{
+  "Allied_Health_Science": {
+    "Allied_Health_Science": {
+      "B_Sc_H_Anaesthesia_&_Operation_Theatre_Technology-Powered_by_Emversity": {},
+      "B_Sc_H_Cardiovascular_Technology-Powered_by_Emversity": {},
+      "B_Sc_H_Medical_Laboratory_Technology-Powered_by_Emversity": {},
+      "B_Sc_H_Respiratory_Technology-Powered_by_Emversity": {}
+    },
+    "Biotechnology": {
+      "B_Sc_Biotechnology": {}
+    },
+    "Optometry": {
+      "B_Optometry": {}
+    }
+  },
+  "Centre_for_Skill_Development": {
+    "Centre_for_Skill_Development": {
+      "Diploma_in_Public_Accounting_Program": {}
+    }
+  },
+  "Commerce_and_Management": {
+    "Department_of_Commerce": {
+      "B_Com_Hons": {},
+      "B_Com_Hons_Capital_Market": {}
+    },
+    "Department_of_Management": {
+      "BBA": {},
+      "BBA_Capital_Market_with_SMI": {},
+      "BBA_Digital_Marketing_with_ISDC": {},
+      "MBA": {}
+    }
+  },
+  "Engineering_and_IT": {
+    "Computer_Science_and_IT": {
+      "BCA": {},
+      "BCA _AI_and_DL_with_IBM": {},
+      "BCA_Cybersecurity_with_Cyber_Dojo": {},
+      "B_Tech_in_AI_and_DS_with_IBM": {},
+      "B_Tech_in_AI_and_ML": {},
+      "B_Tech_in_CSE": {
+        "22-26": [
+          "1st_sem_result.csv",
+          "3rd_sem_result.csv",
+          "6th_sem_result.csv"
+        ]
+      },
+      "Diploma_in_CSE": {},
+      "MCA_in_AI_&_DL_in_Association_with_IBM": {},
+      "M_Tech_in_CSE": {}
+    },
+    "Electrical_and_Electronics_Engineering": {
+      "B_Tech_in_Electrical_and_Electronics_Engineering": {},
+      "Diploma_in_Electrical_and_Electronics": {},
+      "M_Tech_in_Electric_Vehicle_Technology": {}
+    },
+    "Mechanical_Engineering": {
+      "B_Tech_in_Mechanical_Engineering": {},
+      "Diploma_in_Mechanical_Engineering": {},
+      "Diploma_in_Mechatronics": {},
+      "M_Tech_in_Manufacturing_Engineering": {}
+    }
+  },
+  "Humanities": {
+    "English": {
+      "B_A_Hons-English": {}
+    },
+    "Fashion_Design": {
+      "B_A_Hons-Fashion_Design": {}
+    },
+    "Journalism_&_Mass_Communication": {
+      "B_A_Hons-Journalism_&_Mass_Communication": {},
+      "M_A_Journalism_&_Mass_Communication": {}
+    }
+  },
+  "Law": {
+    "Law": {
+      "BBA_LLB_Hons": {},
+      "L_L_B_Hons": {}
+    }
+  },
+  "Nursing": {
+    "Nursing": {
+      "B_Sc_Nursing": {},
+      "GNM_Diploma_in_General_Nursing_&_Midwifery": {}
+    }
+  },
+  "Pharmacy": {
+    "Pharmacy": {
+      "B_Pharm": {},
+      "D_Pharm": {},
+      "M_Pharm": {}
+    }
+  },
+  "Research": {
+    "Research": {
+      "Ph_D_in_Biotechnology": {},
+      "Ph_D_in_Commerce": {},
+      "Ph_D_in_Computer_Science": {},
+      "Ph_D_in_Electrical_and_Electronics_Engineering": {},
+      "Ph_D_in_English": {},
+      "Ph_D_in_Journalism_and_Mass_Communication": {},
+      "Ph_D_in_Management": {},
+      "Ph_D_in_Mechanical_Engineering": {},
+      "Ph_D_in_Pharmacy": {}
+    }
+  }
+}

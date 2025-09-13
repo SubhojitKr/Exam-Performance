@@ -3,6 +3,8 @@ import numpy as np
 import json
 from js import console
 from pyscript import window
+from pyodide.http  import pyfetch
+import asyncio
 
 
 def get_analytics_data(df, subject_columns):
@@ -45,11 +47,10 @@ def get_top_students_data(df):
     top_3_df = df.nlargest(3, 'SGPA')[['Name', 'SGPA']]
     return top_3_df.to_dict('records')
 
-def load_semester_data(filename):
+def load_semester_data(filepath):
     try:
-        filepath = f"Datasets/{filename}"
         df = pd.read_csv(filepath).replace(np.nan, None)
-        subject_columns = [c for c in df.columns if c not in ['Name', 'Enrollment', 'SGPA', 'CGPA', 'Result', 'Gender', 'Performance']]
+        subject_columns = [c for c in df.columns if c not in ['Name', 'Enrollment', 'SGPA', 'CGPA', 'Result', 'Gender', 'Performance', 'Program_Type']]
 
         analytics_data = get_analytics_data(df, subject_columns)
         top_students_list = get_top_students_data(df)
@@ -64,12 +65,18 @@ def load_semester_data(filename):
         }
         window.buildDashboard(json.dumps(dashboard_data))
     except Exception as e:
-        console.error(f"Python Error: {str(e)}")
+        console.error(f"Python Error loading {filepath}: {str(e)}")
         window.showLoadingError(str(e))
 
+async def main():
+    try:
+        response = await pyfetch("directory_map.json")
+        json_map = await response.string()
+        window.startApp(json_map)
+    except Exception as e:
+        console.error(f"Python Error during initialization: {str(e)}")
+        window.showLoadingError("Could not load the directory map file.")
+
+
 window.pyLoadSemester = load_semester_data
-load_semester_data("6th_sem_result.csv")
-
-
-
-
+asyncio.ensure_future(main())

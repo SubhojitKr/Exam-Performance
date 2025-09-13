@@ -58,7 +58,7 @@ body {
 }
 
 .top-header {
-    height: 50px;
+    height: 45px;
     width: 100%;
     background-color: var(--top-header-color);
 }
@@ -74,7 +74,7 @@ body {
 }
 
 /*
-* CONTAINER
+* CONTAINERS
 */
 .tools-container {
     padding: 0;
@@ -101,6 +101,10 @@ body {
     overflow: hidden;
 }
 
+
+/*
+* ANALYTICS
+*/
 .analytics-header {
     display: flex;
     height: 40px;
@@ -131,6 +135,131 @@ body {
     color: #1e1e1e;
     align-content: center;
 }
+
+
+
+/*
+*  STUDENT_LIST
+*/
+.student-list-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    height: 468px;
+    overflow-y: auto;
+}
+.student-list-header, .student-data-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 15px;
+    gap: var(--container-gap);
+
+}
+.student-list-header {
+    height: 40px;
+    background-color: var(--header-color);
+    font-family: 'Bebas Neue', 'Open Sans', 'Inter', sans-serif;
+    font-size: var(--header-font-size);
+    color: white;
+}
+.unskew-wrapper {
+    display: contents;
+}
+.student-data-row {
+    height: 45px;
+    flex-shrink: 0;
+    background-color: var(--container-color);
+    font-size: var(--content-font-size);
+    font-family: 'Open Sans', 'Inter', 'sans-serif';
+    color: #333;
+    border: 1px solid transparent;
+    transition: border-color 0.01s ease-in-out;
+}
+.student-data-row:hover {
+    cursor: pointer;
+    border-color: #FFD700;
+    background-color: #f8f9fa;
+}
+.selected-student-row {
+    background-color: #16161D;
+    color: #FFD700FF;
+    transform: skewX(-7deg);
+}
+.selected-student-row:hover {
+    background-color: #16161D;
+}
+.selected-student-row .unskew-wrapper {
+    transform: skewX(7deg);
+}
+.studentinfo-header-container, .studentinfo-data-container {
+    display: grid;
+    grid-template-columns: var(--name-width) var(--enrollment-width);
+    align-items: center;
+    gap: var(--internal-gap);
+}
+.grades-header-container, .grades-data-container {
+    display: grid;
+    grid-template-columns: var(--grade-width) var(--grade-width);
+    align-items: center;
+    gap: var(--internal-gap);
+}
+.subject-header-container, .subject-data-container {
+    display: grid;
+    grid-template-columns: repeat(var(--num-subjects, 15), var(--subject-width));
+    min-width: 0;
+    flex-grow: 1;
+}
+.studentinfo-header-container,
+.studentinfo-data-container,
+.grades-header-container,
+.grades-data-container {
+    flex-shrink: 0;
+}
+.name-header, .name-data {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.name-data {
+    font-weight: 650;
+}
+.enrollment-header, .enrollment-data {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.enrollment-data {
+    font-weight: 650;
+}
+.subject-header, .subject-data,
+.sgpa-header, .sgpa-data,
+.cgpa-header, .cgpa-data {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#student-list-body {
+    overflow-y: auto;
+    border-top: 1px solid #ddd;
+}
+#student-list-body::-webkit-scrollbar {
+    display: none;
+}
+.studentinfo-header-container > div:not(:last-child) {
+    border-right: 2px solid rgba(255, 255, 255, 0.25);
+}
+.loading {
+    text-align: center;
+    align-items: center;
+    padding: 15px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
 
 /*
 *  TOP_PERFORMER
@@ -179,6 +308,14 @@ body {
     padding: 3px 8px;
     border-radius: 2px;
 }
+.top-performer-item {
+    opacity: 0;
+}
+.start-top-performer-animation .top-performer-item {
+    animation: SlideUpForTopPerformer 0.6s ease forwards;
+}
+
+
 
 /*
 *  PASS/FAIL
@@ -228,7 +365,6 @@ body {
 .passed { color: #24A84C; }
 .promoted { color: #d5a822; }
 .failed { color: #AE3C3C; }
-
 #pass-fail-container {
     display: flex;
     flex-direction: column;
@@ -238,139 +374,73 @@ body {
 
 
 
-.student-list-body {
+/*
+*  INDIVIDUAL_STUDENT_ANALYSIS
+*/
+.student-analysis-container {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    height: 468px;
-    overflow-y: auto;
+    gap: 10px;
 }
-
-.student-list-header, .student-data-row {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 0 15px;
-    gap: var(--container-gap);
-
-}
-.student-list-header {
-    height: 40px;
-    background-color: var(--header-color);
-    font-family: 'Bebas Neue', 'Open Sans', 'Inter', sans-serif;
-    font-size: var(--header-font-size);
-    color: white;
-}
-.unskew-wrapper {
-    display: contents;
-}
-.student-data-row {
-    height: 45px;
-    flex-shrink: 0;
-    background-color: var(--container-color);
-    font-size: var(--content-font-size);
-    font-family: 'Open Sans', 'Inter', 'sans-serif';
-    color: #333;
-    border: 1px solid transparent;
-    transition: border-color 0.01s ease-in-out;
-}
-.student-data-row:hover {
-    cursor: pointer;
-    border-color: #FFD700;
-    background-color: #f8f9fa;
-}
-.selected-student-row {
-    background-color: #16161D;
-    color: #FFD700FF;
-    transform: skewX(-7deg);
-}
-.selected-student-row:hover {
-    background-color: #16161D;
-}
-.selected-student-row .unskew-wrapper {
-    transform: skewX(7deg);
-}
-
-.studentinfo-header-container, .studentinfo-data-container {
-    display: grid;
-    grid-template-columns: var(--name-width) var(--enrollment-width);
-    align-items: center;
-    gap: var(--internal-gap);
-}
-.grades-header-container, .grades-data-container {
-    display: grid;
-    grid-template-columns: var(--grade-width) var(--grade-width);
-    align-items: center;
-    gap: var(--internal-gap);
-}
-.subject-header-container, .subject-data-container {
-    display: grid;
-    grid-template-columns: repeat(var(--num-subjects, 15), var(--subject-width));
-    min-width: 0;
-    flex-grow: 1;
-}
-.studentinfo-header-container,
-.studentinfo-data-container,
-.grades-header-container,
-.grades-data-container {
-    flex-shrink: 0;
-}
-
-
-.name-header, .name-data {
-    text-align: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.name-data {
-    font-weight: 650;
-}
-.enrollment-header, .enrollment-data {
-    text-align: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.enrollment-data {
-    font-weight: 650;
-}
-.subject-header, .subject-data,
-.sgpa-header, .sgpa-data,
-.cgpa-header, .cgpa-data {
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.studentinfo-header-container > div:not(:last-child) {
-    border-right: 2px solid rgba(255, 255, 255, 0.25);
-}
-
-.loading {
-    text-align: center;
-    align-items: center;
-    padding: 15px;
+.analysis-card {
+    background-color: #ffffff;
+    padding: 15px 20px;
     font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
 }
-
+.analysis-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 2.2;
+    border-bottom: 1px solid #f0f0f0;
+}
+.analysis-stat-row:last-of-type {
+    border-bottom: none;
+}
+.stat-value-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+}
+.stat-value-main.passed { color: #24A84C; }
+.stat-value-main.promoted { color: #d5a822; }
+.stat-value-main.failed { color: #AE3C3C; }
+.arrears-list {
+    list-style-type: none;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+.arrear-item {
+    font-size: 13px;
+    color: #ae3c3c;
+    padding: 4px 0;
+}
 
 
 
 /*
-*  TOOLS CONTAINER
+*  TOOLS_CONTAINER
 */
-
+.tool-title {
+    height: 40px;
+    width: 120px;
+    background-color: var(--top-header-color);
+    Color: white;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: var(--header-font-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* TOOL-VIEW */
 .view-container {
     position: relative;
     display: flex;
-    gap: 7px;
     align-items: center;
     cursor: pointer;
     width: auto;
 }
-
 .selected-view {
     display: flex;
     align-items: center;
@@ -382,7 +452,6 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: var(--content-font-size);
 }
-
 .dropdown-view-menu {
     display: none;
     position: absolute;
@@ -396,12 +465,9 @@ body {
     z-index: 10;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
-
-
 .view-container.open .dropdown-view-menu {
     display: block;
 }
-
 .dropdown-view-menu a {
     display: block;
     padding: 10px 0;
@@ -410,28 +476,45 @@ body {
     color: #333;
     text-decoration: none;
 }
-
 .dropdown-view-menu a:hover {
     background-color: #f0f2ff;
 }
 
-.tool-title {
-    height: 40px;
-    width: 120px;
-    background-color: var(--top-header-color);
-    Color: white;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: var(--header-font-size);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+/* TOOL-SEARCH */
 .search-container {
     display: flex;
     position: relative;
     width: 100%;
-    gap: 7px;
 }
+#search-bar {
+    font-family: 'Open Sans', sans-serif;
+    font-size: var(--content-font-size);
+    padding: 12px 40px 12px 15px;
+    border: 1px solid #d1d4ed;
+    outline: none;
+    transition: border-color 0.01s ease;
+}
+#search-bar:focus {
+    border-color: #43465A;
+}
+#search-clear-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 45px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #888;
+    cursor: pointer;
+    display: none;
+}
+#search-clear-btn:hover {
+    color: #000;
+}
+
+/* TOOL-SEMESTER */
 .semester-container {
     position: relative;
     display: flex;
@@ -481,99 +564,46 @@ body {
 }
 
 
-
-
-#search-bar {
+/*
+*  NEW_TOOLS_CONTAINER
+*/
+.general-tool-container {
+    display: flex;
+    align-items: stretch;
+    height: 40px;
+}
+.general-tool-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    white-space: nowrap;
+    background-color: var(--top-header-color);
+    color: white;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+}
+.general-tool-content {
     font-family: 'Open Sans', sans-serif;
     font-size: var(--content-font-size);
-    padding: 12px 40px 12px 15px;
     border: 1px solid #d1d4ed;
+    background-color: white;
     outline: none;
-    transition: border-color 0.01s ease;
+    -webkit-appearance: none;
+    appearance: none;
 }
-#search-bar:focus {
-    border-color: #43465A;
-}
-#search-clear-btn {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: 45px;
-    background: transparent;
-    border: none;
-    font-size: 24px;
-    color: #888;
+
+/* This adds the little arrow icon to the dropdowns */
+select.tool-content {
+    padding: 0 10px;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.2em;
+    padding-right: 2rem; /* Make space for the arrow */
     cursor: pointer;
-    display: none;
-}
-#search-clear-btn:hover {
-    color: #000;
 }
 
 
 
-#student-list-body {
-    overflow-y: auto;
-    border-top: 1px solid #ddd;
-}
-#student-list-body::-webkit-scrollbar {
-    display: none;
-}
 
-
-
-.top-performer-item {
-    opacity: 0;
-}
-.start-top-performer-animation .top-performer-item {
-    animation: SlideUpForTopPerformer 0.6s ease forwards;
-}
-
-.student-analysis-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.analysis-card {
-    background-color: #ffffff;
-    padding: 15px 20px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-}
-
-.analysis-stat-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    line-height: 2.2;
-    border-bottom: 1px solid #f0f0f0;
-}
-.analysis-stat-row:last-of-type {
-    border-bottom: none;
-}
-
-.stat-value-main {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-}
-
-
-.stat-value-main.passed { color: #24A84C; }
-.stat-value-main.promoted { color: #d5a822; }
-.stat-value-main.failed { color: #AE3C3C; }
-
-
-.arrears-list {
-    list-style-type: none;
-    padding-left: 10px;
-    margin-top: 10px;
-}
-
-.arrear-item {
-    font-size: 13px;
-    color: #ae3c3c;
-    padding: 4px 0;
-}

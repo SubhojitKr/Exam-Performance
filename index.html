@@ -9,7 +9,7 @@
     <script type="module" src="https://pyscript.net/releases/2025.8.1/core.js"></script>
 
     <script defer src="index.js"></script>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="test.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,30 +22,59 @@
 </header>
 
 <main class="main-container">
+
+    <!-- TOOLS -->
     <div class="tools-container">
-        <div class="view-container">
-            <div id="view-tool-title" class="tool-title">View</div>
-            <span class="selected-view">TABLE MODE</span>
-            <div class="dropdown-view-menu">
-                <a href="#" data-view="Table">TABLE MODE</a>
-                <a href="#" data-view="Chart">CHART MODE</a>
+
+        <!-- Department Hover Tool -->
+        <div id="department-tool-container" class="general-tool-container custom-dropdown-container">
+            <div class="general-tool-title">Department</div>
+            <div id="department-tool-content" class="general-tool-content">
+                <span id="selected-department-text">Select Department</span>
+            </div>
+            <div id="department-dropdown-menu" class="general-dropdown-menu"></div>
+            <div id="department-submenu" class="department-submenu"></div>
+        </div>
+
+        <!-- Program Tool -->
+        <div id="program-tool-container" class="general-tool-container custom-dropdown-container">
+            <div class="general-tool-title">Program</div>
+            <div id="program-tool-content" class="general-tool-content">
+                <span id="selected-program-text">Select Program</span>
+            </div>
+            <ul id="program-dropdown-menu" class="general-dropdown-menu"></ul>
+        </div>
+
+        <!-- Batch Tool -->
+        <div id="batch-tool-container" class="general-tool-container custom-dropdown-container">
+            <div class="general-tool-title">Batch</div>
+            <div id="batch-tool-content" class="general-tool-content">
+                <span id="selected-batch-text">-</span>
+            </div>
+            <ul id="batch-dropdown-menu" class="general-dropdown-menu"></ul>
+        </div>
+
+        <!-- Semester Tool -->
+        <div id="semester-tool-container" class="general-tool-container custom-dropdown-container">
+            <div class="general-tool-title">Semester</div>
+            <div id="semester-tool-content" class="general-tool-content">
+                <span id="selected-semester-text">-</span>
+            </div>
+            <ul id="semester-dropdown-menu" class="general-dropdown-menu"></ul>
+        </div>
+
+        <!-- Search Tool -->
+        <div id="search-tool-container" class="general-tool-container search-tool">
+            <div class="general-tool-title">Search</div>
+            <div class="general-tool-content search-wrapper">
+                <input type="text" id="search-bar" placeholder="Name/Enrollment No.">
+                <button id="search-clear-btn">&times;</button>
             </div>
         </div>
-        <div class="semester-container">
-            <div id="semester-tool-title" class="tool-title">Semester</div>
-            <span class="selected-semester">VI</span>
-            <div class="dropdown-semester-menu">
-                <a href="#" data-filename="1st_sem_result.csv">I</a>
-                <a href="#" data-filename="3rd_sem_result.csv">III</a>
-                <a href="#" data-filename="6th_sem_result.csv">VI</a>
-            </div>
-        </div>
-        <div class="search-container">
-            <div id="search-tool-title" class="tool-title">Search</div>
-            <input type="text" id="search-bar" placeholder="Name/Enrollment No.">
-            <button id="search-clear-btn">&times;</button>
-        </div>
+
     </div>
+
+    <!-- CONTENT -->
     <div class="content-row">
         <div id="student-list-container" class="student-list-container">
             <div id="student-list-header" class="student-list-header">
@@ -77,9 +106,7 @@
     packages = ["pandas", "numpy"]
     [[fetch]]
     files = [
-    "/Datasets/1st_sem_result.csv",
-    "/Datasets/3rd_sem_result.csv",
-    "/Datasets/6th_sem_result.csv"
+    "/directory_map.json"
     ]
 </py-config>
 <py-script src="Backend/main.py"></py-script>

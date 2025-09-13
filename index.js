@@ -5,100 +5,174 @@ let ALL_SUBJECTS = [];
 let GLOBAL_ANALYTICS_DATA = {};
 let GLOBAL_TOP_PERFORMERS = [];
 let selectedRow = null;
+let DIRECTORY_MAP = {};
+
+// filters
+let selectedSchool = '';
+let selectedDepartment = '';
+let selectedProgram = '';
+let selectedBatch = '';
+let selectedSemester = '';
+
+
+window.startApp = function(jsonMap) {
+    try {
+        DIRECTORY_MAP = JSON.parse(jsonMap);
+        const schoolMenu = document.getElementById('department-dropdown-menu');
+        schoolMenu.innerHTML = '';
+
+        for (const school in DIRECTORY_MAP) {
+            const schoolItem = document.createElement('li');
+            schoolItem.className = 'general-dropdown-item school-item';
+            schoolItem.textContent = school.replace(/_/g, ' ');
+            schoolItem.dataset.school = school;
+            schoolMenu.appendChild(schoolItem);
+        }
+    } catch (e) {
+        console.error("Failed to parse directory map:", e);
+        showLoadingError("Could not initialize selectors.");
+    }
+};
 
 document.addEventListener('DOMContentLoaded', () => {
+    const schoolMenu = document.getElementById('department-dropdown-menu');
+    const deptSubmenu = document.getElementById('department-submenu');
+    const programMenu = document.getElementById('program-dropdown-menu');
+    const batchMenu = document.getElementById('batch-dropdown-menu');
+    const semesterMenu = document.getElementById('semester-dropdown-menu');
+    const searchBar = document.getElementById('search-bar');
+    const clearBtn = document.getElementById('search-clear-btn');
 
     const mainContainer = document.querySelector('.main-container');
-    const semContainer = document.querySelector('.semester-container');
-    const semSelectedText = semContainer.querySelector('.selected-semester');
-    const semMenu = semContainer.querySelector('.dropdown-semester-menu');
     const studentListBody = document.getElementById('student-list-body');
 
-    const viewContainer = document.querySelector('.view-container');
-    const viewSelectedText = viewContainer.querySelector('.selected-view');
-    const viewMenu = viewContainer.querySelector('.dropdown-view-menu');
+    // Dropdowns
+    const allDropdowns = document.querySelectorAll('.custom-dropdown-container');
+    allDropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', (event) => {
+            if (event.target.closest('.general-dropdown-item')) return;
+            allDropdowns.forEach(d => {
+                if (d !== dropdown) d.classList.remove('open');
+            });
+            dropdown.classList.toggle('open');
+        });
+    });
 
-    // Toggle dropdown
-    viewContainer.addEventListener('click', (e) => {
-        if (!viewMenu.contains(e.target)) {
-            viewContainer.classList.toggle('open');
+    schoolMenu.addEventListener('mouseover', (event) => {
+        const schoolItem = event.target.closest('.school-item');
+        if (!schoolItem) return;
+
+        document.querySelectorAll('.school-item').forEach(item => item.classList.remove('active'));
+        schoolItem.classList.add('active');
+
+        const schoolName = schoolItem.dataset.school;
+        const departments = Object.keys(DIRECTORY_MAP[schoolName]);
+
+        deptSubmenu.innerHTML = '';
+        departments.forEach(dept => {
+            const deptItem = document.createElement('div');
+            deptItem.className = 'general-dropdown-item department-item';
+            deptItem.textContent = dept.replace(/_/g, ' ');
+            deptItem.dataset.school = schoolName;
+            deptItem.dataset.department = dept;
+            deptSubmenu.appendChild(deptItem);
+        });
+
+        const parentRect = schoolMenu.getBoundingClientRect();
+        const itemRect = schoolItem.getBoundingClientRect();
+
+        const offsetTop = itemRect.top - parentRect.top;
+
+        deptSubmenu.style.top = (schoolMenu.offsetTop + offsetTop) + "px";
+        deptSubmenu.style.left = schoolMenu.offsetWidth + "px";
+
+        deptSubmenu.style.display = "block";
+    });
+
+    deptSubmenu.addEventListener('click', (event) => {
+        const deptItem = event.target.closest('.department-item');
+        if (!deptItem) return;
+
+        selectedSchool = deptItem.dataset.school;
+        selectedDepartment = deptItem.dataset.department;
+
+        selectedProgram = '';
+        selectedBatch = '';
+        selectedSemester = '';
+
+        document.getElementById('selected-department-text').textContent = deptItem.textContent;
+        document.getElementById('department-tool-container').classList.remove('open');
+
+        deptSubmenu.style.display = "none";
+        updateProgramDropdown();
+    });
+
+    const departmentToolContainer = document.getElementById('department-tool-container');
+    departmentToolContainer.addEventListener('mouseleave', () => {
+        deptSubmenu.style.display = "none";
+        document.querySelectorAll('.school-item').forEach(item => item.classList.remove('active'));
+    });
+
+    programMenu.addEventListener('click', (event) => {
+        const progItem = event.target.closest('.general-dropdown-item');
+        if (!progItem || progItem.classList.contains('disabled')) return;
+        selectedProgram = progItem.dataset.value;
+        selectedBatch = '';
+        selectedSemester = '';
+        document.getElementById('selected-program-text').textContent = progItem.textContent;
+        document.getElementById('program-tool-container').classList.remove('open');
+        updateBatchDropdown();
+    });
+    batchMenu.addEventListener('click', (event) => {
+        const batchItem = event.target.closest('.general-dropdown-item');
+        if (!batchItem || batchItem.classList.contains('disabled')) return;
+        selectedBatch = batchItem.dataset.value;
+        selectedSemester = '';
+        document.getElementById('selected-batch-text').textContent = batchItem.textContent;
+        document.getElementById('batch-tool-container').classList.remove('open');
+        updateSemesterDropdown();
+    });
+    semesterMenu.addEventListener('click', (event) => {
+        const semItem = event.target.closest('.general-dropdown-item');
+        if (!semItem || semItem.classList.contains('disabled')) return;
+        selectedSemester = semItem.dataset.value;
+        document.getElementById('selected-semester-text').textContent = semItem.textContent;
+        document.getElementById('semester-tool-container').classList.remove('open');
+        loadSelectedData();
+    });
+
+    window.addEventListener('click', (e) => {
+        if (!e.target.closest('.custom-dropdown-container')) {
+            allDropdowns.forEach(dropdown => dropdown.classList.remove('open'));
         }
     });
 
-    // Handles selecting an item from the menu
-    viewMenu.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A') {
-            e.preventDefault();
-            const newViewText = e.target.textContent;
-            const viewName = e.target.dataset.view;
-
-            if (newViewText === viewSelectedText.textContent) {
-                viewContainer.classList.remove('open');
-                return;
-            }
-
-            viewSelectedText.textContent = newViewText;
-            viewContainer.classList.remove('open');
-
-            // TODO: switchDashboardView(viewName);
+    /*
+    * SEARCH BAR
+    */
+    searchBar.addEventListener('input', (event) => {
+        const query = event.target.value.trim().toLowerCase();
+        if (query.length > 0) {
+            clearBtn.style.display = 'block';
+            performSearch(query);
+        } else {
+            clearBtn.style.display = 'none';
+            renderStudentRows(ALL_STUDENTS);
         }
     });
+    clearBtn.addEventListener('click', clearSearch);
 
     mainContainer.addEventListener('click', (e) => {
         if (!selectedRow) {
             return;
         }
-        if (studentListBody.contains(e.target) || semContainer.contains(e.target) || viewContainer.contains(e.target)) {
+        if (studentListBody.contains(e.target)) {
             return;
         }
         selectedRow.classList.remove('selected-student-row');
         selectedRow = null;
         buildOverallAnalysis();
     });
-
-    semContainer.addEventListener('click', (e) => {
-        if (!semMenu.contains(e.target)) {
-            semContainer.classList.toggle('open');
-        }
-    });
-
-    semMenu.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A') {
-            e.preventDefault();
-
-            const newSemesterText = e.target.textContent;
-            const filename = e.target.dataset.filename;
-
-            if (newSemesterText === semSelectedText.textContent || !filename) {
-                semContainer.classList.remove('open');
-                return;
-            }
-
-            semSelectedText.textContent = newSemesterText;
-            semContainer.classList.remove('open');
-
-            clearDashboardForLoading();
-
-            try {
-                window.pyLoadSemester(filename);
-            } catch (err) {
-                console.error("JavaScript Error couldn't call Python Function:", err);
-                showLoadingError(err);
-            }
-        }
-    });
-
-
-    window.addEventListener('click', (e) => {
-        if (!semContainer.contains(e.target)) {
-            semContainer.classList.remove('open');
-        }
-        if (!viewContainer.contains(e.target)) {
-            viewContainer.classList.remove('open');
-        }
-    });
-
-
     /*
     * Row Click
     */
@@ -121,40 +195,118 @@ document.addEventListener('DOMContentLoaded', () => {
             buildOverallAnalysis();
         }
     });
-
-
-    /*
-    * SEARCH BAR
-    */
-    const searchBar = document.getElementById('search-bar');
-    const clearBtn = document.getElementById('search-clear-btn');
-
-    searchBar.addEventListener('input', (event) => {
-        const query = event.target.value.trim().toLowerCase();
-
-        if (query.length > 0) {
-            clearBtn.style.display = 'block';
-            performSearch(query);
-        } else {
-            clearBtn.style.display = 'none';
-            renderStudentRows(ALL_STUDENTS);
-        }
-    });
-    clearBtn.addEventListener('click', clearSearch);
 });
 
 
-function clearDashboardForLoading() {
-    document.getElementById("student-list-body").innerHTML = '<div class="loading">Loading student data...</div>';
+function updateProgramDropdown() {
+    const programMenu = document.getElementById('program-dropdown-menu');
+    programMenu.innerHTML = '';
+    document.getElementById('selected-program-text').textContent = 'Select Program';
+    document.getElementById('selected-batch-text').textContent = '-';
+    document.getElementById('selected-semester-text').textContent = '-';
+    clearDashboardForLoading("Please select a program.");
+
+    if (selectedSchool && selectedDepartment && DIRECTORY_MAP[selectedSchool]?.[selectedDepartment]) {
+        const programs = Object.keys(DIRECTORY_MAP[selectedSchool][selectedDepartment]);
+
+        if (programs.length === 0) {
+            const emptyItem = document.createElement('div');
+            emptyItem.className = 'general-dropdown-item disabled';
+            emptyItem.textContent = 'Nothing to select';
+            programMenu.appendChild(emptyItem);
+        } else {
+            programs.forEach(prog => {
+                const item = document.createElement('div');
+                item.className = 'general-dropdown-item';
+                item.textContent = prog.replace(/_/g, ' ');
+                item.dataset.value = prog;
+                programMenu.appendChild(item);
+            });
+        }
+    }
+}
+
+function updateBatchDropdown() {
+    const batchMenu = document.getElementById('batch-dropdown-menu');
+    batchMenu.innerHTML = '';
+    document.getElementById('selected-batch-text').textContent = '-';
+    document.getElementById('selected-semester-text').textContent = '-';
+    clearDashboardForLoading("Please select a batch.");
+
+    if (selectedProgram && DIRECTORY_MAP[selectedSchool]?.[selectedDepartment]?.[selectedProgram]) {
+        const batches = Object.keys(DIRECTORY_MAP[selectedSchool][selectedDepartment][selectedProgram]);
+
+        if (batches.length === 0) {
+            const emptyItem = document.createElement('div');
+            emptyItem.className = 'general-dropdown-item disabled';
+            emptyItem.textContent = 'Nothing to show';
+            batchMenu.appendChild(emptyItem);
+        } else {
+            batches.forEach(batch => {
+                const item = document.createElement('div');
+                item.className = 'general-dropdown-item';
+                item.textContent = batch;
+                item.dataset.value = batch;
+                batchMenu.appendChild(item);
+            });
+        }
+    }
+}
+
+function updateSemesterDropdown() {
+    const semesterMenu = document.getElementById('semester-dropdown-menu');
+    semesterMenu.innerHTML = '';
+    document.getElementById('selected-semester-text').textContent = '-';
+    clearDashboardForLoading("Please select a semester.");
+
+    if (selectedBatch && DIRECTORY_MAP[selectedSchool]?.[selectedDepartment]?.[selectedProgram]?.[selectedBatch]) {
+        const semesters = DIRECTORY_MAP[selectedSchool][selectedDepartment][selectedProgram][selectedBatch];
+
+        if (semesters.length === 0) {
+            const emptyItem = document.createElement('div');
+            emptyItem.className = 'general-dropdown-item disabled';
+            emptyItem.textContent = 'Nothing to show';
+            semesterMenu.appendChild(emptyItem);
+        } else {
+            semesters.forEach(semFile => {
+                const item = document.createElement('div');
+                item.className = 'general-dropdown-item';
+                const semText = semFile.match(/\d+/)?.[0] || semFile.replace('.csv','').replace('_',' ');
+                item.textContent = `Semester ${semText}`;
+                item.dataset.value = semFile;
+                semesterMenu.appendChild(item);
+            });
+        }
+    }
+}
+
+function loadSelectedData() {
+    if (!selectedSchool || !selectedDepartment || !selectedProgram || !selectedBatch || !selectedSemester) {
+        showLoadingError("Please complete all selections.");
+        return;
+    }
+    const fullPath = `Datasets/${selectedSchool}/${selectedDepartment}/${selectedProgram}/${selectedBatch}/${selectedSemester}`;
+
+    clearDashboardForLoading("Loading student data...");
+    try {
+        window.pyLoadSemester(fullPath);
+    } catch (err) {
+        console.error("JavaScript Error calling Python:", err);
+        showLoadingError(err.message);
+    }
+}
+
+function clearDashboardForLoading(message = "Loading student data...") {
+    document.getElementById("student-list-body").innerHTML = '<div class="loading">${message}</div>';
     document.getElementById("subject-header-container").innerHTML = '';
     document.getElementById("analytics-body").innerHTML = '';
-    document.querySelector('.analytics-header').textContent = 'Loading...';
+    document.querySelector('.analytics-header').textContent = 'Overall Analysis';
     selectedRow = null;
     clearSearch();
 }
 
 window.showLoadingError = function(error) {
-    document.getElementById("student-list-body").innerHTML = `<div class="loading">Error loading data: ${error}</div>`;
+    document.getElementById("student-list-body").innerHTML = `<div class="loading">Error: ${error}</div>`;
 }
 
 function clearSearch() {
@@ -165,18 +317,13 @@ function clearSearch() {
 
 function performSearch(query) {
     const searchResults = ALL_STUDENTS.filter(student => {
-        const nameMatch = student.Name.toLowerCase().includes(query);
-        const enrollMatch = student.Enrollment.toLowerCase().includes(query);
-        return nameMatch || enrollMatch;
+        return student.Name.toLowerCase().includes(query) || student.Enrollment.toLowerCase().includes(query);
     });
-
-    // Render just the results (this could be 0 rows or 50)
     renderStudentRows(searchResults);
 }
 
 function renderStudentRows(arrayToRender) {
     const body = document.getElementById("student-list-body");
-
     if (arrayToRender.length === 0) {
         body.innerHTML = '<div class="loading">No students found.</div>';
         return;
@@ -271,7 +418,6 @@ function buildStudentAnalysis(student) {
     `;
 }
 
-
 function buildOverallAnalysis() {
     document.querySelector('.analytics-header').textContent = 'OVERALL ANALYSIS';
 
@@ -296,7 +442,6 @@ function buildOverallAnalysis() {
     });
 }
 
-
 window.buildDashboard = function (jsonData) {
     try {
         const data = JSON.parse(jsonData);
@@ -308,7 +453,6 @@ window.buildDashboard = function (jsonData) {
 
         createHeaders(ALL_SUBJECTS);
         renderStudentRows(ALL_STUDENTS);
-
 
         buildOverallAnalysis();
 
@@ -324,11 +468,9 @@ window.buildDashboard = function (jsonData) {
     }
     catch (error) {
         console.error("JavaScript Error building dashboard:", error);
-        document.getElementById("student-list-body").innerHTML = `<div class="loading">Error building dashboard. See console.</div>`;
+        document.getElementById("student-list-body").innerHTML = `<div class="loading">Error building dashboard.</div>`;
     }
 };
-
-
 
 function animateCountUp(targetId, finalValue, duration = 1500) {
     const element = document.getElementById(targetId);
@@ -360,7 +502,6 @@ function animateCountUp(targetId, finalValue, duration = 1500) {
 
     requestAnimationFrame(animationLoop);
 }
-
 
 /**
  * HEADERS
