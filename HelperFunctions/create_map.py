@@ -6,7 +6,7 @@ def create_directory_map():
     Scans the Datasets directory and creates a map of all departments,
     programs, batches, and semester files. This map is saved to a JSON file.
     """
-    root_dir = 'Datasets'
+    root_dir = '../Datasets'
     dir_map = {}
 
     if not os.path.isdir(root_dir):
@@ -39,5 +39,5 @@ if __name__ == '__main__':
     directory_map = create_directory_map()
 
     if directory_map:
-        with open('directory_map.json', 'w') as f:
+        with open('../directory_map.json', 'w') as f:
             json.dump(directory_map, f, indent=2)

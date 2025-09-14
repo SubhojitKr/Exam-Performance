@@ -3,6 +3,8 @@
 let ALL_STUDENTS = [];
 let ALL_SUBJECTS = [];
 let GLOBAL_ANALYTICS_DATA = {};
+let GLOBAL_SUBJECT_ANALYSIS = {};
+let GLOBAL_SUBJECT_CODE_MAP = {};
 let GLOBAL_TOP_PERFORMERS = [];
 let selectedRow = null;
 let DIRECTORY_MAP = {};
@@ -332,8 +334,8 @@ function switchView(view) {
         analyticsContainer.classList.add('hidden');
         subjectListContainer.classList.remove('hidden');
 
-        if (GLOBAL_ANALYTICS_DATA && GLOBAL_ANALYTICS_DATA.subject_wise_analysis) {
-            renderSubjectRows(GLOBAL_ANALYTICS_DATA.subject_wise_analysis);
+        if (GLOBAL_SUBJECT_ANALYSIS) {
+            renderSubjectRows(GLOBAL_SUBJECT_ANALYSIS);
         } else {
             document.getElementById('subject-list-body').innerHTML = '<div class="loading">No subject data available. Load a semester first.</div>';
         }
@@ -346,19 +348,31 @@ function renderSubjectRows(subjectData) {
         body.innerHTML = '<div class="loading">No subject data found.</div>';
         return;
     }
-
-    const allRowsHtml = Object.entries(subjectData).map(([subjectName, stats]) => {
+    const allRowsHtml = Object.values(subjectData).map(stats => {
         return `
         <div class="subject-data-row">
-            <div class="subject-data name-data">${subjectName.replace(/_/g, ' ')}</div>
-            <div class="subject-data numeric-data">${stats.appeared}</div>
-            <div class="subject-data numeric-data">${stats.pass_percentage.toFixed(1)}%</div>
-            <div class="subject-data numeric-data">${stats.fail_percentage.toFixed(1)}%</div>
+            <div class="subject-name-container">
+                <div class="subject-name">${stats.name.replace(/_/g, ' ')}</div>
+                <div class="subject-code">${stats.code}</div>
+            </div>
+            <div class="subject-appeared">${stats.appeared}</div>
+            <div class="subject-rate-container">
+                <div id="subject-pass-rate" class="subject-rate-percentage">${formatPercentage(stats.pass_percentage)}</div>
+                <div class="subject-rate-count">${stats.pass_count}</div>
+            </div>
+            <div class="subject-rate-container">
+                <div id="subject-fail-rate" class="subject-rate-percentage">${formatPercentage(stats.fail_percentage)}</div>
+                <div class="subject-rate-count">${stats.fail_count}</div>
+            </div>
         </div>
         `;
     }).join('');
-
     body.innerHTML = allRowsHtml;
+}
+
+function formatPercentage(num) {
+    const roundedNum = Math.round(num * 100) / 100;
+    return roundedNum.toString() + '%';
 }
 
 function updateProgramDropdown() {
@@ -614,6 +628,8 @@ window.buildDashboard = function (jsonData) {
         ALL_SUBJECTS = data.subjects;
 
         GLOBAL_ANALYTICS_DATA = data.analytics;
+        GLOBAL_SUBJECT_ANALYSIS = data.subject_wise_analysis;
+        GLOBAL_SUBJECT_CODE_MAP = data.subject_map;
         GLOBAL_TOP_PERFORMERS = data.top_performers;
 
         createHeaders(ALL_SUBJECTS);
@@ -674,7 +690,11 @@ function animateCountUp(targetId, finalValue, duration = 1500) {
 function createHeaders(subjects) {
     const container = document.getElementById("subject-header-container");
     container.style.setProperty('--num-subjects', subjects.length);
-    const html = subjects.map(subject => `<div class="subject-header">${subject}</div>`).join('');
+    const html = subjects.map(subjectCode => {
+        const subjectInfo = GLOBAL_SUBJECT_CODE_MAP[subjectCode] || {};
+        const headerText = subjectInfo.short;
+        return `<div class="subject-header">${headerText}</div>`
+    }).join('');
     container.innerHTML = html;
 }
 

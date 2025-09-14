@@ -1,160 +1,164 @@
 Name,Enrollment,AEC,OB,DS,DE,EM-III,AIT,ES,FDLC,PP,OOPJ,OOPJ_L,AIT_L,DS_L,PP_L,AEC_L,MAT_L,DE_L,SGPA,CGPA,Result,Gender,Performance
-MD ZAYED ALAM,AJU/220026,,,B+,,B+,B+,B+,B+,B+,B+,A,A,A,A,,,,8.32,7.35,PASS,Male,Average
-HRIDANSHU GIRI,AJU/220050,,,A,,A,A,A,A,A,A,A+,A+,A+,A+,,,,9.32,8.38,PASS,Male,High
-SHASWAT AGARWAL,AJU/220052,,,B+,,A,A,B+,A,A,A,A,A,A,A,,,,8.89,8.23,PASS,Male,Average
-ADARSH KUMAR,AJU/220108,,,C+,,A,A,A,B+,B+,B,A,B+,B+,A,,,,8.07,7.52,PASS,Male,Average
-HARSHITA TIWARY,AJU/220144,,,A+,,A+,A,A,A,A,A,A+,A+,A,A+,,,,9.5,9.47,PASS,Female,High
-AMAN KUMAR,AJU/220153,,,B+,,A,C+,B+,B+,C,C,A,B+,A,A,,,,7.5,7.06,PASS,Male,Average
-TUSHAR KUMAR DAS,AJU/220156,,,B+,,A,A,A,A,A,A,A+,A+,A+,A+,,,,9.21,8.94,PASS,Male,High
-MANISH THAKUR,AJU/220201,,A,C,C+,A,,A,,C,,,,B+,B+,A,B+,B,7.21,6.12,PASS,Male,Average
-SOURAV NANDI,AJU/220234,,,A,,B+,A,A,A,B+,A,A+,A+,A+,A,,,,9,8.64,PASS,Male,High
-KAPIL KUMAR,AJU/220244,,,B+,,F,B,B+,B+,C+,B,A,B+,A,A,,,,6.64,7.02,PROMOTED,Male,Average
-ARJUN SINGH,AJU/220245,,,C+,,B,C,B+,C,C+,B,A,B+,A,A,,,,6.89,6.58,PASS,Male,Average
-ASIF KHAN,AJU/220268,,,C+,,B+,C+,B+,B,C+,B+,A,A,A,A+,,,,7.64,6.61,PASS,Male,Average
-SHASHWATI,AJU/220299,,,A+,,A+,A+,,,,,,,,A+,,,,9.79,9.48,PASS,Female,High
-RAKESH SINGH,AJU/220312,,A,B,C+,B+,,B+,,,,,,,B+,,B+,C+,6.54,5.95,PROMOTED,Male,Average
-MANOJ MURMU,AJU/220333,,,B+,,A,B,B+,B+,,,,,,A,,,,8.07,7.27,PASS,Male,Average
-SAGAR MALIND,AJU/220334,,,B,,B+,B+,B+,B+,,,,,,A,,,,8.18,7.61,PASS,Male,Average
-ANUSHKA AYAN,AJU/220335,,,B,,A,B,B+,B+,,,,,,A+,,,,8.14,8.06,PASS,Female,Average
-BASUDEO PRASAD,AJU/220381,,A,A,B+,A,,A,,,,,,,B,,B+,A,8.07,6.95,PASS,Male,Average
-MD FARHAN,AJU/220393,,A,A,A+,A,,B,,A,,,,,A,,A,A+,9.11,8.68,PASS,Male,High
-SEEMA MAHATO,AJU/220430,,A,B,B,B+,B+,B,,F,,,,A,B,A,B+,B+,6.96,6.76,PROMOTED,Female,Average
-SUSHANTO MAZUMDAR,AJU/220484,,,A,,A,B+,A,B,,,,,,A,,,,8.81,7,PASS,Male,Average
-JOGESHWAR MISHRA,AJU/220493,,,A,,A,B+,,,,,,,,A,,,,8.11,7.76,PASS,Male,Average
-NAYANSI KUMARI,AJU/220499,,A,F,C+,C+,,C+,,F,,,,B+,B+,A+,B+,C,5.32,3.89,PROMOTED,Female,Low
-SINGH PREET,AJU/220501,,,A,,A,B+,A,B,A,A,A+,A+,A+,A+,,,,9,8.39,PASS,Male,High
-BINIT PATRA,AJU/220505,,,A,,A,A,A,B+,A+,A+,A+,A+,A+,A+,,,,9.43,9.26,PASS,Male,High
-PRASANJEET BERA,AJU/220534,,A,B+,B,B+,,B,,C+,,,,B+,B+,A,B+,c+,7.61,6.82,PASS,Male,Average
-SOUMITRA MAHAPATRA,AJU/220592,,,C+,,B,C,B,C,F,C,B+,A,B+,A,,,,6,5.47,PROMOTED,Male,Low
-RAKESH GORAI,AJU/220619,,,B,,B+,B,A,C,F,C,B+,B+,A,A,,,,6.54,5.79,PROMOTED,Male,Low
-KUNDAN KUMAR SINGH,AJU/220623,,,C,,B+,C+,B+,C+,F,B,B+,B+,B+,A,,,,6.36,5.62,PROMOTED,Male,Low
-SHRUTI KUMARI,AJU/220654,,A,B+,B,B+,,B,,F,,,,A,B,A+,B+,C+,7.04,6.65,PROMOTED,Female,Average
-MAHFUJ ALAM,AJU/220666,,A,C+,C+,A,,A,,C+,,,,A,B+,A,B+,B,7.57,6.39,PASS,Male,Average
-DEBASHISH KARUA,AJU/220671,,A,C,B,B+,,A,,B,,,,,B+,,B,B+,7.61,6.73,PASS,Male,Average
-SONU KUMAR SHARMA,AJU/220676,,,A,,A+,B,A,B+,A,A,A,A,A,A,,,,8.82,8.48,PASS,Male,Average
-MAYAN KUMAR,AJU/220682,,,A,,A,A+,A,A,A+,A+,A+,A+,A+,A+,,,,9.64,9.56,PASS,Male,High
-PRAMOD NAYAK,AJU/220725,,,B+,,C,C+,A,C,F,C+,B+,B+,B+,A,,,,6.04,5.53,PROMOTED,Male,Low
-GOURAV KUMAR PANDEY,AJU/220728,,,A,,A,B+,A,B,B,A,A,A,A,A+,,,,8.54,7.86,PROMOTED,Male,Average
-ABHISHEK KUMAR SINGH,AJU/220723,,,C,,B+,C+,B+,C+,C+,C+,B+,B+,B+,B+,,,,6.82,5.82,PROMOTED,Male,Low
-SAMIR SUMAN,AJU/220732,,A,C,A+,A,,,B+,B+,,,,A+,B+,A,B,B+,8.29,7.5,PASS,Male,Average
-SHUBHAM KUMAR SINGH,AJU/220739,,A,B,B,A,,B+,,C,,,,A,B+,B+,B+,C+,7.43,6.73,PASS,Male,Average
-MD FURQUAN ZEYA,AJU/220745,,A,C,C+,B+,,B+,C+,C+,,,,B+,B+,A,B,C+,6.82,5.86,PASS,Male,Low
-PANKAJ KISHORE,AJU/220758,,,B+,,B+,C+,A,C+,B,B,A,A,A,A+,,,,7.75,7.79,PASS,Male,Average
-ADITYA SINGH,AJU/220777,,,A,,B+,B+,A,C+,A,A,A,A,A,A+,,,,8.5,8.24,PASS,Male,Average
-SYED ZAIN KARIM,AJU/220782,,,B+,,B+,B,A,C,B,B+,A,A,A,A+,,,,7.86,7.23,PASS,Male,Average
-NOUSHABA AFREEN,AJU/220791,,,B,,A,A,A,A+,A,A,A+,A+,A+,A+,,,,9.21,8.58,PASS,Female,High
-MANYA SHARMA,AJU/220794,,,A,,A,A,A,A,C+,A,A+,A,A+,A,,,,8.82,8.24,PASS,Female,Average
-AWAIS RAZA,AJU/220814,,,B,,A,C+,B+,C+,B,B,B+,A,A,A,,,,7.64,6.74,PASS,Male,Average
-ANSHU THAPA,AJU/220821,,,C+,,A,A,A,B+,B+,B+,A,A,A,A+,,,,8.43,8.14,PASS,Female,Average
-RAGHUNATH SOREN,AJU/220831,,,B,,B,B,A,C+,F,B+,B+,F,B+,A,,,,5.79,5.36,PROMOTED,Male,Low
-SHIWANI KUMARI,AJU/220841,,,B,,A+,B,A,B+,C+,B+,B+,A,A,A,,,,8.11,7.68,PASS,Female,Average
-IQBAL ASHRAF,AJU/220844,,,A,,A,B,A,A,A,B+,B+,A+,B+,A+,,,,8.71,8.53,PASS,Male,Average
-SIMA MAHATO,AJU/220903,,A,C+,B,A,,A,,B,,,,B+,A,A,B+,B,7.82,7.92,PASS,Female,Average
-AYUSH KUMAR,AJU/220922,,,B,,B+,B,B+,B,B+,B,A,A,A,A+,,,,7.96,7.55,PASS,Male,Average
-VIBHANSHU PRASAD,AJU/220930,,B+,B+,C,B+,,A,,C,,,,A,B+,A,B,B,7.36,6.42,PASS,Male,Average
-AMAR DAS,AJU/220948,,,B+,,B,B+,A,B+,A,A,B+,A,A,A+,,,,8.39,7.62,PASS,Male,Average
-OM GOSWAMI,AJU/220949,,,B+,,B+,B,B+,B,B,A,A,A,A,A,,,,8.11,6.42,PASS,Male,Average
-SOM PARASHAR,AJU/220968,,,A,,A,B,A,B,C,B+,A,A+,A,A+,,,,8.21,7.74,PASS,Male,Average
-ROSHAN PRADHAN,AJU/220978,,A,C+,C+,B+,,B,,C,,,,B+,B+,A+,B+,C+,7.04,5.47,PASS,Male,Low
-VISHAL PRADHAN,AJU/220980,,A,C+,B,B+,,B+,,C,,,,B+,B,B+,B+,B+,7.46,6.79,PASS,Male,Average
-RASHIQUE PARVEZ,AJU/220987,,,B+,,B,B,B+,B+,A,A,A+,A,A+,A+,,,,8.5,7.32,PASS,Male,Average
-LALIT MOHAN MAHATO,AJU/221019,,,B+,,B,B+,B+,C+,B+,B,B+,B+,B+,A,,,,7.39,6.97,PASS,Male,Average
-HARPREET KAUR,AJU/221024,,,A,,A,B+,B+,A,A,A,A,A,A,A,,,,8.89,8.64,PASS,Female,Average
-ANKIT KUMAR SINGH,AJU/221026,,,A,,A,B,B+,B+,A,A,A+,A+,A+,A+,,,,9,8.55,PASS,Male,High
-DEEPAK RAJ,AJU/221030,,,B,,B+,B,B,B+,B,B,B+,A,A,B+,,,,7.75,7.39,PASS,Male,Average
-KANIKA NAMATA,AJU/221034,,A,C+,B+,B+,, B+,,C,,,,B+,B+,A,B,B+,7.57,7.26,PASS,Female,Average
-SHASHI KUMAR SINGH,AJU/221035,,A,A,B,B+,,A,,C,,,,B+,B+,B+,B,B+,7.82,6.73,PASS,Male,Average
-VICKY KUMAR,AJU/221039,,,A,,C+,B,A,C+,B,B,B+,A+,B+,A+,,,,7.64,6.8,PASS,Male,Average
-SURAJ TUDU,AJU/221043,,,A,,B+,A,B+,B,A,A+,A+,A+,F,A+,,,,8.36,8.03,PROMOTED,Male,Average
-UTKARSH PRASAD,AJU/221081,,A,C,C,F,,,B,,F,B+,A+,,B,,B,C+,5.04,4.02,PROMOTED,Male,Low
-SANDEEP KUMAR,AJU/221086,,A,B,A+,B+,,B+,,B+,,,,A,A,A,,A,8.46,7.67,PASS,Male,Average
-ANUPAM SHAW,AJU/221100,,A,B+,B+,B+,,B+,,B,,,,A,B,A,,B+,8.07,7.24,PASS,Male,Average
-AASTHA PRADHAN,AJU/221101,,,A,,A,B+, B+,B+,A,B+,A,A,A,A,,,,8.68,8.05,PASS,Female,Average
-AMAN KUMAR PATRA,AJU/221111,,,B+,,B+,B,B+,B+,B+,B+,A,A,A,A,,,,8.21,8.02,PASS,Male,Average
-RASHMI RAJLAXMI SOREN,AJU/221120,,A+,C,C+,B,,A,,C+,,,,B+,A,A+,B,C+,7.11,6.56,PASS,Female,Average
-AYUSH DUBEY,AJU/221138,,,B+,,B+,B+,B+,B+,A,B+,B+,A+,A,A,,,,8.46,7.79,PASS,Male,Average
-PAPPU YADAV,AJU/221156,,A,B,B+,B,,B+,,A,,,,A+,A,A,B+,c+,8.11,7.79,PASS,Male,Average
-DEVDEEP SINGH,AJU/221170,,,B+,,B,A,A,C+,A,A,B+,A+,B+,A+,,,,8.32,7.21,PASS,Male,Average
-ROHIT KUMAR GUPTA,AJU/221171,,,C+,,B+,B,B+,B,B,C+,B+,A,A,A+,,,,7.57,6.89,PASS,Male,Average
-RISHI RIKHI,AJU/221177,,,C,,C+,B,A,C+,C+,B,B+,A,B+,A+,,,,7,6.65,PASS,Male,Average
-KAUSHAL KUMAR JHA,AJU/221191,,A,C,B+,B,,B+,,B+,,,,A+,B+,A,B+,B,7.82,7.88,PASS,Male,Average
-KHUSHI,AJU/221215,,,B+,,B,B,A,C+,C+,B,A,A,A,A,,,,7.54,7.36,PASS,Female,Average
-AVISHEK KUMAR,AJU/221227,,A+,A,A+,A,,A,,A,,,,A+,A+,A,A+,B+,9.14,8.88,PASS,Male,High
-NIKITA MISHRA,AJU/221230,,,A,,A,B+,A,B+,A,A+,A,A+,A,A+,,,,9.07,8.68,PASS,Female,High
-SYED ZAID KARIM,AJU/221239,,,B,C+,C,,B+,B,B,B,A,A,A,A,,B,,7.64,7,PASS,Male,Average
-AKASH KUMAR PRAJAPATI,AJU/221240,,A,B,,A,B+,,,C+,,,,B+,B,A,,B,6.96,6.53,PASS,Male,Average
-UPASANA BANIK,AJU/221251,,,A,B+,C+,,B+,B,C+,B+,A,A+,A,A+,,B+,,8.43,8.79,PASS,Female,Average
-SHEIKH IMRAN,AJU/221258,,A,C+,C,C,,B,,C,,,,A,A,B+,B+,C,6.39,5.06,PASS,Male,Low
-HARPREET SINGH,AJU/221259,,,B+,,B+,B,A,B,B,B,A+,A+,A,A,,,,8.07,7.79,PASS,Male,Average
-ALOK KUMAR SINGH,AJU/221261,,A,C+,B+,C+,,B+,,B+,,,,A,B,A+,B+,B,7.54,6.73,PASS,Male,Average
-SAHIL MANDAL,AJU/221269,,A,C+,B+,B+,,B+,,B+,,,,A,A+,A+,A+,C+,8.04,7.89,PASS,Male,Average
-SUBHOJIT KUMAR MAHATO,AJU/221272,,,B+,,B,B,B+,B+,A,B,A,B+,A,A,,,,7.96,7.62,PASS,Male,Average
-SOURAV AGARWAL,AJU/221282,,,A,,A,A,A,A,B+,B+,A+,A+,A+,A+,,,,9.11,8.74,PASS,Male,High
-ANIKET KUMAR,AJU/221284,,,A,,A,B+,A,B+,A,B+,A,B+,A,A,,,,8.57,8.29,PASS,Male,Average
-ANKIT KUMAR RAI,AJU/221299,,A,B,B,C+,,B+,,C,,,,B+,C+,A,B,C+,6.82,5.73,PASS,Male,Low
-YUVRAJ,AJU/221306,,,A+,,A+,A+,A,B+,A,,A+,A+,A+,A+,,,,9.57,9.29,PASS,Male,High
-BINAY KUMAR KUSWAHA,AJU/221324,,,C+,,C+,C+,B,B,C+,C,A,B+,A,A,,,,6.86,6.06,PASS,Male,Average
-SHARJIL AYAZ MIRZA,AJU/221329,,B+,C,C,C,,B,,C,,,,B+,B+,A,C+,C+,6.18,5.14,PASS,Male,Low
-MD ASHIM,AJU/221344,,A,C,C,B+,,B+,,C,,,,B+,C+,A,B,C+,6.57,6.08,PASS,Male,Average
-BRAJ BHUSHAN PANDEY,AJU/221346,,,B,,C+,B+,B+,C,C,C+,B+,A,A,A,,,,7,6.29,PASS,Male,Average
-AYUSHMAN RAJ,AJU/221357,,B+,B,C,B+,,,B+,,C+,,A,A,B,,B,B,7.43,6.26,PASS,Male,Average
-ANIKET CHOUDHARY,AJU/221360,,A,B+,A+,B+,,B+,,B,,,,A,B+,A,B+,B+,8.11,7.67,PASS,Male,Average
-YASH KHANNA,AJU/221374,,,B,,A,B+,A,B+,A,A+,A+,A,A+,A+,,,,8.89,8.59,PASS,Male,Average
-TAPAN MAHATO,AJU/221378,,,B,,C+,C+,B+,C,C+,C,A,A,A,A,,,,6.75,6.21,PASS,Male,Average
-KAJAL KUMARI,AJU/221380,,,A,,A,B+,A,B,B+,B,A,A+,A,A+,,,,8.54,7.94,PASS,Female,Average
-NITESH RAJ,AJU/221381,,,F,,B+,F,B,F,C,C+,B,B,B+,B+,,,,4.71,4,PROMOTED,Male,Low
-RUCHI KUMARI,AJU/221382,,A,B+,A+,B+,,B+,,A,,,,A,B,A+,B+,A+,8.86,7.8,PASS,Female,Average
-RITESH KUMAR,AJU/221403,,,B+,,B,B+,B+,C+,B,B,A+,A+,A+,A+,,,,8.07,7.7,PASS,Male,Average
-KHUSHI RANI,AJU/221428,,,B+,,B+,B,B+,C+,B+,A,A+,A+,A+,A+,,,,8.43,8.68,PASS,Female,Average
-AKASH KUMAR,AJU/221429,,B+,B,C+,B,,B,,F,,,,B+,B,A,B,B,6.43,6.29,PROMOTED,Male,Average
-MD TOUFIQUE KHAN,AJU/221437,,,C,,B+,B,B,C+,C+,C+,A,A,A,A+,,,,7.32,6.68,PASS,Male,Average
-AMAN KUMAR VERMA,AJU/221453,,A,B+,B+,A,,,A,B,,,,B+,B+,A,B+,B+,8.18,8,PASS,Male,Average
-BHUDEB MANDAL,AJU/221478,,,C+,,B+,C,B+,C,B+,C,A,B+,B+,A,,,,6.96,6.95,PASS,Male,Average
-ANIKET KUMAR,AJU/221485,,A,B,B,C+,,,B,B+,,,,B+,A,A,B+,B,7.61,6.33,PASS,Male,Average
-SAHIL SUMBRUI,AJU/221493,,A,B,C+,B+,,A,,B+,,,,A,B,A,B,C+,7.57,6.62,PASS,Male,Average
-PIYUSH KUMAR,AJU/221509,,,A,,B+,A,A,B+,B+,A,B+,A,A,A,,,,8.57,7.82,PASS,Male,Average
-SUMIT KUMAR MAHATO,AJU/221512,,A,C,C+,B,,B+,,C+,,A,,,B,A,C+,F,6.32,5.85,PROMOTED,Male,Low
-SUDHANSHU SINGH,AJU/221513,,,C,,B+,C+,B+,C,C,C,B+,A,B+,A,,,,6.68,6.73,PASS,Male,Average
-SAHIL KUMAR,AJU/221519,,B+,C,F,F,,B,,F,,,,A,C+,A,C+,F,3.68,4.26,PROMOTED,Male,Low
-MUKESH KUMAR,AJU/221536,,,B+,,B+,C+,B+,C,B,B+,A,A,A,A+,,,,7.75,7.03,PASS,Male,Average
-SANATAN SAHOO,AJU/221547,,B+,F,F,C+,,B,,F,,,,B+,B,A,B,C,4.46,4.26,PROMOTED,Male,Low
-ROSHAN NAYAK,AJU/221555,,A,B,A,B+,,B+,,C,,,,A,C+,A,B,B+,7.71,7.15,PASS,Male,Average
-RUHUL AMIN,AJU/221556,,,B,,C+,C,A,C+,C+,B,B+,A,B+,B+,,,,6.86,6.97,PASS,Male,Average
-ANISH KUMAR,AJU/221559,,A+,B,B+,B,,B+,,B,,,,A,B,A,B,B+,7.82,7.15,PASS,Male,Average
-DEEPAK KUMAR PRASAD,AJU/221581,,A,B+,B,B+,,B+,,B,,,,B+,B,A+,A,A,7.96,7.36,PASS,Male,Average
-SHALINI KUMARI,AJU/221596,,,A,,A,B,A,B,A,A,A,A+,A,A+,,,,8.75,8.61,PASS,Female,Average
-GUDIYA KUMARI SHARMA,AJU/221598,,,A,,A+,A,B+,A,A,A,A,A,A,A+,,,,9.21,8.42,PASS,Female,High
-ROCKEY KUMAR,AJU/221610,,A,C,C+,C+,,B,,B,,,,B+,B+,A+,B+,C,6.75,5.85,PASS,Male,Low
-ASHISH MAHATO,AJU/221631,,B+,C,B,C,,B+,,C+,,,,B+,A,A,B,C+,6.82,4.68,PASS,Male,Low
-SANIA GHOSHAL,AJU/221642,,,C+,,C,B+,A,C,B,C,B+,A,B+,A+,,,,6.86,6.21,PASS,Female,Average
-DURGA SHANKAR MAHTO,AJU/221652,,,C,,C,C+,A,C,C+,C+,B+,A,B+,A,,,,6.46,5.94,PASS,Male,Low
-DEBASISH PAL,AJU/221661,,,B,,C+,C,B,C,B,C,A,A,A,A,,,,6.86,6.56,PASS,Male,Average
-VIKASH KUMAR JHA,AJU/221664,,A,B,B+,B+,,A,,C+,,,,A,B+,A,A,A,8.04,7.76,PASS,Male,Average
-ABHISHEK BHADURI,AJU/221666,,A,A,B+,B,,B+,,C+,,,,B+,C+,A,B+,A,7.75,7.2,PASS,Male,Average
-ABHAY KUMAR,AJU/221682,,,B,,B,C+,B+,C+,C+,C+,B+,B+,B+,A,,,,6.96,6.61,PASS,Male,Average
-RAJ KUMAR,AJU/221714,,,B+,,A,B+,A,B+,B,B,A,A,A,A,,,,8.25,7.79,PASS,Male,Average
-ROHIT KUMAR,AJU/221756,,,B,,A,B+,B+,B+,C+,C+,B+,B+,B+,A+,,,,8,8.09,PASS,Male,Average
-SUBHAM ANAND,AJU/221890,,B+,B+,C,F,,B,,F,,,,A,B,A,B+,B,5.64,5,PROMOTED,Male,Low
-GAURAV KUMAR SUMAN,AJU/221960,,A,C,A,B,,,,C+,,,,B+,C+,A,B,B,7.29,5.98,PASS,Male,Low
-RAJNI KANT BEHERA,AJU/222113,,A,A,B+,B,,B+,,B,,,,A,B+,A,B+,C+,7.75,7.75,PASS,Male,Average
-MD SAIF,AJU/222114,,A,B+,C+,B,,B+,,C,,,,B+,B,A,B,B+,7.36,7.36,PASS,Male,Average
-RAVINDRA GOUR,AJU/222115,,A,B+,C+,C,,B+,,C,,,,A,C+,A,B,B,6.96,6.96,PASS,Male,Average
-MOHAMMAD NABEEL ASRAR,AJU/222120,,,C+,,B,C,C+,C,C+,B,A+,B+,A+,A,,,,6.96,6.96,PASS,Male,Average
-VARUN MUKHI,AJU/222121,,A,C+,B,A,,B+,,C+,,,,A,C+,A,B+,C+,7.46,7.46,PASS,Male,Average
-SWETA SHARMA,AJU/222124,,A,B,C+,B,,A,,C,,,,A,C+,A,B+,B,7.07,7.07,PASS,Female,Average
-ANKIT KUMAR,AJU/222125,,B+,B,C+, B,,B+,,C,,,,B+,B,A,C+,C,6.61,6.61,PASS,Male,Average
-BISWANATH BARIK,AJU/222141,,A,C+,C,F,,A,,C,,,,A,B+,B+,B,C+,5.68,5.68,PROMOTED,Male,Low
-PRERNA PANDEY,AJU/222143,,A,B,B,A,,A,,B,,,,A,B+,A,A,B+,8.07,8.07,PASS,Female,Average
-NANDANI KUMARI,AJU/222176,,A,B,B+,B+,,A,,B,,,,A,B,A,A,B+,7.96,7.96,PASS,Female,Average
-SRISTY SEN,AJU/222178,,A,B+,B+,B+,,B+,,A+,,,,A+,B,A+,B,B,8.21,8.21,PASS,Female,Average
-RAJ MUKHI,AJU/222178,,B+,C+,C+,F,,B+,,C,,,,B+,C+,A,B,B,5.79,5.79,PROMOTED,Male,Low
-NEERAJ KUMAR MISHRA,AJU/222181,,A,B+,B,C+,,A,,B,,,,A,B,A,B,B,7.5,7.5,PASS,Male,Average
-MOHIT KUMAR GUPTA,AJU/222183,,A,C+,C,C,,A,,F,,,,B+,B,A,B,C+,5.89,5.89,PROMOTED,Male,Low
-MUSKAN KUMARI,AJU/222185,,A,A,A,B,,A+,,B,,,,A,A,A+,B+,B+,8.43,8.43,PASS,Female,Average
-NITESH TIWARI,AJU/222187,,A,A+,A+,B+,,A+,,B+,,,,A+,A+,A,A+,A+,9.25,9.25,PASS,Male,High
-ROHIT RAJ,AJU/222188,,B+,A+,A+,B+,,A,,A,,,,A+,A+,A,A,A+,9.25,9.25,PASS,Male,High
-ASHISH KUMAR PANDEY,AJU/222189,,B+,B+,B+,B+,,A+,,C,,,,B+,B,A,B+,B+,7.68,7.68,PASS,Male,Average
-ANUJ KUMAR,AJU/222191,,B+,B+,C+,C+,,A,,F,,,,B+,A,A,B,B,6.54,6.54,PROMOTED,Male,Average
-ISHA SINGH,AJU/222196,,A,A+,B+,B+,,A+,,A,,,,A+,A,A,A+,A,8.96,8.96,PASS,Female,Average
-AJAY KUMAR,AJU/222201,,B+,B,C,C,,B+,,F,,,,B+,B+,A,B,C,5.89,5.89,PROMOTED,Male,Low
-SUMIT RAVIDAS,AJU/222202,,B+,C+,C,C,,B+,,F,,,,B+,B+,A,B,B+,6,6,PROMOTED,Male,Average
+MD ZAYED ALAM,AJU/220026,-,-,B+,-,B+,B+,B+,B+,B+,B+,A,A,A,A,-,-,-,8.32,7.35,PASS,Male,Average
+HRIDANSHU GIRI,AJU/220050,-,-,A,-,A,A,A,A,A,A,A+,A+,A+,A+,-,-,-,9.32,8.38,PASS,Male,High
+SHASWAT AGARWAL,AJU/220052,-,-,B+,-,A,A,B+,A,A,A,A,A,A,A,-,-,-,8.89,8.23,PASS,Male,Average
+ADARSH KUMAR,AJU/220108,-,-,C+,-,A,A,A,B+,B+,B,A,B+,B+,A,-,-,-,8.07,7.52,PASS,Male,Average
+HARSHITA TIWARY,AJU/220144,-,-,A+,-,A+,A,A,A,A,A,A+,A+,A,A+,-,-,-,9.5,9.47,PASS,Female,High
+AMAN KUMAR,AJU/220153,-,-,B+,-,A,C+,B+,B+,C,C,A,B+,A,A,-,-,-,7.5,7.06,PASS,Male,Average
+TUSHAR KUMAR DAS,AJU/220156,-,-,B+,-,A,A,A,A,A,A,A+,A+,A+,A+,-,-,-,9.21,8.94,PASS,Male,High
+MANISH THAKUR,AJU/220201,-,A,C,C+,A,-,A,-,C,-,-,-,B+,B+,A,B+,B,7.21,6.12,PASS,Male,Average
+SOURAV NANDI,AJU/220234,-,-,A,-,B+,A,A,A,B+,A,A+,A+,A+,A,-,-,-,9.0,8.64,PASS,Male,High
+KAPIL KUMAR,AJU/220244,-,-,B+,-,F,B,B+,B+,C+,B,A,B+,A,A,-,-,-,6.64,7.02,PROMOTED,Male,Average
+ARJUN SINGH,AJU/220245,-,-,C+,-,B,C,B+,C,C+,B,A,B+,A,A,-,-,-,6.89,6.58,PASS,Male,Average
+ASIF KHAN,AJU/220268,-,-,C+,-,B+,C+,B+,B,C+,B+,A,A,A,A+,-,-,-,7.64,6.61,PASS,Male,Average
+SHASHWATI,AJU/220299,-,-,A+,-,A+,A+,-,-,-,-,-,-,-,A+,-,-,-,9.79,9.48,PASS,Female,High
+RAKESH SINGH,AJU/220312,-,A,B,C+,B+,-,B+,-,-,-,-,-,-,B+,-,B+,C+,6.54,5.95,PROMOTED,Male,Average
+MANOJ MURMU,AJU/220333,-,-,B+,-,A,B,B+,B+,-,-,-,-,-,A,-,-,-,8.07,7.27,PASS,Male,Average
+SAGAR MALIND,AJU/220334,-,-,B,-,B+,B+,B+,B+,-,-,-,-,-,A,-,-,-,8.18,7.61,PASS,Male,Average
+ANUSHKA AYAN,AJU/220335,-,-,B,-,A,B,B+,B+,-,-,-,-,-,A+,-,-,-,8.14,8.06,PASS,Female,Average
+BASUDEO PRASAD,AJU/220381,-,A,A,B+,A,-,A,-,-,-,-,-,-,B,-,B+,A,8.07,6.95,PASS,Male,Average
+MD FARHAN,AJU/220393,-,A,A,A+,A,-,B,-,A,-,-,-,-,A,-,A,A+,9.11,8.68,PASS,Male,High
+SEEMA MAHATO,AJU/220430,-,A,B,B,B+,B+,B,-,F,-,-,-,A,B,A,B+,B+,6.96,6.76,PROMOTED,Female,Average
+SUSHANTO MAZUMDAR,AJU/220484,-,-,A,-,A,B+,A,B,-,-,-,-,-,A,-,-,-,8.81,7.0,PASS,Male,Average
+JOGESHWAR MISHRA,AJU/220493,-,-,A,-,A,B+,-,-,-,-,-,-,-,A,-,-,-,8.11,7.76,PASS,Male,Average
+NAYANSI KUMARI,AJU/220499,-,A,F,C+,C+,-,C+,-,F,-,-,-,B+,B+,A+,B+,C,5.32,3.89,PROMOTED,Female,Low
+SINGH PREET,AJU/220501,-,-,A,-,A,B+,A,B,A,A,A+,A+,A+,A+,-,-,-,9.0,8.39,PASS,Male,High
+BINIT PATRA,AJU/220505,-,-,A,-,A,A,A,B+,A+,A+,A+,A+,A+,A+,-,-,-,9.43,9.26,PASS,Male,High
+PRASANJEET BERA,AJU/220534,-,A,B+,B,B+,-,B,-,C+,-,-,-,B+,B+,A,B+,c+,7.61,6.82,PASS,Male,Average
+SOUMITRA MAHAPATRA,AJU/220592,-,-,C+,-,B,C,B,C,F,C,B+,A,B+,A,-,-,-,6.0,5.47,PROMOTED,Male,Low
+RAKESH GORAI,AJU/220619,-,-,B,-,B+,B,A,C,F,C,B+,B+,A,A,-,-,-,6.54,5.79,PROMOTED,Male,Low
+KUNDAN KUMAR SINGH,AJU/220623,-,-,C,-,B+,C+,B+,C+,F,B,B+,B+,B+,A,-,-,-,6.36,5.62,PROMOTED,Male,Low
+SHRUTI KUMARI,AJU/220654,-,A,B+,B,B+,-,B,-,F,-,-,-,A,B,A+,B+,C+,7.04,6.65,PROMOTED,Female,Average
+MAHFUJ ALAM,AJU/220666,-,A,C+,C+,A,-,A,-,C+,-,-,-,A,B+,A,B+,B,7.57,6.39,PASS,Male,Average
+DEBASHISH KARUA,AJU/220671,-,A,C,B,B+,-,A,-,B,-,-,-,-,B+,-,B,B+,7.61,6.73,PASS,Male,Average
+SONU KUMAR SHARMA,AJU/220676,-,-,A,-,A+,B,A,B+,A,A,A,A,A,A,-,-,-,8.82,8.48,PASS,Male,Average
+MAYAN KUMAR,AJU/220682,-,-,A,-,A,A+,A,A,A+,A+,A+,A+,A+,A+,-,-,-,9.64,9.56,PASS,Male,High
+PRAMOD NAYAK,AJU/220725,-,-,B+,-,C,C+,A,C,F,C+,B+,B+,B+,A,-,-,-,6.04,5.53,PROMOTED,Male,Low
+GOURAV KUMAR PANDEY,AJU/220728,-,-,A,-,A,B+,A,B,B,A,A,A,A,A+,-,-,-,8.54,7.86,PROMOTED,Male,Average
+ABHISHEK KUMAR SINGH,AJU/220723,-,-,C,-,B+,C+,B+,C+,C+,C+,B+,B+,B+,B+,-,-,-,6.82,5.82,PROMOTED,Male,Low
+SAMIR SUMAN,AJU/220732,-,A,C,A+,A,-,-,B+,B+,-,-,-,A+,B+,A,B,B+,8.29,7.5,PASS,Male,Average
+SHUBHAM KUMAR SINGH,AJU/220739,-,A,B,B,A,-,B+,-,C,-,-,-,A,B+,B+,B+,C+,7.43,6.73,PASS,Male,Average
+MD FURQUAN ZEYA,AJU/220745,-,A,C,C+,B+,-,B+,C+,C+,-,-,-,B+,B+,A,B,C+,6.82,5.86,PASS,Male,Low
+PANKAJ KISHORE,AJU/220758,-,-,B+,-,B+,C+,A,C+,B,B,A,A,A,A+,-,-,-,7.75,7.79,PASS,Male,Average
+ADITYA SINGH,AJU/220777,-,-,A,-,B+,B+,A,C+,A,A,A,A,A,A+,-,-,-,8.5,8.24,PASS,Male,Average
+SYED ZAIN KARIM,AJU/220782,-,-,B+,-,B+,B,A,C,B,B+,A,A,A,A+,-,-,-,7.86,7.23,PASS,Male,Average
+NOUSHABA AFREEN,AJU/220791,-,-,B,-,A,A,A,A+,A,A,A+,A+,A+,A+,-,-,-,9.21,8.58,PASS,Female,High
+MANYA SHARMA,AJU/220794,-,-,A,-,A,A,A,A,C+,A,A+,A,A+,A,-,-,-,8.82,8.24,PASS,Female,Average
+AWAIS RAZA,AJU/220814,-,-,B,-,A,C+,B+,C+,B,B,B+,A,A,A,-,-,-,7.64,6.74,PASS,Male,Average
+ANSHU THAPA,AJU/220821,-,-,C+,-,A,A,A,B+,B+,B+,A,A,A,A+,-,-,-,8.43,8.14,PASS,Female,Average
+RAGHUNATH SOREN,AJU/220831,-,-,B,-,B,B,A,C+,F,B+,B+,F,B+,A,-,-,-,5.79,5.36,PROMOTED,Male,Low
+SHIWANI KUMARI,AJU/220841,-,-,B,-,A+,B,A,B+,C+,B+,B+,A,A,A,-,-,-,8.11,7.68,PASS,Female,Average
+IQBAL ASHRAF,AJU/220844,-,-,A,-,A,B,A,A,A,B+,B+,A+,B+,A+,-,-,-,8.71,8.53,PASS,Male,Average
+SIMA MAHATO,AJU/220903,-,A,C+,B,A,-,A,-,B,-,-,-,B+,A,A,B+,B,7.82,7.92,PASS,Female,Average
+AYUSH KUMAR,AJU/220922,-,-,B,-,B+,B,B+,B,B+,B,A,A,A,A+,-,-,-,7.96,7.55,PASS,Male,Average
+VIBHANSHU PRASAD,AJU/220930,-,B+,B+,C,B+,-,A,-,C,-,-,-,A,B+,A,B,B,7.36,6.42,PASS,Male,Average
+AMAR DAS,AJU/220948,-,-,B+,-,B,B+,A,B+,A,A,B+,A,A,A+,-,-,-,8.39,7.62,PASS,Male,Average
+OM GOSWAMI,AJU/220949,-,-,B+,-,B+,B,B+,B,B,A,A,A,A,A,-,-,-,8.11,6.42,PASS,Male,Average
+SOM PARASHAR,AJU/220968,-,-,A,-,A,B,A,B,C,B+,A,A+,A,A+,-,-,-,8.21,7.74,PASS,Male,Average
+ROSHAN PRADHAN,AJU/220978,-,A,C+,C+,B+,-,B,-,C,-,-,-,B+,B+,A+,B+,C+,7.04,5.47,PASS,Male,Low
+VISHAL PRADHAN,AJU/220980,-,A,C+,B,B+,-,B+,-,C,-,-,-,B+,B,B+,B+,B+,7.46,6.79,PASS,Male,Average
+RASHIQUE PARVEZ,AJU/220987,-,-,B+,-,B,B,B+,B+,A,A,A+,A,A+,A+,-,-,-,8.5,7.32,PASS,Male,Average
+LALIT MOHAN MAHATO,AJU/221019,-,-,B+,-,B,B+,B+,C+,B+,B,B+,B+,B+,A,-,-,-,7.39,6.97,PASS,Male,Average
+HARPREET KAUR,AJU/221024,-,-,A,-,A,B+,B+,A,A,A,A,A,A,A,-,-,-,8.89,8.64,PASS,Female,Average
+ANKIT KUMAR SINGH,AJU/221026,-,-,A,-,A,B,B+,B+,A,A,A+,A+,A+,A+,-,-,-,9.0,8.55,PASS,Male,High
+DEEPAK RAJ,AJU/221030,-,-,B,-,B+,B,B,B+,B,B,B+,A,A,B+,-,-,-,7.75,7.39,PASS,Male,Average
+KANIKA NAMATA,AJU/221034,-,A,C+,B+,B+,-, B+,-,C,-,-,-,B+,B+,A,B,B+,7.57,7.26,PASS,Female,Average
+SHASHI KUMAR SINGH,AJU/221035,-,A,A,B,B+,-,A,-,C,-,-,-,B+,B+,B+,B,B+,7.82,6.73,PASS,Male,Average
+VICKY KUMAR,AJU/221039,-,-,A,-,C+,B,A,C+,B,B,B+,A+,B+,A+,-,-,-,7.64,6.8,PASS,Male,Average
+SURAJ TUDU,AJU/221043,-,-,A,-,B+,A,B+,B,A,A+,A+,A+,F,A+,-,-,-,8.36,8.03,PROMOTED,Male,Average
+UTKARSH PRASAD,AJU/221081,-,A,C,C,F,-,-,B,-,F,B+,A+,-,B,-,B,C+,5.04,4.02,PROMOTED,Male,Low
+SANDEEP KUMAR,AJU/221086,-,A,B,A+,B+,-,B+,-,B+,-,-,-,A,A,A,-,A,8.46,7.67,PASS,Male,Average
+ANUPAM SHAW,AJU/221100,-,A,B+,B+,B+,-,B+,-,B,-,-,-,A,B,A,-,B+,8.07,7.24,PASS,Male,Average
+AASTHA PRADHAN,AJU/221101,-,-,A,-,A,B+, B+,B+,A,B+,A,A,A,A,-,-,-,8.68,8.05,PASS,Female,Average
+AMAN KUMAR PATRA,AJU/221111,-,-,B+,-,B+,B,B+,B+,B+,B+,A,A,A,A,-,-,-,8.21,8.02,PASS,Male,Average
+RASHMI RAJLAXMI SOREN,AJU/221120,-,A+,C,C+,B,-,A,-,C+,-,-,-,B+,A,A+,B,C+,7.11,6.56,PASS,Female,Average
+AYUSH DUBEY,AJU/221138,-,-,B+,-,B+,B+,B+,B+,A,B+,B+,A+,A,A,-,-,-,8.46,7.79,PASS,Male,Average
+PAPPU YADAV,AJU/221156,-,A,B,B+,B,-,B+,-,A,-,-,-,A+,A,A,B+,c+,8.11,7.79,PASS,Male,Average
+DEVDEEP SINGH,AJU/221170,-,-,B+,-,B,A,A,C+,A,A,B+,A+,B+,A+,-,-,-,8.32,7.21,PASS,Male,Average
+ROHIT KUMAR GUPTA,AJU/221171,-,-,C+,-,B+,B,B+,B,B,C+,B+,A,A,A+,-,-,-,7.57,6.89,PASS,Male,Average
+RISHI RIKHI,AJU/221177,-,-,C,-,C+,B,A,C+,C+,B,B+,A,B+,A+,-,-,-,7.0,6.65,PASS,Male,Average
+KAUSHAL KUMAR JHA,AJU/221191,-,A,C,B+,B,-,B+,-,B+,-,-,-,A+,B+,A,B+,B,7.82,7.88,PASS,Male,Average
+KHUSHI,AJU/221215,-,-,B+,-,B,B,A,C+,C+,B,A,A,A,A,-,-,-,7.54,7.36,PASS,Female,Average
+AVISHEK KUMAR,AJU/221227,-,A+,A,A+,A,-,A,-,A,-,-,-,A+,A+,A,A+,B+,9.14,8.88,PASS,Male,High
+NIKITA MISHRA,AJU/221230,-,-,A,-,A,B+,A,B+,A,A+,A,A+,A,A+,-,-,-,9.07,8.68,PASS,Female,High
+SYED ZAID KARIM,AJU/221239,-,-,B,C+,C,-,B+,B,B,B,A,A,A,A,-,B,-,7.64,7.0,PASS,Male,Average
+AKASH KUMAR PRAJAPATI,AJU/221240,-,A,B,-,A,B+,-,-,C+,-,-,-,B+,B,A,-,B,6.96,6.53,PASS,Male,Average
+UPASANA BANIK,AJU/221251,-,-,A,B+,C+,-,B+,B,C+,B+,A,A+,A,A+,-,B+,-,8.43,8.79,PASS,Female,Average
+SHEIKH IMRAN,AJU/221258,-,A,C+,C,C,-,B,-,C,-,-,-,A,A,B+,B+,C,6.39,5.06,PASS,Male,Low
+HARPREET SINGH,AJU/221259,-,-,B+,-,B+,B,A,B,B,B,A+,A+,A,A,-,-,-,8.07,7.79,PASS,Male,Average
+ALOK KUMAR SINGH,AJU/221261,-,A,C+,B+,C+,-,B+,-,B+,-,-,-,A,B,A+,B+,B,7.54,6.73,PASS,Male,Average
+SAHIL MANDAL,AJU/221269,-,A,C+,B+,B+,-,B+,-,B+,-,-,-,A,A+,A+,A+,C+,8.04,7.89,PASS,Male,Average
+SUBHOJIT KUMAR MAHATO,AJU/221272,-,-,B+,-,B,B,B+,B+,A,B,A,B+,A,A,-,-,-,7.96,7.62,PASS,Male,Average
+SOURAV AGARWAL,AJU/221282,-,-,A,-,A,A,A,A,B+,B+,A+,A+,A+,A+,-,-,-,9.11,8.74,PASS,Male,High
+ANIKET KUMAR,AJU/221284,-,-,A,-,A,B+,A,B+,A,B+,A,B+,A,A,-,-,-,8.57,8.29,PASS,Male,Average
+ANKIT KUMAR RAI,AJU/221299,-,A,B,B,C+,-,B+,-,C,-,-,-,B+,C+,A,B,C+,6.82,5.73,PASS,Male,Low
+YUVRAJ,AJU/221306,-,-,A+,-,A+,A+,A,B+,A,-,A+,A+,A+,A+,-,-,-,9.57,9.29,PASS,Male,High
+BINAY KUMAR KUSWAHA,AJU/221324,-,-,C+,-,C+,C+,B,B,C+,C,A,B+,A,A,-,-,-,6.86,6.06,PASS,Male,Average
+SHARJIL AYAZ MIRZA,AJU/221329,-,B+,C,C,C,-,B,-,C,-,-,-,B+,B+,A,C+,C+,6.18,5.14,PASS,Male,Low
+MD ASHIM,AJU/221344,-,A,C,C,B+,-,B+,-,C,-,-,-,B+,C+,A,B,C+,6.57,6.08,PASS,Male,Average
+BRAJ BHUSHAN PANDEY,AJU/221346,-,-,B,-,C+,B+,B+,C,C,C+,B+,A,A,A,-,-,-,7.0,6.29,PASS,Male,Average
+AYUSHMAN RAJ,AJU/221357,-,B+,B,C,B+,-,-,B+,-,C+,-,A,A,B,-,B,B,7.43,6.26,PASS,Male,Average
+ANIKET CHOUDHARY,AJU/221360,-,A,B+,A+,B+,-,B+,-,B,-,-,-,A,B+,A,B+,B+,8.11,7.67,PASS,Male,Average
+YASH KHANNA,AJU/221374,-,-,B,-,A,B+,A,B+,A,A+,A+,A,A+,A+,-,-,-,8.89,8.59,PASS,Male,Average
+TAPAN MAHATO,AJU/221378,-,-,B,-,C+,C+,B+,C,C+,C,A,A,A,A,-,-,-,6.75,6.21,PASS,Male,Average
+KAJAL KUMARI,AJU/221380,-,-,A,-,A,B+,A,B,B+,B,A,A+,A,A+,-,-,-,8.54,7.94,PASS,Female,Average
+NITESH RAJ,AJU/221381,-,-,F,-,B+,F,B,F,C,C+,B,B,B+,B+,-,-,-,4.71,4.0,PROMOTED,Male,Low
+RUCHI KUMARI,AJU/221382,-,A,B+,A+,B+,-,B+,-,A,-,-,-,A,B,A+,B+,A+,8.86,7.8,PASS,Female,Average
+RITESH KUMAR,AJU/221403,-,-,B+,-,B,B+,B+,C+,B,B,A+,A+,A+,A+,-,-,-,8.07,7.7,PASS,Male,Average
+KHUSHI RANI,AJU/221428,-,-,B+,-,B+,B,B+,C+,B+,A,A+,A+,A+,A+,-,-,-,8.43,8.68,PASS,Female,Average
+AKASH KUMAR,AJU/221429,-,B+,B,C+,B,-,B,-,F,-,-,-,B+,B,A,B,B,6.43,6.29,PROMOTED,Male,Average
+MD TOUFIQUE KHAN,AJU/221437,-,-,C,-,B+,B,B,C+,C+,C+,A,A,A,A+,-,-,-,7.32,6.68,PASS,Male,Average
+AMAN KUMAR VERMA,AJU/221453,-,A,B+,B+,A,-,-,A,B,-,-,-,B+,B+,A,B+,B+,8.18,8.0,PASS,Male,Average
+BHUDEB MANDAL,AJU/221478,-,-,C+,-,B+,C,B+,C,B+,C,A,B+,B+,A,-,-,-,6.96,6.95,PASS,Male,Average
+ANIKET KUMAR,AJU/221485,-,A,B,B,C+,-,-,B,B+,-,-,-,B+,A,A,B+,B,7.61,6.33,PASS,Male,Average
+SAHIL SUMBRUI,AJU/221493,-,A,B,C+,B+,-,A,-,B+,-,-,-,A,B,A,B,C+,7.57,6.62,PASS,Male,Average
+PIYUSH KUMAR,AJU/221509,-,-,A,-,B+,A,A,B+,B+,A,B+,A,A,A,-,-,-,8.57,7.82,PASS,Male,Average
+SUMIT KUMAR MAHATO,AJU/221512,-,A,C,C+,B,-,B+,-,C+,-,A,-,-,B,A,C+,F,6.32,5.85,PROMOTED,Male,Low
+SUDHANSHU SINGH,AJU/221513,-,-,C,-,B+,C+,B+,C,C,C,B+,A,B+,A,-,-,-,6.68,6.73,PASS,Male,Average
+SAHIL KUMAR,AJU/221519,-,B+,C,F,F,-,B,-,F,-,-,-,A,C+,A,C+,F,3.68,4.26,PROMOTED,Male,Low
+MUKESH KUMAR,AJU/221536,-,-,B+,-,B+,C+,B+,C,B,B+,A,A,A,A+,-,-,-,7.75,7.03,PASS,Male,Average
+SANATAN SAHOO,AJU/221547,-,B+,F,F,C+,-,B,-,F,-,-,-,B+,B,A,B,C,4.46,4.26,PROMOTED,Male,Low
+ROSHAN NAYAK,AJU/221555,-,A,B,A,B+,-,B+,-,C,-,-,-,A,C+,A,B,B+,7.71,7.15,PASS,Male,Average
+RUHUL AMIN,AJU/221556,-,-,B,-,C+,C,A,C+,C+,B,B+,A,B+,B+,-,-,-,6.86,6.97,PASS,Male,Average
+ANISH KUMAR,AJU/221559,-,A+,B,B+,B,-,B+,-,B,-,-,-,A,B,A,B,B+,7.82,7.15,PASS,Male,Average
+DEEPAK KUMAR PRASAD,AJU/221581,-,A,B+,B,B+,-,B+,-,B,-,-,-,B+,B,A+,A,A,7.96,7.36,PASS,Male,Average
+SHALINI KUMARI,AJU/221596,-,-,A,-,A,B,A,B,A,A,A,A+,A,A+,-,-,-,8.75,8.61,PASS,Female,Average
+GUDIYA KUMARI SHARMA,AJU/221598,-,-,A,-,A+,A,B+,A,A,A,A,A,A,A+,-,-,-,9.21,8.42,PASS,Female,High
+ROCKEY KUMAR,AJU/221610,-,A,C,C+,C+,-,B,-,B,-,-,-,B+,B+,A+,B+,C,6.75,5.85,PASS,Male,Low
+ASHISH MAHATO,AJU/221631,-,B+,C,B,C,-,B+,-,C+,-,-,-,B+,A,A,B,C+,6.82,4.68,PASS,Male,Low
+SANIA GHOSHAL,AJU/221642,-,-,C+,-,C,B+,A,C,B,C,B+,A,B+,A+,-,-,-,6.86,6.21,PASS,Female,Average
+DURGA SHANKAR MAHTO,AJU/221652,-,-,C,-,C,C+,A,C,C+,C+,B+,A,B+,A,-,-,-,6.46,5.94,PASS,Male,Low
+DEBASISH PAL,AJU/221661,-,-,B,-,C+,C,B,C,B,C,A,A,A,A,-,-,-,6.86,6.56,PASS,Male,Average
+VIKASH KUMAR JHA,AJU/221664,-,A,B,B+,B+,-,A,-,C+,-,-,-,A,B+,A,A,A,8.04,7.76,PASS,Male,Average
+ABHISHEK BHADURI,AJU/221666,-,A,A,B+,B,-,B+,-,C+,-,-,-,B+,C+,A,B+,A,7.75,7.2,PASS,Male,Average
+ABHAY KUMAR,AJU/221682,-,-,B,-,B,C+,B+,C+,C+,C+,B+,B+,B+,A,-,-,-,6.96,6.61,PASS,Male,Average
+RAJ KUMAR,AJU/221714,-,-,B+,-,A,B+,A,B+,B,B,A,A,A,A,-,-,-,8.25,7.79,PASS,Male,Average
+ROHIT KUMAR,AJU/221756,-,-,B,-,A,B+,B+,B+,C+,C+,B+,B+,B+,A+,-,-,-,8.0,8.09,PASS,Male,Average
+SUBHAM ANAND,AJU/221890,-,B+,B+,C,F,-,B,-,F,-,-,-,A,B,A,B+,B,5.64,5.0,PROMOTED,Male,Low
+GAURAV KUMAR SUMAN,AJU/221960,-,A,C,A,B,-,-,-,C+,-,-,-,B+,C+,A,B,B,7.29,5.98,PASS,Male,Low
+RAJNI KANT BEHERA,AJU/222113,-,A,A,B+,B,-,B+,-,B,-,-,-,A,B+,A,B+,C+,7.75,7.75,PASS,Male,Average
+MD SAIF,AJU/222114,-,A,B+,C+,B,-,B+,-,C,-,-,-,B+,B,A,B,B+,7.36,7.36,PASS,Male,Average
+RAVINDRA GOUR,AJU/222115,-,A,B+,C+,C,-,B+,-,C,-,-,-,A,C+,A,B,B,6.96,6.96,PASS,Male,Average
+MOHAMMAD NABEEL ASRAR,AJU/222120,-,-,C+,-,B,C,C+,C,C+,B,A+,B+,A+,A,-,-,-,6.96,6.96,PASS,Male,Average
+VARUN MUKHI,AJU/222121,-,A,C+,B,A,-,B+,-,C+,-,-,-,A,C+,A,B+,C+,7.46,7.46,PASS,Male,Average
+SWETA SHARMA,AJU/222124,-,A,B,C+,B,-,A,-,C,-,-,-,A,C+,A,B+,B,7.07,7.07,PASS,Female,Average
+ANKIT KUMAR,AJU/222125,-,B+,B,C+, B,-,B+,-,C,-,-,-,B+,B,A,C+,C,6.61,6.61,PASS,Male,Average
+BISWANATH BARIK,AJU/222141,-,A,C+,C,F,-,A,-,C,-,-,-,A,B+,B+,B,C+,5.68,5.68,PROMOTED,Male,Low
+PRERNA PANDEY,AJU/222143,-,A,B,B,A,-,A,-,B,-,-,-,A,B+,A,A,B+,8.07,8.07,PASS,Female,Average
+NANDANI KUMARI,AJU/222176,-,A,B,B+,B+,-,A,-,B,-,-,-,A,B,A,A,B+,7.96,7.96,PASS,Female,Average
+SRISTY SEN,AJU/222178,-,A,B+,B+,B+,-,B+,-,A+,-,-,-,A+,B,A+,B,B,8.21,8.21,PASS,Female,Average
+RAJ MUKHI,AJU/222178,-,B+,C+,C+,F,-,B+,-,C,-,-,-,B+,C+,A,B,B,5.79,5.79,PROMOTED,Male,Low
+NEERAJ KUMAR MISHRA,AJU/222181,-,A,B+,B,C+,-,A,-,B,-,-,-,A,B,A,B,B,7.5,7.5,PASS,Male,Average
+MOHIT KUMAR GUPTA,AJU/222183,-,A,C+,C,C,-,A,-,F,-,-,-,B+,B,A,B,C+,5.89,5.89,PROMOTED,Male,Low
+MUSKAN KUMARI,AJU/222185,-,A,A,A,B,-,A+,-,B,-,-,-,A,A,A+,B+,B+,8.43,8.43,PASS,Female,Average
+NITESH TIWARI,AJU/222187,-,A,A+,A+,B+,-,A+,-,B+,-,-,-,A+,A+,A,A+,A+,9.25,9.25,PASS,Male,High
+ROHIT RAJ,AJU/222188,-,B+,A+,A+,B+,-,A,-,A,-,-,-,A+,A+,A,A,A+,9.25,9.25,PASS,Male,High
+ASHISH KUMAR PANDEY,AJU/222189,-,B+,B+,B+,B+,-,A+,-,C,-,-,-,B+,B,A,B+,B+,7.68,7.68,PASS,Male,Average
+ANUJ KUMAR,AJU/222191,-,B+,B+,C+,C+,-,A,-,F,-,-,-,B+,A,A,B,B,6.54,6.54,PROMOTED,Male,Average
+ISHA SINGH,AJU/222196,-,A,A+,B+,B+,-,A+,-,A,-,-,-,A+,A,A,A+,A,8.96,8.96,PASS,Female,Average
+AJAY KUMAR,AJU/222201,-,B+,B,C,C,-,B+,-,F,-,-,-,B+,B+,A,B,C,5.89,5.89,PROMOTED,Male,Low
+SUMIT RAVIDAS,AJU/222202,-,B+,C+,C,C,-,B+,-,F,-,-,-,B+,B+,A,B,B+,6.0,6.0,PROMOTED,Male,Average
+AKASH PAUL,AJU/211440,-,RA,RA,RA,RA,-,RA,-,RA,-,-,-,RA,RA,RA,-,RA,RA,RA,RA,Male,RA
+SAIMA FARHEEN,AJU/221887,-,RA,RA,RA,RA,-,RA,-,RA,-,-,-,RA,RA,RA,-,RA,RA,RA,RA,Male,RA
+ASHISH KUMAR,AJU/220128,-,RA,RA,RA,RA,-,RA,-,RA,-,-,-,RA,RA,RA,-,RA,RA,RA,RA,Male,RA
+AKASH MISHRA,AJU/222094,-,RA,RA,RA,RA,-,RA,-,RA,-,-,-,RA,RA,RA,-,RA,RA,RA,RA,Male,RA

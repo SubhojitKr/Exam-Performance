@@ -1,0 +1,54 @@
+{
+    "BTE26137": {
+        "name": "Compiler Design",
+        "short": "CD"
+    },
+    "BTE26138": {
+        "name": "Computer Networks",
+        "short": "CN"
+    },
+    "BTE26139": {
+        "name": "Elective-II - Artificial Intelligence",
+        "short": "AI"
+    },
+    "BTE26144": {
+        "name": "Advance Java Programming",
+        "short": "AJP"
+    },
+    "BTE26145": {
+        "name": "Open Elective-I - Cyber Law and Ethics",
+        "short": "CLE"
+    },
+    "BTE26150": {
+        "name": "Compiler Design Lab",
+        "short": "CD_L"
+    },
+    "BTE26151": {
+        "name": "Computer Networks Lab",
+        "short": "CN_L"
+    },
+    "BTE26313": {
+        "name": "Elective-III - Neural Networks and Deep Learning",
+        "short": "NNDL"
+    },
+    "BTE26395": {
+        "name": "Advance Java Programming Lab",
+        "short": "AJP_L"
+    },
+    "BTE26452": {
+        "name": "Predictive Analytics using R",
+        "short": "PA"
+    },
+    "BTE26453": {
+        "name": "Elective II - Big Data Analytics",
+        "short": "BDA"
+    },
+    "BTE26454": {
+        "name": "Predictive Analytics using R Lab",
+        "short": "PA_L"
+    },
+    "BTE28225": {
+        "name": "Elective II - Natural Language Processing",
+        "short": "NLP"
+    }
+}
