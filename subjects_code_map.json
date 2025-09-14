@@ -8,7 +8,7 @@
         "short": "CN"
     },
     "BTE26139": {
-        "name": "Elective-II - Artificial Intelligence",
+        "name": "Elective-II Artificial Intelligence",
         "short": "AI"
     },
     "BTE26144": {
@@ -16,7 +16,7 @@
         "short": "AJP"
     },
     "BTE26145": {
-        "name": "Open Elective-I - Cyber Law and Ethics",
+        "name": "Open Elective-I Cyber Law and Ethics",
         "short": "CLE"
     },
     "BTE26150": {
@@ -28,7 +28,7 @@
         "short": "CN_L"
     },
     "BTE26313": {
-        "name": "Elective-III - Neural Networks and Deep Learning",
+        "name": "Elective-III Neural Networks and Deep Learning",
         "short": "NNDL"
     },
     "BTE26395": {
@@ -40,7 +40,7 @@
         "short": "PA"
     },
     "BTE26453": {
-        "name": "Elective II - Big Data Analytics",
+        "name": "Elective II Big Data Analytics",
         "short": "BDA"
     },
     "BTE26454": {
@@ -48,7 +48,215 @@
         "short": "PA_L"
     },
     "BTE28225": {
-        "name": "Elective II - Natural Language Processing",
+        "name": "Elective II Natural Language Processing",
         "short": "NLP"
+    },
+    "BTE23022": {
+        "name": "Engineering Mathematics - III",
+        "short": "EM-III"
+    },
+    "BTE23027": {
+        "name": "Analog Electronic Circuits",
+        "short": "AEC"
+    },
+    "BTE23028": {
+        "name": "Data structure",
+        "short": "DS"
+    },
+    "BTE23029": {
+        "name": "Digital Electronics",
+        "short": "DE"
+    },
+    "BTE23033": {
+        "name": "Analog Electronic Circuits Lab",
+        "short": "AEC_L"
+    },
+    "BTE23034": {
+        "name": "Data structure Lab",
+        "short": "DS_L"
+    },
+    "BTE23035": {
+        "name": "Digital Electronics Lab",
+        "short": "DE_L"
+    },
+    "BTE23271": {
+        "name": "IT Workshop(MATLAB)",
+        "short": "MAT_L"
+    },
+    "BTE23391": {
+        "name": "Python Programming",
+        "short": "PP"
+    },
+    "BTE23392": {
+        "name": "Python Programming Lab",
+        "short": "PP_L"
+    },
+    "BTE23411": {
+        "name": "AI tools",
+        "short": "AIT"
+    },
+    "BTE23412": {
+        "name": "Fundamentals of Digital Logic Circuits",
+        "short": "FDLC"
+    },
+    "BTE23413": {
+        "name": "Object Oriented Programming Through Java",
+        "short": "OOPJ"
+    },
+    "BTE23414": {
+        "name": "AI tools Lab",
+        "short": "AIT_L"
+    },
+    "BTE23415": {
+        "name": "Object Oriented Programming Through Java Lab",
+        "short": "OOPJ_L"
+    },
+    "BTE24060": {
+        "name": "Organizational Behavior",
+        "short": "OB"
+    },
+    "BTE24085": {
+        "name": "Environmental Science",
+        "short": "EVS"
+    },
+    "BTE24065": {
+        "name": "Discrete Mathematics",
+        "short": "DM"
+    },
+    "BTE24066": {
+        "name": "Computer Organization & Architecture",
+        "short": "COA"
+    },
+    "BTE24067": {
+        "name": "Operating Systems",
+        "short": "OS"
+    },
+    "BTE24068": {
+        "name": "Design and Analysis of Algorithms",
+        "short": "DAA"
+    },
+    "BTE24070": {
+        "name": "Operating Systems Lab",
+        "short": "OS_L"
+    },
+    "BTE24071": {
+        "name": "Design and Analysis of Algorithms Lab",
+        "short": "DAA_L"
+    },
+    "BTE24279": {
+        "name": "Computer Organization & Architecture Lab",
+        "short": "COA_L"
+    },
+    "BTE24393": {
+        "name": "Microprocessor & Microcontroller",
+        "short": "MPMC"
+    },
+    "BTE24394": {
+        "name": "Software Engineering",
+        "short": "SE"
+    },
+    "BTE24417": {
+        "name": "Introduction to Artificial Intelligence and its Applications",
+        "short": "AI"
+    },
+    "BTE24418": {
+        "name": "Design Thinking",
+        "short": "DT"
+    },
+    "BTE24419": {
+        "name": "Internet of Things Lab",
+        "short": "IOT_L"
+    },
+    "BTE24420": {
+        "name": "Introduction to Artificial Intelligence and its Applications Lab",
+        "short": "AI_L"
+    },
+    "BTE24421": {
+        "name": "Sensor Technology and Instrumentation",
+        "short": "STI"
+    },
+    "BTE24422": {
+        "name": "Sensor Technology and Instrumentation Lab",
+        "short": "STI_L"
+    },
+    "BTE27323": {
+        "name": "Internet of Things",
+        "short": "IOT"
+    },
+    "BTE25101": {
+        "name": "Database Management Systems",
+        "short": "DBMS"
+    },
+    "BTE25102": {
+        "name": "Formal Language & Automata Theory",
+        "short": "FLAT"
+    },
+    "BTE25108": {
+        "name": "Database Management Systems Lab",
+        "short": "DBMS_L"
+    },
+    "BTE25285": {
+        "name": "Summer Internship - I (3-4 week)",
+        "short": "SI-1"
+    },
+    "BTE25294": {
+        "name": "Signals & Systems",
+        "short": "SS"
+    },
+    "BTE25295": {
+        "name": "Object Oriented Programming",
+        "short": "OOP"
+    },
+    "BTE25297": {
+        "name": "Object Oriented Programming Lab",
+        "short": "OOP_L"
+    },
+    "BTE25386": {
+        "name": "Humanities-II Soft Skills and Interpersonal Communication",
+        "short": "SSIC"
+    },
+    "BTE25424": {
+        "name": "Object Oriented Software Engineering",
+        "short": "OOSE"
+    },
+    "BTE25425": {
+        "name": "Object Oriented Software Engineering Lab",
+        "short": "OOSE_L"
+    },
+    "BTE25426": {
+        "name": "Artificial Neural Network",
+        "short": "ANN"
+    },
+    "BTE21001": {
+        "name": "Engineering Mathematics - I",
+        "short": "EM-I"
+    },
+    "BTE21003": {
+        "name": "Basic Electrical Engineering",
+        "short": "BEE"
+    },
+    "BTE21004": {
+        "name": "Engineering Graphics & Design",
+        "short": "EGD"
+    },
+    "BTE21005": {
+        "name": "Basic Electrical Engineering Lab",
+        "short": "BEE_L"
+    },
+    "BTE21263": {
+        "name": "Engineering Mechanics Lab",
+        "short": "EM_L"
+    },
+    "BTE22009": {
+        "name": "Engineering Mechanics",
+        "short": "EM"
+    },
+    "BTE22011": {
+        "name": "Engineering Chemistry",
+        "short": "EC"
+    },
+    "BTE22015": {
+        "name": "Engineering Chemistry Lab",
+        "short": "EC_L"
     }
 }

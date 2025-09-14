@@ -692,7 +692,7 @@ function createHeaders(subjects) {
     container.style.setProperty('--num-subjects', subjects.length);
     const html = subjects.map(subjectCode => {
         const subjectInfo = GLOBAL_SUBJECT_CODE_MAP[subjectCode] || {};
-        const headerText = subjectInfo.short;
+        const headerText = subjectInfo.short || subjectCode;
         return `<div class="subject-header">${headerText}</div>`
     }).join('');
     container.innerHTML = html;

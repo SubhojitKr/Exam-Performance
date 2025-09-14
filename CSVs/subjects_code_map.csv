@@ -1,14 +1,74 @@
-code,name,short
-BTE26137,Compiler Design,CD
-BTE26138,Computer Networks,CN
-BTE26139,Elective-II - Artificial Intelligence,AI
-BTE26144,Advance Java Programming,AJP
-BTE26145,Open Elective-I - Cyber Law and Ethics,CLE
-BTE26150,Compiler Design Lab,CD_L
-BTE26151,Computer Networks Lab,CN_L
-BTE26313,Elective-III - Neural Networks and Deep Learning,NNDL
-BTE26395,Advance Java Programming Lab,AJP_L
-BTE26452,Predictive Analytics using R,PA
-BTE26453,Elective II - Big Data Analytics,BDA
-BTE26454,Predictive Analytics using R Lab,PA_L
-BTE28225,Elective II - Natural Language Processing,NLP
+code,name,short,
+
+BTE26137,Compiler Design,CD,
+BTE26138,Computer Networks,CN,
+BTE26139,Elective-II Artificial Intelligence,AI,
+BTE26144,Advance Java Programming,AJP,
+BTE26145,Open Elective-I Cyber Law and Ethics,CLE,
+BTE26150,Compiler Design Lab,CD_L,
+BTE26151,Computer Networks Lab,CN_L,
+BTE26313,Elective-III Neural Networks and Deep Learning,NNDL,
+BTE26395,Advance Java Programming Lab,AJP_L,
+BTE26452,Predictive Analytics using R,PA,
+BTE26453,Elective II Big Data Analytics,BDA,
+BTE26454,Predictive Analytics using R Lab,PA_L,
+BTE28225,Elective II Natural Language Processing,NLP,
+
+BTE23022,Engineering Mathematics - III,EM-III,
+BTE23027,Analog Electronic Circuits,AEC,
+BTE23028,Data structure,DS,
+BTE23029,Digital Electronics,DE,
+BTE23033,Analog Electronic Circuits Lab,AEC_L,
+BTE23034,Data structure Lab,DS_L,
+BTE23035,Digital Electronics Lab,DE_L,
+BTE23271,IT Workshop(MATLAB),MAT_L,
+BTE23391,Python Programming,PP,
+BTE23392,Python Programming Lab,PP_L,
+BTE23411,AI tools,AIT,
+BTE23412,Fundamentals of Digital Logic Circuits,FDLC,
+BTE23413,Object Oriented Programming Through Java,OOPJ,
+BTE23414,AI tools Lab,AIT_L,
+BTE23415,Object Oriented Programming Through Java Lab,OOPJ_L,
+BTE24060,Organizational Behavior,OB,
+BTE24085,Environmental Science,EVS,
+
+BTE24065,Discrete Mathematics,DM,
+BTE24066,Computer Organization & Architecture,COA,
+BTE24067,Operating Systems,OS,
+BTE24068,Design & Analysis of Algorithms,DAA,
+BTE24070,Operating Systems Lab,OS_L,
+BTE24071,Design & Analysis of Algorithms Lab,DAA_L,
+BTE24279,Computer Organization & Architecture Lab,COA_L,
+BTE24393,Microprocessor & Microcontroller,MPMC,
+BTE24394,Software Engineering,SE,
+BTE24417,Introduction to Artificial Intelligence and its Applications,AI,
+BTE24418,Design Thinking,DT,
+BTE24419,Internet of Things Lab,IOT_L,
+BTE24420,Introduction to Artificial Intelligence and its Applications Lab,AI_L,
+BTE24421,Sensor Technology and Instrumentation,STI,
+BTE24422,Sensor Technology and Instrumentation Lab,STI_L,
+BTE26138,Computer Networks,CN,
+BTE26151,Computer Networks Lab,CN_L,
+BTE27323,Internet of Things,IOT,
+BTE24068,Design and Analysis of Algorithms,DAA,
+BTE24071,Design and Analysis of Algorithms Lab,DAA_L,
+BTE25101,Database Management Systems,DBMS,
+BTE25102,Formal Language & Automata Theory,FLAT,
+BTE25108,Database Management Systems Lab,DBMS_L,
+BTE25285,Summer Internship - I (3-4 week),SI-1,
+BTE25294,Signals & Systems,SS,
+BTE25295,Object Oriented Programming,OOP,
+BTE25297,Object Oriented Programming Lab,OOP_L,
+BTE25386,Humanities-II Soft Skills and Interpersonal Communication,SSIC,
+BTE25424,Object Oriented Software Engineering,OOSE,
+BTE25425,Object Oriented Software Engineering Lab,OOSE_L,
+BTE25426,Artificial Neural Network,ANN,
+
+BTE21001,Engineering Mathematics - I,EM-I,
+BTE21003,Basic Electrical Engineering,BEE,
+BTE21004,Engineering Graphics & Design,EGD,
+BTE21005,Basic Electrical Engineering Lab,BEE_L,
+BTE21263,Engineering Mechanics Lab,EM_L,
+BTE22009,Engineering Mechanics,EM,
+BTE22011,Engineering Chemistry,EC,
+BTE22015,Engineering Chemistry Lab,EC_L,

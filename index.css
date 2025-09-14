@@ -282,60 +282,132 @@ body {
     flex-direction: column;
     overflow: hidden;
 }
-.subject-list-header, .subject-data-row {
+.subject-list-header,
+.subject-data-row {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
     align-items: center;
     width: 100%;
-    padding: 0 15px;
+    padding: 0 25px;
 }
-.subject-list-header {
+.subject-list-header{
     height: 35px;
     background-color: var(--header-color);
     font-family: 'Bebas Neue', sans-serif;
     font-size: var(--header-font-size);
     color: white;
 }
-.subject-list-header > .subject-header:first-child {
-    text-align: left;
-}
-.subject-list-header > .subject-header {
-    text-align: center;
-}
 .subject-list-body {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    height: 456px;
     overflow-y: auto;
-    border-top: 1px solid #ddd;
 }
 .subject-list-body::-webkit-scrollbar {
     display: none;
 }
 .subject-data-row {
-    height: 75px;
-    background-color: var(--container-color);
-    font-size: var(--content-font-size);
-    font-family: 'Open Sans', sans-serif;
+    padding-top: 15px;
+    padding-bottom: 15px;
     color: #000000;
+    background-color: var(--container-color);
 }
-.subject-data-row:hover {
-    background-color: #f8f9fa;
-}
-.subject-data {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.subject-data.name-data {
-    text-align: left;
-    font-weight: 650;
-}
-.subject-data.numeric-data {
+.subject-list-header > .subject-header,
+.subject-data-row > div {
     text-align: center;
 }
+.subject-list-header > .subject-header:first-child,
+.subject-data-row > div:first-child {
+    text-align: left;
+}
+
+.subject-data-row:hover {
+    background-color: #16161D;
+}
+.subject-data-row:hover .subject-name,
+.subject-data-row:hover .subject-appeared,
+.subject-data-row:hover .subject-rate-percentage,
+.subject-data-row:hover .subject-rate-count {
+    color: #FFD700FF;
+}
+.subject-data-row:hover .subject-name {
+    font-style: oblique 15deg;
+}
+.subject-data-row:hover .subject-code {
+    color: white;
+}
+.subject-data-row:hover .subject-rate-count::before {
+    background-color: white;
+}
+.subject-data-row:hover #subject-pass-rate {
+    color: #24A84C;
+}
+.subject-data-row:hover #subject-fail-rate {
+    color: #AE3C3C;
+}
 
 
+/* SUBJECT_NAME_CODE */
+.subject-name-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+
+    font-family: 'Bebas Neue', 'Open Sans', sans-serif;
+}
+.subject-name {
+    font-size: 24px;
+    color: #000000;
+}
+.subject-code {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #16161D;
+}
+
+/* SUBJECT_APPEARED */
+.subject-appeared {
+    font-family: 'Bebas Neue', 'Open Sans', sans-serif;
+    font-size: 28px;
+    color: #656565;
+}
+
+/* SUBJECT_RATE */
+.subject-rate-container {
+    display: flex;
+    align-items: center;
+    font-family: 'Bebas Neue', 'Open Sans', sans-serif;
+    font-size: 28px;
+    color: #333
+}
+.subject-rate-percentage {
+    flex: 1;
+    text-align: right;
+    padding-right: 12px;
+}
+.subject-rate-count {
+    flex: 1;
+    text-align: left;
+    padding-left: 12px;
+    color: #656565;
+    position: relative;
+}
+.subject-rate-count::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50%;
+    width: 3px;
+    background-color: #bcbcbc;
+}
+#subject-pass-rate { color: #24A84C; }
+#subject-fail-rate { color: #AE3C3C; }
 
 
 
@@ -628,16 +700,16 @@ body {
 
     font-family: 'Open Sans', sans-serif;
     letter-spacing: -1px;
-    font-weight: 550;
-    font-size: 16px;
-    background-color: white;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #16161D;
     cursor: pointer;
-    color: #16161D;
+    color: #FFD700FF;
     white-space: nowrap;
 }
 .general-dropdown-item:hover {
-    background-color: #16161D;
-    color: #FFD700FF;
+    background-color: #FFD700FF;
+    color: #000000;
 }
 .general-dropdown-item.disabled {
     display: flex;
