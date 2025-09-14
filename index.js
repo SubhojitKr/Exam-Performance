@@ -14,6 +14,10 @@ let selectedProgram = '';
 let selectedBatch = '';
 let selectedSemester = '';
 
+let studentListContainer = null;
+let analyticsContainer = null;
+let subjectListContainer = null;
+
 
 window.startApp = function(jsonMap) {
     try {
@@ -42,9 +46,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const semesterMenu = document.getElementById('semester-dropdown-menu');
     const searchBar = document.getElementById('search-bar');
     const clearBtn = document.getElementById('search-clear-btn');
-
     const mainContainer = document.querySelector('.main-container');
     const studentListBody = document.getElementById('student-list-body');
+
+    studentListContainer = document.getElementById('student-list-container');
+    analyticsContainer = document.getElementById('analytics-container');
+    subjectListContainer = document.getElementById('subject-list-container');
+    const viewDropdownMenu = document.getElementById('view-dropdown-menu');
+
+
+
+
 
     // Dropdowns
     const allDropdowns = document.querySelectorAll('.custom-dropdown-container');
@@ -112,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
         deptSubmenu.style.display = "none";
         document.querySelectorAll('.school-item').forEach(item => item.classList.remove('active'));
     });
-
     programMenu.addEventListener('click', (event) => {
         const progItem = event.target.closest('.general-dropdown-item');
         if (!progItem || progItem.classList.contains('disabled')) return;
@@ -228,7 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
     * VERTICAL DROPDOWN
     */
     const allVerticalDropdowns = document.querySelectorAll('.vertical-dropdown-wrapper');
-
     allVerticalDropdowns.forEach(dropdown => {
         const content = dropdown.querySelector('.vertical-tool-content');
         const menu = dropdown.querySelector('.vertical-dropdown-menu');
@@ -246,18 +256,35 @@ document.addEventListener('DOMContentLoaded', () => {
             dropdown.classList.toggle('open');
         });
 
+        let specializationOpen = false;
         menu.addEventListener('click', (event) => {
             if (event.target.classList.contains('vertical-dropdown-item')) {
                 const newText = event.target.textContent;
                 selectedText.textContent = newText;
                 dropdown.classList.remove('open');
 
+                if (dropdown.parentElement.id === 'view-tool-container') {
+                    switchView(newText.trim());
+                }
+
                 if (dropdown.parentElement.id === 'program-type-tool-container') {
                     const specializationTool = document.getElementById('specialization-tool-container');
                     if (newText.trim() === 'SPECIALIZATION') {
-                        specializationTool.classList.remove('hidden');
+                        if(!specializationOpen) {
+                            specializationTool.classList.remove('hidden');
+                            specializationOpen = true;
+
+                            const items = specializationTool.querySelectorAll('.selection-tool-item');
+                            items.forEach((item, index) => {
+                                item.classList.remove('animate-in');
+                                setTimeout(() => {
+                                    item.classList.add('animate-in');
+                                }, index * 20);
+                            });
+                        }
                     } else {
                         specializationTool.classList.add('hidden');
+                        specializationOpen = false;
                     }
                 }
             }
@@ -280,6 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
     window.addEventListener('click', (e) => {
         // Logic for the horizontal dropdowns
         if (!e.target.closest('.custom-dropdown-container')) {
@@ -294,6 +322,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+function switchView(view) {
+    if (view === 'RESULT') {
+        studentListContainer.classList.remove('hidden');
+        analyticsContainer.classList.remove('hidden');
+        subjectListContainer.classList.add('hidden');
+    } else if (view === 'SUBJECTS') {
+        studentListContainer.classList.add('hidden');
+        analyticsContainer.classList.add('hidden');
+        subjectListContainer.classList.remove('hidden');
+
+        if (GLOBAL_ANALYTICS_DATA && GLOBAL_ANALYTICS_DATA.subject_wise_analysis) {
+            renderSubjectRows(GLOBAL_ANALYTICS_DATA.subject_wise_analysis);
+        } else {
+            document.getElementById('subject-list-body').innerHTML = '<div class="loading">No subject data available. Load a semester first.</div>';
+        }
+    }
+}
+
+function renderSubjectRows(subjectData) {
+    const body = document.getElementById("subject-list-body");
+    if (!subjectData || Object.keys(subjectData).length === 0) {
+        body.innerHTML = '<div class="loading">No subject data found.</div>';
+        return;
+    }
+
+    const allRowsHtml = Object.entries(subjectData).map(([subjectName, stats]) => {
+        return `
+        <div class="subject-data-row">
+            <div class="subject-data name-data">${subjectName.replace(/_/g, ' ')}</div>
+            <div class="subject-data numeric-data">${stats.appeared}</div>
+            <div class="subject-data numeric-data">${stats.pass_percentage.toFixed(1)}%</div>
+            <div class="subject-data numeric-data">${stats.fail_percentage.toFixed(1)}%</div>
+        </div>
+        `;
+    }).join('');
+
+    body.innerHTML = allRowsHtml;
+}
 
 function updateProgramDropdown() {
     const programMenu = document.getElementById('program-dropdown-menu');
@@ -384,6 +450,8 @@ function loadSelectedData() {
     }
     const fullPath = `./Datasets/${selectedSchool}/${selectedDepartment}/${selectedProgram}/${selectedBatch}/${selectedSemester}`;
 
+    switchView('RESULT');
+    document.getElementById('selected-view-text').textContent = 'RESULT';
     clearDashboardForLoading("Loading student data...");
     try {
         window.pyLoadSemester(fullPath);

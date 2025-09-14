@@ -118,6 +118,8 @@
 
     <!-- CONTENT -->
     <div class="content-row">
+
+        <!-- STUDENT LIST CONTAINER -->
         <div id="student-list-container" class="student-list-container">
             <div id="student-list-header" class="student-list-header">
                 <div class="studentinfo-header-container">
@@ -131,9 +133,11 @@
                 </div>
             </div>
             <div id="student-list-body" class="student-list-body">
-                <div class="loading">Loading student data...</div>
+                <div class="loading">Loading students data...</div>
             </div>
         </div>
+
+        <!-- ANALYSIS CONTAINER -->
         <div id="analytics-container" class="analytics-container">
             <div class="analytics-header">OVERALL ANALYSIS</div>
             <div id="analytics-body" class="analytics-body">
@@ -141,6 +145,20 @@
                 <div id="top-students-container" class="top-students-container"></div>
             </div>
         </div>
+
+        <!-- SUBJECT LIST CONTAINER -->
+        <div id="subject-list-container" class="subject-list-container hidden">
+            <div id="subject-list-header" class="subject-list-header">
+                <div id="subject-name-header" class="subject-header">SUBJECT NAME</div>
+                <div id="subject-appeared-header" class="subject-header">APPEARED</div>
+                <div id="subject-pass-header" class="subject-header">PASS RATE</div>
+                <div id="subject-fail-header" class="subject-header">FAIL RATE</div>
+            </div>
+            <div id="subject-list-body" class="subject-list-body">
+                <div class="loading">Load a semester to see subject data...</div>
+            </div>
+        </div>
+
     </div>
 </main>
 
