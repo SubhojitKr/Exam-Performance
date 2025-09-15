@@ -19,6 +19,7 @@ let selectedSemester = '';
 let studentListContainer = null;
 let analyticsContainer = null;
 let subjectListContainer = null;
+let subjectDetailsContainer = null;
 
 
 window.startApp = function(jsonMap) {
@@ -103,11 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
         deptSubmenu.style.display = "block";
     });
 
+
     deptSubmenu.addEventListener('click', (event) => {
         const deptItem = event.target.closest('.department-item');
         if (!deptItem) return;
 
         selectedSchool = deptItem.dataset.school;
+        console.log(selectedSchool)
         selectedDepartment = deptItem.dataset.department;
 
         selectedProgram = '';
@@ -309,6 +312,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /*
+    * SUBJECT ROW CLICK
+    */
+    subjectDetailsContainer = document.getElementById('subject-details-container');
+    const subjectListBody = document.getElementById('subject-list-body');
+    subjectListBody.addEventListener('click', handleSubjectRowClick)
+
 
     window.addEventListener('click', (e) => {
         // Logic for the horizontal dropdowns
@@ -321,6 +331,11 @@ document.addEventListener('DOMContentLoaded', () => {
             allVerticalDropdowns.forEach(d => d.classList.remove('open'));
         }
     });
+
+
+    /*
+    * DEBUG CODE
+    */
 
 });
 
@@ -350,7 +365,7 @@ function renderSubjectRows(subjectData) {
     }
     const allRowsHtml = Object.values(subjectData).map(stats => {
         return `
-        <div class="subject-data-row">
+        <div class="subject-data-row" data-subject-code="${stats.code}">
             <div class="subject-name-container">
                 <div class="subject-name">${stats.name.replace(/_/g, ' ')}</div>
                 <div class="subject-code">${stats.code}</div>
@@ -369,6 +384,77 @@ function renderSubjectRows(subjectData) {
     }).join('');
     body.innerHTML = allRowsHtml;
 }
+
+function handleSubjectRowClick(event) {
+    const row = event.target.closest('.subject-data-row');
+    if (!row) return;
+    const subjectCode = row.dataset.subjectCode;
+    const subjectData = GLOBAL_SUBJECT_ANALYSIS[subjectCode];
+    if (subjectData) {
+        displaySubjectDetails(subjectData);
+    }
+}
+
+function displaySubjectDetails(subjectData) {
+    subjectListContainer.classList.add('hidden');
+    subjectDetailsContainer.classList.remove('hidden');
+
+    const gradeCounts = {};
+    let totalStudentsWithGrade = 0;
+    ALL_STUDENTS.forEach(student => {
+        const grade = student[subjectData.code];
+        if (grade && (grade !== '-') && (grade !== 'RA')) {
+            gradeCounts[grade] = (gradeCounts[grade] || 0) + 1;
+            totalStudentsWithGrade++;
+        }
+    });
+
+    const uniqueGrades = Object.keys(gradeCounts);
+    const gradeRankMap = {
+        'O': 1, 'A+': 2, 'A': 3, 'B+': 4, 'B': 5, 'C+': 6, 'C': 7,
+        'D': 8, 'P': 9, 'E': 10, 'F': 11, 'FF': 12
+    };
+    uniqueGrades.sort((a, b) => {
+        const rankA = gradeRankMap[a] || 99;
+        const rankB = gradeRankMap[b] || 99;
+        return rankA - rankB;
+    });
+
+    const gradeDistributionHtml = uniqueGrades.map(grade => {
+        const count = gradeCounts[grade];
+        const percentage = (count / totalStudentsWithGrade) * 100;
+        return `
+        <div class="grade-percentage-row">
+            <div class="grade">${grade}</div>
+            <div class="grade-progress-bar-container">
+                <div class="grade-highlighted-progress-bar" style="width: ${formatPercentage(percentage)};"></div>
+            </div>
+            <div class="grade-percentage">${formatPercentage(percentage)}</div>
+        </div>
+        `;
+    }).join('');
+
+    const nameContainer = document.querySelector('.subject-details-name-container');
+    if (nameContainer) {
+        const titleEl = nameContainer.querySelector('.subject-details-title');
+        const codeEl = nameContainer.querySelector('.subject-details-code');
+        if (titleEl) titleEl.textContent = subjectData.name.replace(/_/g, ' ');
+        if (codeEl) codeEl.textContent = subjectData.code;
+    }
+
+    const gradeBody = document.querySelector('#grade-distribution .details-body');
+    if (gradeBody) {
+        gradeBody.innerHTML = gradeDistributionHtml.length > 0 ? gradeDistributionHtml : '<p>No grade data to display.</p>';
+    }
+
+    document.getElementById('back-to-list-btn').addEventListener('click', () => {
+        subjectDetailsContainer.classList.add('hidden');
+        subjectListContainer.classList.remove('hidden');
+        subjectDetailsContainer.innerHTML = '';
+    });
+
+}
+
 
 function formatPercentage(num) {
     const roundedNum = Math.round(num * 100) / 100;
@@ -757,3 +843,7 @@ function createTopStudentsList(topPerformers) {
     }).join('');
     container.innerHTML = `<div class="analytics-card-title">Top 3 Performers 🏆</div>${performersHtml}`;
 }
+
+
+
+

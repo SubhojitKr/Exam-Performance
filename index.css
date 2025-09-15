@@ -300,16 +300,16 @@ body {
 .subject-list-body {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    height: 456px;
+    gap: 1px;
+    height: 68vh;
     overflow-y: auto;
 }
 .subject-list-body::-webkit-scrollbar {
     display: none;
 }
 .subject-data-row {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 13px;
+    padding-bottom: 13px;
     color: #000000;
     background-color: var(--container-color);
 }
@@ -341,10 +341,10 @@ body {
     background-color: white;
 }
 .subject-data-row:hover #subject-pass-rate {
-    color: #24A84C;
+    color: #00dd41;
 }
 .subject-data-row:hover #subject-fail-rate {
-    color: #AE3C3C;
+    color: #dd0000;
 }
 
 
@@ -354,7 +354,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-
 
     font-family: 'Bebas Neue', 'Open Sans', sans-serif;
 }
@@ -869,6 +868,151 @@ body {
 .hidden {
     display: none !important;
 }
+
+
+
+
+/*
+* SUBJECT DETAILS
+*/
+#subject-details-container {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 20px 20px;
+    min-height: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+.subject-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.subject-details-name-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+}
+.subject-details-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: #000000;
+}
+.subject-details-code {
+    font-family: 'Bebas Neue', 'Open Sans', sans-serif;
+    font-size: 16px;
+    color: #76838f;
+}
+.back-btn {
+    background-color: #16161D;
+    padding: 10px 20px;
+    font-family: 'Bebas Neue', 'Open Sans', sans-serif;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    margin-bottom: auto;
+}
+
+.back-button:hover {
+    background-color: #3a3d47;
+    color: #FFD700;
+}
+
+
+
+
+/*
+* SUBJECT DETAILS
+*/
+.details-container {
+    max-width: 500px;
+}
+.details-header {
+    border-bottom: 2px solid #16161D;
+    margin-bottom: 15px;
+}
+.details-title {
+    display: inline-block;
+    padding: 6px 20px;
+    position: relative;
+
+    font-family: 'Bebas Neue', 'Open Sans', sans-serif;
+    background: none;
+    font-size: 16px;
+    z-index: 1;
+    color: #FFD700FF;
+}
+.details-title::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 4px;
+    right: -5px;
+    bottom: 0;
+    background: #16161D;
+    transform: skewX(-15deg);
+    z-index: -1;
+}
+.details-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+
+/*
+* GRADE DISTRIBUTION
+*/
+#grade-distribution{
+    margin-top: auto;
+    width: 30%;
+    min-width: 350px;
+    max-width: 600px;
+}
+.grade-percentage-row {
+    display: grid;
+    grid-template-columns: 25px 1fr 55px;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+
+    font-family: 'Bebas Neue', 'Open Sans', sans-serif;
+    font-size: 18px;
+    color: #000000;
+}
+.grade {
+    display: flex;
+    text-align: left;
+    flex-shrink: 0;
+}
+.grade-progress-bar-container {
+    flex: 1;
+    height: 10px;
+    position: relative;
+    background-color: #99B2CE;
+    overflow: hidden;
+    box-shadow:  0 2px 6px rgba(0,0,0,0.3);
+}
+.grade-highlighted-progress-bar {
+    height: 100%;
+    background-color: #FFD700;
+    transition: width 0.4s ease;
+    overflow: hidden;
+
+}
+.grade-percentage {
+    text-align: right;
+}
+
+
+
+
+
+
 
 
 
