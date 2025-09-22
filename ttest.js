@@ -9,6 +9,8 @@ let GLOBAL_TOP_PERFORMERS = [];
 let selectedRow = null;
 let DIRECTORY_MAP = {};
 
+
+
 // filters
 let selectedSchool = '';
 let selectedDepartment = '';
@@ -18,7 +20,7 @@ let selectedSemester = '';
 
 // specialization filters
 let selectedProgramType = 'ALL';
-let selectedSpecialization = null;
+let selectedSpecialization = 'DS-AI';
 
 let studentListContainer = null;
 let analyticsContainer = null;
@@ -47,18 +49,11 @@ window.startApp = function(jsonMap) {
 
 function applyAllFilters() {
     let filteredStudents = [...ALL_STUDENTS];
-    let isGroupedView = false;
 
     if (selectedProgramType === 'REGULAR') {
         filteredStudents = filteredStudents.filter(student => student.Program_Type === 'Regular');
-    } else if (selectedProgramType === 'SPECIALIZATION') {
-        const allSpecializations = ['DS-AI', 'AIML', 'IOT'];
-        if (selectedSpecialization) {
-            filteredStudents = filteredStudents.filter(student => student.Program_Type === selectedSpecialization);
-        } else {
-            filteredStudents = filteredStudents.filter(student => allSpecializations.includes(student.Program_Type));
-            isGroupedView = true;
-        }
+    } else if (selectedProgramType === 'SPECIALIZATION' && selectedSpecialization) {
+        filteredStudents = filteredStudents.filter(student => student.Program_Type === selectedSpecialization);
     }
 
     const query = document.getElementById('search-bar').value.trim().toLowerCase();
@@ -66,9 +61,9 @@ function applyAllFilters() {
         filteredStudents = filteredStudents.filter(student => {
             return student.Name.toLowerCase().includes(query) || student.Enrollment.toLowerCase().includes(query);
         });
-        isGroupedView = false;
     }
-    renderStudentRows(filteredStudents, isGroupedView);
+
+    renderStudentRows(filteredStudents);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -81,11 +76,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearBtn = document.getElementById('search-clear-btn');
     const mainContainer = document.querySelector('.main-container');
     const studentListBody = document.getElementById('student-list-body');
-    const backToListBtn = document.getElementById('back-to-list-btn');
 
     studentListContainer = document.getElementById('student-list-container');
     analyticsContainer = document.getElementById('analytics-container');
     subjectListContainer = document.getElementById('subject-list-container');
+    const viewDropdownMenu = document.getElementById('view-dropdown-menu');
+
 
     // Dropdowns
     const allDropdowns = document.querySelectorAll('.custom-dropdown-container');
@@ -191,7 +187,12 @@ document.addEventListener('DOMContentLoaded', () => {
     clearBtn.addEventListener('click', clearSearch);
 
     mainContainer.addEventListener('click', (e) => {
-        if (!selectedRow || studentListBody.contains(e.target)) return;
+        if (!selectedRow) {
+            return;
+        }
+        if (studentListBody.contains(e.target)) {
+            return;
+        }
         selectedRow.classList.remove('selected-student-row');
         selectedRow = null;
         buildOverallAnalysis();
@@ -301,9 +302,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }, index * 20);
                             });
                         }
-                        const currentActive = specializationTool.querySelector('.selection-tool-item.active');
-                        if (currentActive) currentActive.classList.remove('active');
-                        selectedSpecialization = null;
+                        const activeItem = specializationTool.querySelector('.selection-tool-item.active');
+                        selectedSpecialization = activeItem ? activeItem.textContent.trim() : null;
                     } else {
                         specializationTool.classList.add('hidden');
                         specializationOpen = false;
@@ -323,15 +323,14 @@ document.addEventListener('DOMContentLoaded', () => {
         specializationTool.addEventListener('click', (event) => {
             const item = event.target.closest('.selection-tool-item');
             if (item) {
-                if (item.classList.contains('active')) {
-                    item.classList.remove('active');
-                    selectedSpecialization = null;
-                } else {
-                    const currentActive = specializationTool.querySelector('.selection-tool-item.active');
-                    if (currentActive) currentActive.classList.remove('active');
-                    item.classList.add('active');
-                    selectedSpecialization = item.textContent.trim();
+                if (item.classList.contains('active')) return;
+
+                const currentActive = specializationTool.querySelector('.selection-tool-item.active');
+                if (currentActive) {
+                    currentActive.classList.remove('active');
                 }
+                item.classList.add('active');
+                selectedSpecialization = item.textContent.trim();
                 applyAllFilters();
             }
         });
@@ -343,6 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
     subjectDetailsContainer = document.getElementById('subject-details-container');
     const subjectListBody = document.getElementById('subject-list-body');
     subjectListBody.addEventListener('click', handleSubjectRowClick)
+
     backToListBtn.addEventListener('click', () => {
         subjectDetailsContainer.classList.add('hidden');
         subjectListContainer.classList.remove('hidden');
@@ -603,57 +603,41 @@ function clearSearch(applyFilters = true) {
     }
 }
 
-function getStudentRowHtml(student) {
-    const subjectsHtml = ALL_SUBJECTS.map(subjectKey => `<div class="subject-data">${student[subjectKey] || '-'}</div>`).join('');
-    const sgpa = (student.SGPA !== null && student.SGPA !== undefined) ? Number(student.SGPA).toFixed(2) : 'N/A';
-    const cgpa = (student.CGPA !== null && student.CGPA !== undefined) ? Number(student.CGPA).toFixed(2) : 'N/A';
-
-    return `
-    <div class="student-data-row" data-enrollment="${student.Enrollment}">
-        <div class="unskew-wrapper">
-            <div class="studentinfo-data-container">
-                <div class="name-data">${student.Name}</div>
-                <div class="enrollment-data">${student.Enrollment}</div>
-            </div>
-            <div class="subject-data-container" style="--num-subjects: ${ALL_SUBJECTS.length};">
-                ${subjectsHtml}
-            </div>
-            <div class="grades-data-container">
-                <div class="sgpa-data">${sgpa}</div>
-                <div class="cgpa-data">${cgpa}</div>
-            </div>
-        </div>
-    </div>`;
-}
-
-function renderStudentRows(arrayToRender, isGrouped = false) {
+function renderStudentRows(arrayToRender) {
     const body = document.getElementById("student-list-body");
-    if (!arrayToRender || arrayToRender.length === 0) {
+    if (arrayToRender.length === 0) {
         body.innerHTML = '<div class="loading">No students found.</div>';
         return;
     }
 
-    let allRowsHtml = '';
+    const allRowsHtml = arrayToRender.map(student => {
+        const subjectsHtml = ALL_SUBJECTS.map(subjectKey =>
+            `<div class="subject-data">${student[subjectKey] || '-'}</div>`
+        ).join('');
 
-    if (isGrouped) {
-        const groupedStudents = {};
-        const specializationOrder = ['DS-AI', 'IOT', 'AIML'];
+        const sgpa = (student.SGPA !== null && student.SGPA !== undefined) ? Number(student.SGPA).toFixed(2) : 'N/A';
+        const cgpa = (student.CGPA !== null && student.CGPA !== undefined) ? Number(student.CGPA).toFixed(2) : 'N/A';
 
-        arrayToRender.forEach(student => {
-            if (!groupedStudents[student.Program_Type]) {
-                groupedStudents[student.Program_Type] = [];
-            }
-            groupedStudents[student.Program_Type].push(student);
-        });
-        specializationOrder.forEach(spec => {
-            if (groupedStudents[spec]) {
-                allRowsHtml += `<div class="specialization-group-header">${spec}</div>`;
-                allRowsHtml += groupedStudents[spec].map(student => getStudentRowHtml(student)).join('');
-            }
-        });
-    } else {
-        allRowsHtml = arrayToRender.map(student => getStudentRowHtml(student)).join('');
-    }
+
+        return `
+        <div class="student-data-row" data-enrollment="${student.Enrollment}">
+            <div class="unskew-wrapper">
+                <div class="studentinfo-data-container">
+                    <div class="name-data">${student.Name}</div>
+                    <div class="enrollment-data">${student.Enrollment}</div>
+                </div>
+                <div class="subject-data-container" style="--num-subjects: ${ALL_SUBJECTS.length};">
+                    ${subjectsHtml}
+                </div>
+                <div class="grades-data-container">
+                    <div class="sgpa-data">${sgpa}</div>
+                    <div class="cgpa-data">${cgpa}</div>
+                </div>
+            </div>
+        </div>
+        `;
+    }).join('');
+
     body.innerHTML = allRowsHtml;
 }
 
