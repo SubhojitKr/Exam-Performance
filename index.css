@@ -371,7 +371,7 @@ body {
 /* SUBJECT_APPEARED */
 .subject-appeared {
     font-family: 'Bebas Neue', 'Open Sans', sans-serif;
-    font-size: 28px;
+    font-size: 18px;
     color: #656565;
 }
 
@@ -380,7 +380,7 @@ body {
     display: flex;
     align-items: center;
     font-family: 'Bebas Neue', 'Open Sans', sans-serif;
-    font-size: 28px;
+    font-size: 18px;
     color: #333
 }
 .subject-rate-percentage {
