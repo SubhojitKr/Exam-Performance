@@ -17,177 +17,243 @@
 </head>
 
 <body>
+
 <header class="top-header">
-    <div class="top-header-container"></div>
+    <div class="top-header-container">
+        <div class="top-header-title">MINOR PROJECT</div>
+        <nav class="top-header-nav">
+            <button id="top-header-home-btn" class="top-header-nav-button active">HOME</button>
+            <button id="top-header-result-btn" class="top-header-nav-button">RESULT</button>
+        </nav>
+    </div>
 </header>
 
 <main class="main-container">
+    <!-- LANDING PAGE -->
+    <div id="landing-view-container">
+        <!-- LANDING PAGE CONTENT -->
+        <div id="landing-page-container">
+            <div class="landing-page-content">
+                <!-- LOGO -->
+                <img src="Assets/AJULogo.png" alt="Arka Jain University Logo" class="landing-logo">
 
-    <!-- TOOLS -->
-    <div class="tools-container">
+                <!-- TITLE -->
+                <h1 class="landing-title">STUDENT PERFORMANCE REPORT</h1>
+                <p class="landing-tagline-1">
+                    A CLEAR, SIMPLE, AND EASY WAY TO SEE YOUR RESULTS
+                </p>
+                <p class="landing-tagline-2">
+                  CHECK YOUR RESULTS, COMPLETELY HASSLE-FREE!
+                </p>
 
-        <div class="tools-row">
-            <!-- Department Dropdown Tool -->
-            <div id="department-tool-container" class="general-tool-container custom-dropdown-container">
-                <div id="department-tool-title" class="general-tool-title">Department</div>
-                <div id="department-tool-content" class="general-tool-content">
-                    <span id="selected-department-text">Select Department</span>
-                </div>
-                <div id="department-dropdown-menu" class="general-dropdown-menu"></div>
-                <div id="department-submenu" class="department-submenu"></div>
-            </div>
-
-            <!-- Program Dropdown Tool -->
-            <div id="program-tool-container" class="general-tool-container custom-dropdown-container">
-                <div id="program-tool-title" class="general-tool-title">Program</div>
-                <div id="program-tool-content" class="general-tool-content">
-                    <span id="selected-program-text">Select Program</span>
-                </div>
-                <ul id="program-dropdown-menu" class="general-dropdown-menu"></ul>
-            </div>
-
-            <!-- Batch Dropdown Tool -->
-            <div id="batch-tool-container" class="general-tool-container custom-dropdown-container">
-                <div id="batch-tool-title" class="general-tool-title">Batch</div>
-                <div id="batch-tool-content" class="general-tool-content">
-                    <span id="selected-batch-text">-</span>
-                </div>
-                <ul id="batch-dropdown-menu" class="general-dropdown-menu"></ul>
-            </div>
-
-            <!-- Semester Dropdown Tool -->
-            <div id="semester-tool-container" class="general-tool-container custom-dropdown-container">
-                <div id="semester-tool-title" class="general-tool-title">Semester</div>
-                <div id="semester-tool-content" class="general-tool-content">
-                    <span id="selected-semester-text">-</span>
-                </div>
-                <ul id="semester-dropdown-menu" class="general-dropdown-menu"></ul>
-            </div>
-        </div>
-
-        <div class="tools-row">
-            <!-- View Dropdown Tool -->
-            <div id="view-tool-container" class="vertical-tool-container">
-                <div class="vertical-tool-title">VIEW</div>
-                <div class="view-dropdown-container vertical-dropdown-wrapper">
-                    <div id="view-tool-content" class="vertical-tool-content">
-                        <span id="selected-view-text">RESULT</span>
-                        <span class="dropdown-arrow">▼</span>
-                    </div>
-                    <div id="view-dropdown-menu" class="vertical-dropdown-menu">
-                      <div class="vertical-dropdown-item">RESULT</div>
-                       <div class="vertical-dropdown-item">SUBJECTS</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Program-Type Dropdown Tool -->
-            <div id="program-type-tool-container" class="vertical-tool-container">
-                <div class="vertical-tool-title">PROGRAM TYPE</div>
-                <div class="program-dropdown-container vertical-dropdown-wrapper">
-                    <div id="program-type-tool-content" class="vertical-tool-content">
-                        <span id="selected-program-type-text">ALL</span>
-                        <span class="dropdown-arrow">▼</span>
-                    </div>
-                    <div id="program-type-dropdown-menu" class="vertical-dropdown-menu">
-                        <div class="vertical-dropdown-item">ALL</div>
-                        <div class="vertical-dropdown-item">REGULAR</div>
-                        <div class="vertical-dropdown-item">SPECIALIZATION</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Specialization Selection Panel Tool -->
-            <div id="specialization-tool-container" class="selection-tool-container hidden">
-                <div class="selection-tool-item">DS-AI</div>
-                <div class="selection-tool-item">AIML</div>
-                <div class="selection-tool-item">IOT</div>
-            </div>
-
-            <!-- Search Tool -->
-            <div id="search-tool-container" class="general-tool-container search-tool">
-                <div class="general-tool-title">Search</div>
-                <div class="general-tool-content search-wrapper">
-                    <input type="text" id="search-bar" placeholder="Name/Enrollment No.">
-                    <button id="search-clear-btn">&times;</button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- CONTENT -->
-    <div class="content-row">
-
-        <!-- STUDENT LIST CONTAINER -->
-        <div id="student-list-container" class="student-list-container">
-            <div id="student-list-header" class="student-list-header">
-                <div class="studentinfo-header-container">
-                    <div class="name-header">Name</div>
-                    <div class="enrollment-header">Enrollment</div>
-                </div>
-                <div id="subject-header-container" class="subject-header-container"></div>
-                <div class="grades-header-container">
-                    <div class="sgpa-header">SGPA</div>
-                    <div class="cgpa-header">CGPA</div>
-                </div>
-            </div>
-            <div id="student-list-body" class="student-list-body">
-                <div class="loading">Loading students data...</div>
-            </div>
-        </div>
-
-        <!-- ANALYSIS CONTAINER -->
-        <div id="analytics-container" class="analytics-container">
-            <div class="analytics-header">OVERALL ANALYSIS</div>
-            <div id="analytics-body" class="analytics-body">
-                <div id="pass-fail-container" class="pass-fail-container"></div>
-                <div id="top-students-container" class="top-students-container"></div>
-            </div>
-        </div>
-
-        <!-- SUBJECT LIST CONTAINER -->
-        <div id="subject-list-container" class="subject-list-container hidden">
-            <div id="subject-list-header" class="subject-list-header">
-                <div id="subject-name-header" class="subject-header">SUBJECT NAME</div>
-                <div id="subject-appeared-header" class="subject-header">APPEARED</div>
-                <div id="subject-pass-header" class="subject-header">PASS RATE</div>
-                <div id="subject-fail-header" class="subject-header">FAIL RATE</div>
-            </div>
-            <div id="subject-list-body" class="subject-list-body">
-                <div class="loading">Load a semester to see subject data...</div>
-            </div>
-        </div>
-
-        <!-- SUBJECT DETAILS CONTAINER -->
-        <div id="subject-details-container" class="subject-details-container hidden">
-            <div class="subject-details-header">
-                <div class="subject-details-name-container">  <!-- this will have the subject name and code in column direction both left aligned -->
-                    <div class="subject-details-title"></div>
-                    <div class="subject-details-code"></div>
-                </div>
-                <div id="back-to-list-btn" class="back-btn">BACK</div> <!-- tthis will be in most right of the container -->
-            </div>
-            <div id="grade-distribution" class="details-container"> <!--this enire contianer will be in bottom left of the container -->
-                <div class="details-header"> <!-- for full width bottom border -->
-                    <div class="details-title"> GRADE DISTRIBUTION</div> <!-- for black background -->
-                </div>
-                <div class="details-body">
-                    <!-- here the grade percentage rows will be dynamically added -->
-                    <div class="grade-percentage-row">
-                        <div class="grade">A+</div>
-                        <div class="grade-progress-bar-container"> <!-- for dark part -->
-                            <div class="grade-highlighted-progress-bar"></div> <!-- for highlighted part -->
+                <div class="landing-form-container">
+                    <div class="form-row">
+                        <div id="landing-department-tool-container" class="general-tool-container custom-dropdown-container">
+                            <div class="general-tool-title">Department</div>
+                            <div class="general-tool-content">
+                                <span id="landing-selected-department-text">Select Department</span>
+                            </div>
+                            <div id="landing-department-dropdown-menu" class="general-dropdown-menu"></div>
+                            <div id="landing-department-submenu" class="department-submenu"></div>
                         </div>
-                        <div class="grade-percentage">90%</div>
+                        <div id="landing-program-tool-container" class="general-tool-container custom-dropdown-container">
+                            <div class="general-tool-title">Program</div>
+                            <div class="general-tool-content">
+                                <span id="landing-selected-program-text">Select Program</span>
+                            </div>
+                            <div id="landing-program-dropdown-menu" class="general-dropdown-menu"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div id="landing-batch-tool-container" class="general-tool-container custom-dropdown-container">
+                            <div class="general-tool-title">Batch</div>
+                            <div class="general-tool-content">
+                                <span id="landing-selected-batch-text">Select Batch</span>
+                            </div>
+                            <div id="landing-batch-dropdown-menu" class="general-dropdown-menu"></div>
+                        </div>
+                        <div id="landing-semester-tool-container" class="general-tool-container custom-dropdown-container">
+                            <div class="general-tool-title">Semester</div>
+                            <div class="general-tool-content">
+                                <span id="landing-selected-semester-text">Select Semester</span>
+                            </div>
+                            <div id="landing-semester-dropdown-menu" class="general-dropdown-menu"></div>
+                        </div>
+                    </div>
+                </div>
 
+                <p class="landing-disclaimer">*Data is manually transcribed and is subject to human errors.</p>
+                <button id="landing-view-result-btn" class="landing-button">VIEW RESULT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULT PAGE -->
+    <div id="results-view-container" class="hidden">
+        <!-- TOOLS -->
+        <div class="tools-container">
+
+            <div class="tools-row">
+                <!-- Department Dropdown Tool -->
+                <div id="department-tool-container" class="general-tool-container custom-dropdown-container">
+                    <div id="department-tool-title" class="general-tool-title">Department</div>
+                    <div id="department-tool-content" class="general-tool-content">
+                        <span id="selected-department-text">Select Department</span>
+                    </div>
+                    <div id="department-dropdown-menu" class="general-dropdown-menu"></div>
+                    <div id="department-submenu" class="department-submenu"></div>
+                </div>
+
+                <!-- Program Dropdown Tool -->
+                <div id="program-tool-container" class="general-tool-container custom-dropdown-container">
+                    <div id="program-tool-title" class="general-tool-title">Program</div>
+                    <div id="program-tool-content" class="general-tool-content">
+                        <span id="selected-program-text">Select Program</span>
+                    </div>
+                    <ul id="program-dropdown-menu" class="general-dropdown-menu"></ul>
+                </div>
+
+                <!-- Batch Dropdown Tool -->
+                <div id="batch-tool-container" class="general-tool-container custom-dropdown-container">
+                    <div id="batch-tool-title" class="general-tool-title">Batch</div>
+                    <div id="batch-tool-content" class="general-tool-content">
+                        <span id="selected-batch-text">Select Batch</span>
+                    </div>
+                    <ul id="batch-dropdown-menu" class="general-dropdown-menu"></ul>
+                </div>
+
+                <!-- Semester Dropdown Tool -->
+                <div id="semester-tool-container" class="general-tool-container custom-dropdown-container">
+                    <div id="semester-tool-title" class="general-tool-title">Semester</div>
+                    <div id="semester-tool-content" class="general-tool-content">
+                        <span id="selected-semester-text">Select Semester</span>
+                    </div>
+                    <ul id="semester-dropdown-menu" class="general-dropdown-menu"></ul>
+                </div>
+            </div>
+
+            <div class="tools-row">
+                <!-- View Dropdown Tool -->
+                <div id="view-tool-container" class="vertical-tool-container">
+                    <div class="vertical-tool-title">VIEW</div>
+                    <div class="view-dropdown-container vertical-dropdown-wrapper">
+                        <div id="view-tool-content" class="vertical-tool-content">
+                            <span id="selected-view-text">RESULT</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div id="view-dropdown-menu" class="vertical-dropdown-menu">
+                            <div class="vertical-dropdown-item">RESULT</div>
+                            <div class="vertical-dropdown-item">SUBJECTS</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program-Type Dropdown Tool -->
+                <div id="program-type-tool-container" class="vertical-tool-container">
+                    <div class="vertical-tool-title">PROGRAM TYPE</div>
+                    <div class="program-dropdown-container vertical-dropdown-wrapper">
+                        <div id="program-type-tool-content" class="vertical-tool-content">
+                            <span id="selected-program-type-text">ALL</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div id="program-type-dropdown-menu" class="vertical-dropdown-menu">
+                            <div class="vertical-dropdown-item">ALL</div>
+                            <div class="vertical-dropdown-item">REGULAR</div>
+                            <div class="vertical-dropdown-item">SPECIALIZATION</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specialization Selection Panel Tool -->
+                <div id="specialization-tool-container" class="selection-tool-container hidden">
+                    <div class="selection-tool-item">DS-AI</div>
+                    <div class="selection-tool-item">AIML</div>
+                    <div class="selection-tool-item">IOT</div>
+                </div>
+
+                <!-- Search Tool -->
+                <div id="search-tool-container" class="general-tool-container search-tool">
+                    <div id="search-tool-title" class="general-tool-title">Search</div>
+                    <div id="search-tool-content" class="general-tool-content search-wrapper">
+                        <input type="text" id="search-bar" placeholder="Name/Enrollment No.">
+                        <button id="search-clear-btn">&times;</button>
                     </div>
                 </div>
             </div>
 
         </div>
+        <!-- CONTENT -->
+        <div class="content-row">
+            <!-- STUDENT LIST CONTAINER -->
+            <div id="student-list-container" class="student-list-container">
+                <div id="student-list-header" class="student-list-header">
+                    <div class="studentinfo-header-container">
+                        <div class="name-header">Name</div>
+                        <div class="enrollment-header">Enrollment</div>
+                    </div>
+                    <div id="subject-header-container" class="subject-header-container"></div>
+                    <div class="grades-header-container">
+                        <div class="sgpa-header">SGPA</div>
+                        <div class="cgpa-header">CGPA</div>
+                    </div>
+                </div>
+                <div id="student-list-body" class="student-list-body">
+                    <div class="loading">Loading students data...</div>
+                </div>
+            </div>
 
+            <!-- ANALYSIS CONTAINER -->
+            <div id="analytics-container" class="analytics-container">
+                <div class="analytics-header">OVERALL ANALYSIS</div>
+                <div id="analytics-body" class="analytics-body">
+                    <div id="pass-fail-container" class="pass-fail-container"></div>
+                    <div id="top-students-container" class="top-students-container"></div>
+                </div>
+            </div>
+
+            <!-- SUBJECT LIST CONTAINER -->
+            <div id="subject-list-container" class="subject-list-container hidden">
+                <div id="subject-list-header" class="subject-list-header">
+                    <div id="subject-name-header" class="subject-header">SUBJECT NAME</div>
+                    <div id="subject-appeared-header" class="subject-header">APPEARED</div>
+                    <div id="subject-pass-header" class="subject-header">PASS RATE</div>
+                    <div id="subject-fail-header" class="subject-header">FAIL RATE</div>
+                </div>
+                <div id="subject-list-body" class="subject-list-body">
+                    <div class="loading">Load a semester to see subject data...</div>
+                </div>
+            </div>
+
+            <!-- SUBJECT DETAILS CONTAINER -->
+            <div id="subject-details-container" class="subject-details-container hidden">
+                <div class="subject-details-header">
+                    <div class="subject-details-name-container">  <!-- this will have the subject name and code in column direction both left aligned -->
+                        <div class="subject-details-title"></div>
+                        <div class="subject-details-code"></div>
+                    </div>
+                    <div id="back-to-list-btn" class="back-btn">BACK</div> <!-- tthis will be in most right of the container -->
+                </div>
+                <div id="grade-distribution" class="details-container"> <!--this enire contianer will be in bottom left of the container -->
+                    <div class="details-header"> <!-- for full width bottom border -->
+                        <div class="details-title"> GRADE DISTRIBUTION</div> <!-- for black background -->
+                    </div>
+                    <div class="details-body">
+                        <!-- here the grade percentage rows will be dynamically added -->
+                        <div class="grade-percentage-row">
+                            <div class="grade">A+</div>
+                            <div class="grade-progress-bar-container"> <!-- for dark part -->
+                                <div class="grade-highlighted-progress-bar"></div> <!-- for highlighted part -->
+                            </div>
+                            <div class="grade-percentage">90%</div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
+
 </main>
 
 <div id="tooltip" class="tooltip"></div>

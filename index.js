@@ -9,26 +9,132 @@ let GLOBAL_TOP_PERFORMERS = [];
 let selectedRow = null;
 let DIRECTORY_MAP = {};
 
-// filters
+// filters for the main page
 let selectedSchool = '';
 let selectedDepartment = '';
 let selectedProgram = '';
 let selectedBatch = '';
 let selectedSemester = '';
 
+// filters for the landing page
+let landingSelectedSchool = '';
+let landingSelectedDepartment = '';
+let landingSelectedProgram = '';
+let landingSelectedBatch = '';
+let landingSelectedSemester = '';
+
 // specialization filters
 let selectedProgramType = 'ALL';
 let selectedSpecialization = null;
 
+let landingViewContainer = null;
+let resultsViewContainer = null;
 let studentListContainer = null;
 let analyticsContainer = null;
 let subjectListContainer = null;
 let subjectDetailsContainer = null;
 
 
+
+function navigateTo(viewToShow) {
+    const homeBtn = document.getElementById('top-header-home-btn');
+    const resultBtn = document.getElementById('top-header-result-btn');
+
+    if(viewToShow.toUpperCase() === 'RESULT') {
+        landingViewContainer.classList.add('hidden');
+        resultsViewContainer.classList.remove('hidden');
+        homeBtn.classList.remove('active');
+        resultBtn.classList.add('active');
+    }
+    else {
+        landingViewContainer.classList.remove('hidden');
+        resultsViewContainer.classList.add('hidden');
+        homeBtn.classList.add('active');
+        resultBtn.classList.remove('active');
+    }
+}
+function resetLandingPageSelections() {
+    landingSelectedSchool = '';
+    landingSelectedDepartment = '';
+    landingSelectedProgram = '';
+    landingSelectedBatch = '';
+    landingSelectedSemester = '';
+
+    document.getElementById('landing-selected-department-text').textContent = 'Select Department';
+    document.getElementById('landing-selected-program-text').textContent = 'Select Program';
+    document.getElementById('landing-selected-batch-text').textContent = 'Select Batch';
+    document.getElementById('landing-selected-semester-text').textContent = 'Select Semester';
+
+    document.getElementById('landing-program-dropdown-menu').innerHTML = '';
+    document.getElementById('landing-batch-dropdown-menu').innerHTML = '';
+    document.getElementById('landing-semester-dropdown-menu').innerHTML = '';
+}
+function populateLandingSchoolDropdown() {
+    try {
+        const schoolMenu = document.getElementById('landing-department-dropdown-menu');
+        schoolMenu.innerHTML = '';
+        for (const school in DIRECTORY_MAP) {
+            const schoolItem = document.createElement('li');
+            schoolItem.className = 'general-dropdown-item school-item';
+            schoolItem.textContent = school.replace(/_/g, ' ');
+            schoolItem.dataset.school = school;
+            schoolMenu.appendChild(schoolItem);
+        }
+    } catch (e) {
+        console.error("Failed to populate landing page dropdown:", e);
+    }
+}
+function updateLandingProgramDropdown() {
+    const programMenu = document.getElementById('landing-program-dropdown-menu');
+    programMenu.innerHTML = '';
+    if (landingSelectedSchool && landingSelectedDepartment && DIRECTORY_MAP[landingSelectedSchool]?.[landingSelectedDepartment]) {
+        const programs = Object.keys(DIRECTORY_MAP[landingSelectedSchool][landingSelectedDepartment]);
+        programs.forEach(prog => {
+            const item = document.createElement('div');
+            item.className = 'general-dropdown-item';
+            item.textContent = prog.replace(/_/g, ' ');
+            item.dataset.value = prog;
+            programMenu.appendChild(item);
+        });
+    }
+}
+function updateLandingBatchDropdown() {
+    const batchMenu = document.getElementById('landing-batch-dropdown-menu');
+    batchMenu.innerHTML = '';
+    if (landingSelectedProgram && DIRECTORY_MAP[landingSelectedSchool]?.[landingSelectedDepartment]?.[landingSelectedProgram]) {
+        const batches = Object.keys(DIRECTORY_MAP[landingSelectedSchool][landingSelectedDepartment][landingSelectedProgram]);
+        batches.forEach(batch => {
+            const item = document.createElement('div');
+            item.className = 'general-dropdown-item';
+            item.textContent = batch;
+            item.dataset.value = batch;
+            batchMenu.appendChild(item);
+        });
+    }
+}
+function updateLandingSemesterDropdown() {
+    const semesterMenu = document.getElementById('landing-semester-dropdown-menu');
+    semesterMenu.innerHTML = '';
+    if (landingSelectedBatch && DIRECTORY_MAP[landingSelectedSchool]?.[landingSelectedDepartment]?.[landingSelectedProgram]?.[landingSelectedBatch]) {
+        const semesters = DIRECTORY_MAP[landingSelectedSchool][landingSelectedDepartment][landingSelectedProgram][landingSelectedBatch];
+        semesters.forEach(semFile => {
+            const item = document.createElement('div');
+            item.className = 'general-dropdown-item';
+            const semText = semFile.match(/\d+/)?.[0] || semFile.replace('.csv','').replace('_',' ');
+            item.textContent = `Semester ${semText}`;
+            item.dataset.value = semFile;
+            semesterMenu.appendChild(item);
+        });
+    }
+}
+
+
+
+
 window.startApp = function(jsonMap) {
     try {
         DIRECTORY_MAP = JSON.parse(jsonMap);
+        populateLandingSchoolDropdown();
         const schoolMenu = document.getElementById('department-dropdown-menu');
         schoolMenu.innerHTML = '';
 
@@ -87,6 +193,144 @@ document.addEventListener('DOMContentLoaded', () => {
     analyticsContainer = document.getElementById('analytics-container');
     subjectListContainer = document.getElementById('subject-list-container');
 
+    landingViewContainer = document.getElementById('landing-view-container');
+    resultsViewContainer = document.getElementById('results-view-container');
+    const projectTitleBtn = document.querySelector('.top-header-title');
+    const homeBtn = document.getElementById('top-header-home-btn');
+    const resultBtn = document.getElementById('top-header-result-btn');
+    const viewResultBtn = document.getElementById('landing-view-result-btn');
+
+    projectTitleBtn.addEventListener('click', () => {
+        navigateTo('home');
+        resetLandingPageSelections();
+    });
+    homeBtn.addEventListener('click', () => {
+        navigateTo('home');
+    });
+    resultBtn.addEventListener('click', () => {
+        navigateTo('result');
+    });
+
+    viewResultBtn.addEventListener('click', () => {
+        if (!landingSelectedSchool || !landingSelectedDepartment || !landingSelectedProgram || !landingSelectedBatch || !landingSelectedSemester) {
+            alert("Please make a selection for all fields.");
+            return;
+        }
+        // landing page to the main page
+        selectedSchool = landingSelectedSchool;
+        selectedDepartment = landingSelectedDepartment;
+        selectedProgram = landingSelectedProgram;
+        selectedBatch = landingSelectedBatch;
+        selectedSemester = landingSelectedSemester;
+
+        document.getElementById('selected-department-text').textContent = document.getElementById('landing-selected-department-text').textContent;
+        document.getElementById('selected-program-text').textContent = document.getElementById('landing-selected-program-text').textContent;
+        document.getElementById('selected-batch-text').textContent = document.getElementById('landing-selected-batch-text').textContent;
+        document.getElementById('selected-semester-text').textContent = document.getElementById('landing-selected-semester-text').textContent;
+
+        updateProgramDropdown(true);
+        updateBatchDropdown(true);
+        updateSemesterDropdown(true);
+
+        navigateTo('result');
+        loadSelectedData();
+    });
+
+    const landingSchoolMenu = document.getElementById('landing-department-dropdown-menu');
+    const landingDeptSubmenu = document.getElementById('landing-department-submenu');
+    const landingProgramMenu = document.getElementById('landing-program-dropdown-menu');
+    const landingBatchMenu = document.getElementById('landing-batch-dropdown-menu');
+    const landingSemesterMenu = document.getElementById('landing-semester-dropdown-menu');
+    const landingDeptToolContainer = document.getElementById('landing-department-tool-container');
+
+    landingDeptToolContainer.addEventListener('mouseleave', () => {
+        landingDeptSubmenu.style.display = "none";
+        document.querySelectorAll('#landing-department-dropdown-menu .school-item').forEach(item => {
+            item.classList.remove('active');
+        });
+    });
+
+    landingSchoolMenu.addEventListener('mouseover', (event) => {
+        const schoolItem = event.target.closest('.school-item');
+        if (!schoolItem) return;
+
+        if (schoolItem.classList.contains('active')) {
+            return;
+        }
+        document.querySelectorAll('#landing-department-dropdown-menu .school-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        schoolItem.classList.add('active');
+
+        const schoolName = schoolItem.dataset.school;
+        const departments = Object.keys(DIRECTORY_MAP[schoolName]);
+        landingDeptSubmenu.innerHTML = '';
+        departments.forEach(dept => {
+            const deptItem = document.createElement('div');
+            deptItem.className = 'general-dropdown-item department-item';
+            deptItem.textContent = dept.replace(/_/g, ' ');
+            deptItem.dataset.school = schoolName;
+            deptItem.dataset.department = dept;
+            landingDeptSubmenu.appendChild(deptItem);
+        });
+        const parentRect = landingSchoolMenu.getBoundingClientRect();
+        const itemRect = schoolItem.getBoundingClientRect();
+        const offsetTop = itemRect.top - parentRect.top;
+
+        landingDeptSubmenu.style.top = (landingSchoolMenu.offsetTop + offsetTop) + "px";
+        landingDeptSubmenu.style.left = landingSchoolMenu.offsetWidth + "px";
+
+        landingDeptSubmenu.style.display = "block";
+    });
+
+    landingDeptSubmenu.addEventListener('click', (event) => {
+        const deptItem = event.target.closest('.department-item');
+        if (!deptItem) return;
+        landingSelectedSchool = deptItem.dataset.school;
+        landingSelectedDepartment = deptItem.dataset.department;
+        document.getElementById('landing-selected-department-text').textContent = deptItem.textContent;
+
+        document.getElementById('landing-department-tool-container').classList.remove('open');
+        landingDeptSubmenu.style.display = "none";
+
+        landingSelectedProgram = '';
+        landingSelectedBatch = '';
+        landingSelectedSemester = '';
+        document.getElementById('landing-selected-program-text').textContent = 'Select Program';
+        document.getElementById('landing-selected-batch-text').textContent = 'Select Batch';
+        document.getElementById('landing-selected-semester-text').textContent = 'Select Semester';
+        updateLandingProgramDropdown();
+    });
+
+    landingProgramMenu.addEventListener('click', (event) => {
+        const progItem = event.target.closest('.general-dropdown-item');
+        if (!progItem) return;
+        landingSelectedProgram = progItem.dataset.value;
+        document.getElementById('landing-selected-program-text').textContent = progItem.textContent;
+        document.getElementById('landing-program-tool-container').classList.remove('open');
+        updateLandingBatchDropdown();
+    });
+
+    landingBatchMenu.addEventListener('click', (event) => {
+        const batchItem = event.target.closest('.general-dropdown-item');
+        if (!batchItem) return;
+        landingSelectedBatch = batchItem.dataset.value;
+        document.getElementById('landing-selected-batch-text').textContent = batchItem.textContent;
+        document.getElementById('landing-batch-tool-container').classList.remove('open');
+        updateLandingSemesterDropdown();
+    });
+
+    landingSemesterMenu.addEventListener('click', (event) => {
+        const semItem = event.target.closest('.general-dropdown-item');
+        if (!semItem) return;
+        landingSelectedSemester = semItem.dataset.value;
+        document.getElementById('landing-selected-semester-text').textContent = semItem.textContent;
+        document.getElementById('landing-semester-tool-container').classList.remove('open');
+    });
+
+
+
+
     // Dropdowns
     const allDropdowns = document.querySelectorAll('.custom-dropdown-container');
     allDropdowns.forEach(dropdown => {
@@ -102,12 +346,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const schoolItem = event.target.closest('.school-item');
         if (!schoolItem) return;
 
-        document.querySelectorAll('.school-item').forEach(item => item.classList.remove('active'));
+        if (schoolItem.classList.contains('active')) {
+            return;
+        }
+        document.querySelectorAll('#department-dropdown-menu .school-item').forEach(item => {
+            item.classList.remove('active');
+        });
         schoolItem.classList.add('active');
 
         const schoolName = schoolItem.dataset.school;
         const departments = Object.keys(DIRECTORY_MAP[schoolName]);
-
         deptSubmenu.innerHTML = '';
         departments.forEach(dept => {
             const deptItem = document.createElement('div');
@@ -120,12 +368,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const parentRect = schoolMenu.getBoundingClientRect();
         const itemRect = schoolItem.getBoundingClientRect();
-
         const offsetTop = itemRect.top - parentRect.top;
-
         deptSubmenu.style.top = (schoolMenu.offsetTop + offsetTop) + "px";
         deptSubmenu.style.left = schoolMenu.offsetWidth + "px";
-
         deptSubmenu.style.display = "block";
     });
     deptSubmenu.addEventListener('click', (event) => {
@@ -352,6 +597,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Logic for the horizontal dropdowns
         if (!e.target.closest('.custom-dropdown-container')) {
             allDropdowns.forEach(dropdown => dropdown.classList.remove('open'));
+            deptSubmenu.style.display = 'none';
+            landingDeptSubmenu.style.display = 'none';
         }
 
         // Logic for the vertical dropdown
@@ -482,13 +729,15 @@ function formatPercentage(num) {
     return roundedNum.toString() + '%';
 }
 
-function updateProgramDropdown() {
+function updateProgramDropdown(preserveSelection = false) {
     const programMenu = document.getElementById('program-dropdown-menu');
     programMenu.innerHTML = '';
-    document.getElementById('selected-program-text').textContent = 'Select Program';
-    document.getElementById('selected-batch-text').textContent = '-';
-    document.getElementById('selected-semester-text').textContent = '-';
-    clearDashboardForLoading("Please select a program.");
+    if (!preserveSelection) {
+        document.getElementById('selected-program-text').textContent = 'Select Program';
+        document.getElementById('selected-batch-text').textContent = 'Select Batch';
+        document.getElementById('selected-semester-text').textContent = 'Select Semester';
+        clearDashboardForLoading("Please select a program.");
+    }
 
     if (selectedSchool && selectedDepartment && DIRECTORY_MAP[selectedSchool]?.[selectedDepartment]) {
         const programs = Object.keys(DIRECTORY_MAP[selectedSchool][selectedDepartment]);
@@ -510,12 +759,14 @@ function updateProgramDropdown() {
     }
 }
 
-function updateBatchDropdown() {
+function updateBatchDropdown(preserveSelection = false) {
     const batchMenu = document.getElementById('batch-dropdown-menu');
     batchMenu.innerHTML = '';
-    document.getElementById('selected-batch-text').textContent = '-';
-    document.getElementById('selected-semester-text').textContent = '-';
-    clearDashboardForLoading("Please select a batch.");
+    if (!preserveSelection) {
+        document.getElementById('selected-batch-text').textContent = 'Select Batch';
+        document.getElementById('selected-semester-text').textContent = 'Select Semester';
+        clearDashboardForLoading("Please select a batch.");
+    }
 
     if (selectedProgram && DIRECTORY_MAP[selectedSchool]?.[selectedDepartment]?.[selectedProgram]) {
         const batches = Object.keys(DIRECTORY_MAP[selectedSchool][selectedDepartment][selectedProgram]);
@@ -537,11 +788,13 @@ function updateBatchDropdown() {
     }
 }
 
-function updateSemesterDropdown() {
+function updateSemesterDropdown(preserveSelection = false) {
     const semesterMenu = document.getElementById('semester-dropdown-menu');
     semesterMenu.innerHTML = '';
-    document.getElementById('selected-semester-text').textContent = '-';
-    clearDashboardForLoading("Please select a semester.");
+    if (!preserveSelection) {
+        document.getElementById('selected-semester-text').textContent = 'Select Semester';
+        clearDashboardForLoading("Please select a semester.");
+    }
 
     if (selectedBatch && DIRECTORY_MAP[selectedSchool]?.[selectedDepartment]?.[selectedProgram]?.[selectedBatch]) {
         const semesters = DIRECTORY_MAP[selectedSchool][selectedDepartment][selectedProgram][selectedBatch];
@@ -583,12 +836,17 @@ function loadSelectedData() {
 }
 
 function clearDashboardForLoading(message = "Loading student data...") {
-    document.getElementById("student-list-body").innerHTML = '<div class="loading">${message}</div>';
+    document.getElementById("student-list-body").innerHTML = `<div class="loading">${message}</div>`;
     document.getElementById("subject-header-container").innerHTML = '';
     document.getElementById("analytics-body").innerHTML = '';
     document.querySelector('.analytics-header').textContent = 'Overall Analysis';
     selectedRow = null;
     clearSearch(false);
+    ALL_STUDENTS = [];
+    ALL_SUBJECTS = [];
+    GLOBAL_ANALYTICS_DATA = {};
+    GLOBAL_SUBJECT_ANALYSIS = {};
+    GLOBAL_TOP_PERFORMERS = [];
 }
 
 window.showLoadingError = function(error) {
