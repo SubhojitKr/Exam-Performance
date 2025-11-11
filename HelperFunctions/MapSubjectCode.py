@@ -22,4 +22,4 @@ try:
         json.dump(subject_map_dict, json_file, indent=4)
 
 except Exception as e:
-    print(f"An error occurred: {e}")
+    print(e)

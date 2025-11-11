@@ -36,6 +36,33 @@ let subjectDetailsContainer = null;
 
 
 
+/*
+*  Initialization
+*/
+window.startApp = function(jsonMap) {
+    try {
+        console.log("Starting ...");
+        DIRECTORY_MAP = JSON.parse(jsonMap);
+        populateLandingSchoolDropdown();
+        const schoolMenu = document.getElementById('department-dropdown-menu');
+        schoolMenu.innerHTML = '';
+
+        for (const school in DIRECTORY_MAP) {
+            const schoolItem = document.createElement('li');
+            schoolItem.className = 'general-dropdown-item school-item';
+            schoolItem.textContent = school.replace(/_/g, ' ');
+            schoolItem.dataset.school = school;
+            schoolMenu.appendChild(schoolItem);
+        }
+    } catch (e) {
+        console.error("Failed to parse directory map:", e);
+        showLoadingError("Could not initialize selectors.");
+    }
+};
+
+
+
+
 function navigateTo(viewToShow) {
     const homeBtn = document.getElementById('top-header-home-btn');
     const resultBtn = document.getElementById('top-header-result-btn');
@@ -129,27 +156,6 @@ function updateLandingSemesterDropdown() {
 }
 
 
-
-
-window.startApp = function(jsonMap) {
-    try {
-        DIRECTORY_MAP = JSON.parse(jsonMap);
-        populateLandingSchoolDropdown();
-        const schoolMenu = document.getElementById('department-dropdown-menu');
-        schoolMenu.innerHTML = '';
-
-        for (const school in DIRECTORY_MAP) {
-            const schoolItem = document.createElement('li');
-            schoolItem.className = 'general-dropdown-item school-item';
-            schoolItem.textContent = school.replace(/_/g, ' ');
-            schoolItem.dataset.school = school;
-            schoolMenu.appendChild(schoolItem);
-        }
-    } catch (e) {
-        console.error("Failed to parse directory map:", e);
-        showLoadingError("Could not initialize selectors.");
-    }
-};
 
 function applyAllFilters() {
     let filteredStudents = [...ALL_STUDENTS];

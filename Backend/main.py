@@ -1,18 +1,22 @@
-import pandas as pd
+import pandas as pd # data processing
 import numpy as np
-import json
-from js import console
-from pyscript import window
-from pyodide.http  import pyfetch
+import json # for reading JSON files
+from js import console # provides access to the browser's JS console
+from pyscript import window # provides access to the browser's global window object, used it to call functions defined in JS
 
 SUBJECT_CODE_MAP = {}
 
+
+""" 
+HELPER FUNCTIONS
+"""
 def get_analytics_data(df, subject_columns):
     failing_grades = ['F', 'FF']
     total_students = len(df)
 
     fail_counts_per_student = df[subject_columns].isin(failing_grades).sum(axis=1)
 
+    # Categorizing Students
     passed_students = int((fail_counts_per_student == 0).sum())
     promoted_students = int(((fail_counts_per_student >= 1) & (fail_counts_per_student <= 5)).sum())
     failed_students = int((fail_counts_per_student > 5).sum())
@@ -26,12 +30,6 @@ def get_analytics_data(df, subject_columns):
         promoted_percentage = 0
         fail_percentage = 0
 
-    print("promoted_students:", promoted_students)
-    print("total_students:", total_students)
-    print("promoted raw pct:", promoted_students / total_students * 100)
-    print("promoted rounded 2dp:", round(promoted_students / total_students * 100, 2))
-    print("promoted rounded 1dp:", f"{promoted_students / total_students * 100:.1f}")
-
     return {
         "total_students": total_students,
         "passed_students": passed_students,
@@ -41,18 +39,19 @@ def get_analytics_data(df, subject_columns):
         "promoted_percentage": promoted_percentage,
         "fail_percentage": fail_percentage
     }
-
-def get_top_students_data(df):
+def get_top_students_sgpa_data(df):
     df['SGPA'] = pd.to_numeric(df['SGPA'], errors='coerce')
     top_3_df = df.nlargest(3, 'SGPA')[['Name', 'SGPA']]
     return top_3_df.to_dict('records')
-
+def get_top_students_cgpa_data(df):
+    df['CGPA'] = pd.to_numeric(df['CGPA'], errors='coerce')
+    top_3_df = df.nlargest(3, 'CGPA')[['Name', 'CGPA']]
+    return top_3_df.to_dict('records')
 def calculate_subject_analysis(df, subject_columns, code_to_name_map):
     failing_grades = ['F', 'FF']
     subject_analysis_results = {}
 
     for subject in subject_columns:
-
         subject_info = code_to_name_map.get(subject, {})
         subject_name = subject_info.get('name', subject)
 
@@ -79,19 +78,17 @@ def calculate_subject_analysis(df, subject_columns, code_to_name_map):
             'pass_count': pass_count,
             'fail_count': fail_count
         }
-
     return subject_analysis_results
-
-
-
 def load_semester_data(filepath):
     try:
         df = pd.read_csv(filepath).replace(np.nan, None)
+
+        # excluding columns that are not subject
         subject_columns = [c for c in df.columns if c not in ['Name', 'Enrollment', 'SGPA', 'CGPA', 'Result', 'Gender', 'Performance', 'Program_Type']]
 
-        df.fillna('-', inplace=True)
+        df.fillna('?', inplace=True)
         analytics_data = get_analytics_data(df, subject_columns)
-        top_students_list = get_top_students_data(df)
+        top_students_list = get_top_students_sgpa_data(df)
         subject_wise_analysis = calculate_subject_analysis(df, subject_columns, SUBJECT_CODE_MAP)
 
         all_students_list = df.replace({np.nan: None}).to_dict('records')
@@ -108,7 +105,6 @@ def load_semester_data(filepath):
     except Exception as e:
         console.error(f"Python Error loading {filepath}: {str(e)}")
         window.showLoadingError(str(e))
-
 def main():
     global SUBJECT_CODE_MAP
     try:
@@ -119,11 +115,14 @@ def main():
         with open("subjects_code_map.json", "r") as f:
             SUBJECT_CODE_MAP = json.load(f)
 
-
     except Exception as e:
         console.error(f"Python Error during initialization: {str(e)}")
         window.showLoadingError("Could not load the directory map file.")
 
 
+
+""" 
+MAIN
+"""
 window.pyLoadSemester = load_semester_data
 main()
