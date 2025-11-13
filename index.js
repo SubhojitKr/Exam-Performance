@@ -1,23 +1,26 @@
 
-/* Global Variables */
+/*  */
+let DIRECTORY_MAP = {};
+let GLOBAL_SUBJECT_CODE_MAP = {};
+
 let ALL_STUDENTS = [];
+let ALL_STUDENTS_FOR_SUBJECT_DETAIL = [];
 let ALL_SUBJECTS = [];
+
 let GLOBAL_ANALYTICS_DATA = {};
 let GLOBAL_SUBJECT_ANALYSIS = {};
-let GLOBAL_SUBJECT_CODE_MAP = {};
 let GLOBAL_TOP_PERFORMERS_SGPA = [];
 let GLOBAL_TOP_PERFORMERS_CGPA = [];
 let selectedRow = null;
-let DIRECTORY_MAP = {};
 
-// filters for the main page
+// Result view filters
 let selectedSchool = '';
 let selectedDepartment = '';
 let selectedProgram = '';
 let selectedBatch = '';
 let selectedSemester = '';
 
-// filters for the landing page
+// Landing page filters
 let landingSelectedSchool = '';
 let landingSelectedDepartment = '';
 let landingSelectedProgram = '';
@@ -28,6 +31,7 @@ let landingSelectedSemester = '';
 let selectedProgramType = 'ALL';
 let selectedSpecialization = null;
 
+// UI Containers
 let landingViewContainer = null;
 let resultsViewContainer = null;
 let studentListContainer = null;
@@ -36,153 +40,6 @@ let subjectListContainer = null;
 let subjectDetailsContainer = null;
 
 
-
-/*
-*  Initialization
-*/
-window.startApp = function(jsonMap) {
-    try {
-        console.log("Starting ...");
-        DIRECTORY_MAP = JSON.parse(jsonMap);
-        populateLandingSchoolDropdown();
-        const schoolMenu = document.getElementById('department-dropdown-menu');
-        schoolMenu.innerHTML = '';
-
-        for (const school in DIRECTORY_MAP) {
-            const schoolItem = document.createElement('li');
-            schoolItem.className = 'general-dropdown-item school-item';
-            schoolItem.textContent = school.replace(/_/g, ' ');
-            schoolItem.dataset.school = school;
-            schoolMenu.appendChild(schoolItem);
-        }
-    } catch (e) {
-        console.error("Failed to parse directory map:", e);
-        showLoadingError("Could not initialize selectors.");
-    }
-};
-
-
-
-
-function navigateTo(viewToShow) {
-    const homeBtn = document.getElementById('top-header-home-btn');
-    const resultBtn = document.getElementById('top-header-result-btn');
-
-    if(viewToShow.toUpperCase() === 'RESULT') {
-        landingViewContainer.classList.add('hidden');
-        resultsViewContainer.classList.remove('hidden');
-        homeBtn.classList.remove('active');
-        resultBtn.classList.add('active');
-    }
-    else {
-        landingViewContainer.classList.remove('hidden');
-        resultsViewContainer.classList.add('hidden');
-        homeBtn.classList.add('active');
-        resultBtn.classList.remove('active');
-    }
-}
-function resetLandingPageSelections() {
-    landingSelectedSchool = '';
-    landingSelectedDepartment = '';
-    landingSelectedProgram = '';
-    landingSelectedBatch = '';
-    landingSelectedSemester = '';
-
-    document.getElementById('landing-selected-department-text').textContent = 'Select Department';
-    document.getElementById('landing-selected-program-text').textContent = 'Select Program';
-    document.getElementById('landing-selected-batch-text').textContent = 'Select Batch';
-    document.getElementById('landing-selected-semester-text').textContent = 'Select Semester';
-
-    document.getElementById('landing-program-dropdown-menu').innerHTML = '';
-    document.getElementById('landing-batch-dropdown-menu').innerHTML = '';
-    document.getElementById('landing-semester-dropdown-menu').innerHTML = '';
-}
-function populateLandingSchoolDropdown() {
-    try {
-        const schoolMenu = document.getElementById('landing-department-dropdown-menu');
-        schoolMenu.innerHTML = '';
-        for (const school in DIRECTORY_MAP) {
-            const schoolItem = document.createElement('li');
-            schoolItem.className = 'general-dropdown-item school-item';
-            schoolItem.textContent = school.replace(/_/g, ' ');
-            schoolItem.dataset.school = school;
-            schoolMenu.appendChild(schoolItem);
-        }
-    } catch (e) {
-        console.error("Failed to populate landing page dropdown:", e);
-    }
-}
-function updateLandingProgramDropdown() {
-    const programMenu = document.getElementById('landing-program-dropdown-menu');
-    programMenu.innerHTML = '';
-    if (landingSelectedSchool && landingSelectedDepartment && DIRECTORY_MAP[landingSelectedSchool]?.[landingSelectedDepartment]) {
-        const programs = Object.keys(DIRECTORY_MAP[landingSelectedSchool][landingSelectedDepartment]);
-        programs.forEach(prog => {
-            const item = document.createElement('div');
-            item.className = 'general-dropdown-item';
-            item.textContent = prog.replace(/_/g, ' ');
-            item.dataset.value = prog;
-            programMenu.appendChild(item);
-        });
-    }
-}
-function updateLandingBatchDropdown() {
-    const batchMenu = document.getElementById('landing-batch-dropdown-menu');
-    batchMenu.innerHTML = '';
-    if (landingSelectedProgram && DIRECTORY_MAP[landingSelectedSchool]?.[landingSelectedDepartment]?.[landingSelectedProgram]) {
-        const batches = Object.keys(DIRECTORY_MAP[landingSelectedSchool][landingSelectedDepartment][landingSelectedProgram]);
-        batches.forEach(batch => {
-            const item = document.createElement('div');
-            item.className = 'general-dropdown-item';
-            item.textContent = batch;
-            item.dataset.value = batch;
-            batchMenu.appendChild(item);
-        });
-    }
-}
-function updateLandingSemesterDropdown() {
-    const semesterMenu = document.getElementById('landing-semester-dropdown-menu');
-    semesterMenu.innerHTML = '';
-    if (landingSelectedBatch && DIRECTORY_MAP[landingSelectedSchool]?.[landingSelectedDepartment]?.[landingSelectedProgram]?.[landingSelectedBatch]) {
-        const semesters = DIRECTORY_MAP[landingSelectedSchool][landingSelectedDepartment][landingSelectedProgram][landingSelectedBatch];
-        semesters.forEach(semFile => {
-            const item = document.createElement('div');
-            item.className = 'general-dropdown-item';
-            const semText = semFile.match(/\d+/)?.[0] || semFile.replace('.csv','').replace('_',' ');
-            item.textContent = `Semester ${semText}`;
-            item.dataset.value = semFile;
-            semesterMenu.appendChild(item);
-        });
-    }
-}
-
-
-
-function applyAllFilters() {
-    let filteredStudents = [...ALL_STUDENTS];
-    let isGroupedView = false;
-
-    if (selectedProgramType === 'REGULAR') {
-        filteredStudents = filteredStudents.filter(student => student.Program_Type === 'Regular');
-    } else if (selectedProgramType === 'SPECIALIZATION') {
-        const allSpecializations = ['DS-AI', 'AIML', 'IOT'];
-        if (selectedSpecialization) {
-            filteredStudents = filteredStudents.filter(student => student.Program_Type === selectedSpecialization);
-        } else {
-            filteredStudents = filteredStudents.filter(student => allSpecializations.includes(student.Program_Type));
-            isGroupedView = true;
-        }
-    }
-
-    const query = document.getElementById('search-bar').value.trim().toLowerCase();
-    if (query) {
-        filteredStudents = filteredStudents.filter(student => {
-            return student.Name.toLowerCase().includes(query) || student.Enrollment.toLowerCase().includes(query);
-        });
-        isGroupedView = false;
-    }
-    renderStudentRows(filteredStudents, isGroupedView);
-}
 
 document.addEventListener('DOMContentLoaded', () => {
     const schoolMenu = document.getElementById('department-dropdown-menu');
@@ -620,151 +477,128 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-function switchView(view) {
-    if (view === 'RESULT') {
-        studentListContainer.classList.remove('hidden');
-        analyticsContainer.classList.remove('hidden');
-        subjectListContainer.classList.add('hidden');
-        subjectDetailsContainer.classList.add('hidden')
-    } else if (view === 'SUBJECTS') {
-        studentListContainer.classList.add('hidden');
-        analyticsContainer.classList.add('hidden');
-        subjectListContainer.classList.remove('hidden');
-        subjectDetailsContainer.classList.add('hidden');
 
-        if (GLOBAL_SUBJECT_ANALYSIS) {
-            renderSubjectRows(GLOBAL_SUBJECT_ANALYSIS);
-        } else {
-            document.getElementById('subject-list-body').innerHTML = '<div class="loading">No subject data available. Load a semester first.</div>';
+/**
+ * PYTHON CALLS
+ */
+window.startApp = function(jsonMap) {
+    try {
+        console.log("Starting ...");
+        DIRECTORY_MAP = JSON.parse(jsonMap);
+        populateLandingSchoolDropdown();
+        const schoolMenu = document.getElementById('department-dropdown-menu');
+        schoolMenu.innerHTML = '';
+
+        for (const school in DIRECTORY_MAP) {
+            const schoolItem = document.createElement('li');
+            schoolItem.className = 'general-dropdown-item school-item';
+            schoolItem.textContent = school.replace(/_/g, ' ');
+            schoolItem.dataset.school = school;
+            schoolMenu.appendChild(schoolItem);
         }
+    } catch (e) {
+        console.error("Failed to parse directory map:", e);
+        showLoadingError("Could not initialize selectors.");
     }
+};
+window.buildDashboard = function (jsonData) {
+    try {
+        const data = JSON.parse(jsonData);
+        ALL_STUDENTS = data.students;
+        ALL_SUBJECTS = data.subjects;
+
+        GLOBAL_ANALYTICS_DATA = data.analytics;
+        GLOBAL_SUBJECT_ANALYSIS = data.subject_wise_analysis;
+        GLOBAL_SUBJECT_CODE_MAP = data.subject_map;
+        GLOBAL_TOP_PERFORMERS_SGPA = data.top_performers_sgpa;
+        GLOBAL_TOP_PERFORMERS_CGPA = data.top_performers_cgpa;
+
+        createHeaders(ALL_SUBJECTS);
+        applyAllFilters();
+        buildOverallAnalysis();
+
+        const studentListBody = document.getElementById('student-list-body');
+        studentListBody.classList.remove('animate-slide-up-body');
+        requestAnimationFrame(() => {
+            studentListBody.classList.add('animate-slide-up-body');
+        });
+    }
+    catch (error) {
+        console.error("JavaScript Error building dashboard:", error);
+        document.getElementById("student-list-body").innerHTML = `<div class="loading">Error building dashboard.</div>`;
+    }
+};
+window.showLoadingError = function(error) {
+    document.getElementById("student-list-body").innerHTML = `<div class="loading">Error: ${error}</div>`;
 }
 
-function renderSubjectRows(subjectData) {
-    const body = document.getElementById("subject-list-body");
-    if (!subjectData || Object.keys(subjectData).length === 0) {
-        body.innerHTML = '<div class="loading">No subject data found.</div>';
-        return;
-    }
-    const allRowsHtml = Object.values(subjectData).map(stats => {
-        return `
-        <div class="subject-data-row" data-subject-code="${stats.code}">
-            <div class="subject-name-container">
-                <div class="subject-name">${stats.name.replace(/_/g, ' ')}</div>
-                <div class="subject-code">${stats.code}</div>
-            </div>
-            <div class="subject-appeared">${stats.appeared}</div>
-            <div class="subject-rate-container">
-                <div id="subject-pass-rate" class="subject-rate-percentage">${formatPercentage(stats.pass_percentage)}</div>
-                <div class="subject-rate-count">${stats.pass_count}</div>
-            </div>
-            <div class="subject-rate-container">
-                <div id="subject-fail-rate" class="subject-rate-percentage">${formatPercentage(stats.fail_percentage)}</div>
-                <div class="subject-rate-count">${stats.fail_count}</div>
-            </div>
-        </div>
-        `;
-    }).join('');
-    body.innerHTML = allRowsHtml;
-}
 
-function handleSubjectRowClick(event) {
-    const row = event.target.closest('.subject-data-row');
-    if (!row) return;
-    const subjectCode = row.dataset.subjectCode;
-    const selectedSubject = GLOBAL_SUBJECT_ANALYSIS[subjectCode];
-    if (selectedSubject) {
-        displaySubjectDetails(selectedSubject);
-    }
-}
-
-function displaySubjectDetails(selectedSubject) {
-    subjectListContainer.classList.add('hidden');
-    subjectDetailsContainer.classList.remove('hidden');
-
-    // Subject Name and Code
-    const nameContainer = document.querySelector('.subject-details-name-container');
-    if (nameContainer) {
-        const titleEl = nameContainer.querySelector('.subject-details-title');
-        const codeEl = nameContainer.querySelector('.subject-details-code');
-        if (titleEl) titleEl.textContent = selectedSubject.name.replace(/_/g, ' ');
-        if (codeEl) codeEl.textContent = selectedSubject.code;
-    }
-
-    // Subject Summary
-    const summaryContainer = document.getElementById('subject-details-summary');
-    if (summaryContainer) {
-        summaryContainer.innerHTML = `
-        <div class="subject-details-summary-row">
-             <span class="subject-details-summary-label">Appeared</span>
-             <div class="subject-details-summary-value-container">
-                <span class="subject-details-summary-value">${selectedSubject.appeared}</span>
-             </div> 
-        </div>
-        <div class="subject-details-summary-row">
-             <span class="subject-details-summary-label">Pass</span>
-             <div class="subject-details-summary-value-container">
-                <span id="subject-details-summary-value-percentage" class="subject-details-summary-value-percentage">${formatPercentage(selectedSubject.pass_percentage)}</span>
-                <span id="subject-details-summary-value-number" class="subject-details-summary-value-number">${selectedSubject.pass_count}</span>
-             </div>
-        </div>
-        <div class="subject-details-summary-row">
-             <span class="subject-details-summary-label">Fail</span>
-             <div class="subject-details-summary-value-container">
-                <span id="subject-details-summary-value-percentage" class="subject-details-summary-value-percentage">${formatPercentage(selectedSubject.fail_percentage)}</span>
-                <span id="subject-details-summary-value-number" class="subject-details-summary-value-number">${selectedSubject.fail_count}</span>
-             </div>
-        </div>
-        `;
-    }
-
-    // Subject Grade Distribution
-    const gradeCounts = {};
-    let totalStudentsWithGrade = 0;
-    ALL_STUDENTS.forEach(student => {
-        const grade = student[selectedSubject.code];
-        if (grade && (grade !== '-') && (grade !== 'RA')) {
-            gradeCounts[grade] = (gradeCounts[grade] || 0) + 1;
-            totalStudentsWithGrade++;
+/**
+ * LANDING PAGE
+ */
+function populateLandingSchoolDropdown() {
+    try {
+        const schoolMenu = document.getElementById('landing-department-dropdown-menu');
+        schoolMenu.innerHTML = '';
+        for (const school in DIRECTORY_MAP) {
+            const schoolItem = document.createElement('li');
+            schoolItem.className = 'general-dropdown-item school-item';
+            schoolItem.textContent = school.replace(/_/g, ' ');
+            schoolItem.dataset.school = school;
+            schoolMenu.appendChild(schoolItem);
         }
-    });
-
-    const uniqueGrades = Object.keys(gradeCounts);
-    const gradeRankMap = {
-        'O': 1, 'A+': 2, 'A': 3, 'B+': 4, 'B': 5, 'C+': 6, 'C': 7,
-        'D': 8, 'P': 9, 'E': 10, 'F': 11, 'FF': 12
-    };
-    uniqueGrades.sort((a, b) => {
-        const rankA = gradeRankMap[a] || 99;
-        const rankB = gradeRankMap[b] || 99;
-        return rankA - rankB;
-    });
-
-    const gradeDistributionHtml = uniqueGrades.map(grade => {
-        const count = gradeCounts[grade];
-        const percentage = (count / totalStudentsWithGrade) * 100;
-        return `
-        <div class="grade-percentage-row">
-            <div class="grade">${grade}</div>
-            <div class="grade-progress-bar-container">
-                <div class="grade-highlighted-progress-bar" style="width: ${formatPercentage(percentage)};"></div>
-            </div>
-            <div class="grade-percentage">${formatPercentage(percentage)}</div>
-        </div>
-        `;
-    }).join('');
-
-    const gradeBody = document.querySelector('#grade-distribution .details-body');
-    if (gradeBody) {
-        gradeBody.innerHTML = gradeDistributionHtml.length > 0 ? gradeDistributionHtml : '<p>No grade data to display.</p>';
+    } catch (e) {
+        console.error("Failed to populate landing page dropdown:", e);
+    }
+}
+function updateLandingProgramDropdown() {
+    const programMenu = document.getElementById('landing-program-dropdown-menu');
+    programMenu.innerHTML = '';
+    if (landingSelectedSchool && landingSelectedDepartment && DIRECTORY_MAP[landingSelectedSchool]?.[landingSelectedDepartment]) {
+        const programs = Object.keys(DIRECTORY_MAP[landingSelectedSchool][landingSelectedDepartment]);
+        programs.forEach(prog => {
+            const item = document.createElement('div');
+            item.className = 'general-dropdown-item';
+            item.textContent = prog.replace(/_/g, ' ');
+            item.dataset.value = prog;
+            programMenu.appendChild(item);
+        });
+    }
+}
+function updateLandingBatchDropdown() {
+    const batchMenu = document.getElementById('landing-batch-dropdown-menu');
+    batchMenu.innerHTML = '';
+    if (landingSelectedProgram && DIRECTORY_MAP[landingSelectedSchool]?.[landingSelectedDepartment]?.[landingSelectedProgram]) {
+        const batches = Object.keys(DIRECTORY_MAP[landingSelectedSchool][landingSelectedDepartment][landingSelectedProgram]);
+        batches.forEach(batch => {
+            const item = document.createElement('div');
+            item.className = 'general-dropdown-item';
+            item.textContent = batch;
+            item.dataset.value = batch;
+            batchMenu.appendChild(item);
+        });
+    }
+}
+function updateLandingSemesterDropdown() {
+    const semesterMenu = document.getElementById('landing-semester-dropdown-menu');
+    semesterMenu.innerHTML = '';
+    if (landingSelectedBatch && DIRECTORY_MAP[landingSelectedSchool]?.[landingSelectedDepartment]?.[landingSelectedProgram]?.[landingSelectedBatch]) {
+        const semesters = DIRECTORY_MAP[landingSelectedSchool][landingSelectedDepartment][landingSelectedProgram][landingSelectedBatch];
+        semesters.forEach(semFile => {
+            const item = document.createElement('div');
+            item.className = 'general-dropdown-item';
+            const semText = semFile.match(/\d+/)?.[0] || semFile.replace('.csv','').replace('_',' ');
+            item.textContent = `Semester ${semText}`;
+            item.dataset.value = semFile;
+            semesterMenu.appendChild(item);
+        });
     }
 }
 
-function formatPercentage(num) {
-    const roundedNum = Math.round(num * 100) / 100;
-    return roundedNum.toString() + '%';
-}
 
+/**
+ * FILTERING
+ */
 function updateProgramDropdown(preserveSelection = false) {
     const programMenu = document.getElementById('program-dropdown-menu');
     programMenu.innerHTML = '';
@@ -794,7 +628,6 @@ function updateProgramDropdown(preserveSelection = false) {
         }
     }
 }
-
 function updateBatchDropdown(preserveSelection = false) {
     const batchMenu = document.getElementById('batch-dropdown-menu');
     batchMenu.innerHTML = '';
@@ -823,7 +656,6 @@ function updateBatchDropdown(preserveSelection = false) {
         }
     }
 }
-
 function updateSemesterDropdown(preserveSelection = false) {
     const semesterMenu = document.getElementById('semester-dropdown-menu');
     semesterMenu.innerHTML = '';
@@ -852,7 +684,6 @@ function updateSemesterDropdown(preserveSelection = false) {
         }
     }
 }
-
 function loadSelectedData() {
     if (!selectedSchool || !selectedDepartment || !selectedProgram || !selectedBatch || !selectedSemester) {
         showLoadingError("Please complete all selections.");
@@ -871,56 +702,20 @@ function loadSelectedData() {
     }
 }
 
-function clearDashboardForLoading(message = "Loading student data...") {
-    document.getElementById("student-list-body").innerHTML = `<div class="loading">${message}</div>`;
-    document.getElementById("subject-header-container").innerHTML = '';
-    document.getElementById("analytics-body").innerHTML = '';
-    document.querySelector('.analytics-header').textContent = 'Overall Analysis';
-    selectedRow = null;
-    clearSearch(false);
-    ALL_STUDENTS = [];
-    ALL_SUBJECTS = [];
-    GLOBAL_ANALYTICS_DATA = {};
-    GLOBAL_SUBJECT_ANALYSIS = {};
-    GLOBAL_TOP_PERFORMERS_SGPA = [];
-    GLOBAL_TOP_PERFORMERS_CGPA = [];
+
+/**
+ * RESULT SCREEN
+ */
+function createHeaders(subjects) {
+    const container = document.getElementById("subject-header-container");
+    container.style.setProperty('--num-subjects', subjects.length);
+    const html = subjects.map(subjectCode => {
+        const subjectInfo = GLOBAL_SUBJECT_CODE_MAP[subjectCode] || {};
+        const headerText = subjectInfo.short || subjectCode;
+        return `<div class="subject-header">${headerText}</div>`
+    }).join('');
+    container.innerHTML = html;
 }
-
-window.showLoadingError = function(error) {
-    document.getElementById("student-list-body").innerHTML = `<div class="loading">Error: ${error}</div>`;
-}
-
-function clearSearch(applyFilters = true) {
-    document.getElementById('search-bar').value = '';
-    document.getElementById('search-clear-btn').style.display = 'none';
-    if (applyFilters) {
-        applyAllFilters();
-    }
-}
-
-function getStudentRowHtml(student) {
-    const subjectsHtml = ALL_SUBJECTS.map(subjectKey => `<div class="subject-data">${student[subjectKey] || '-'}</div>`).join('');
-    const sgpa = (student.SGPA !== null && student.SGPA !== undefined) ? Number(student.SGPA).toFixed(2) : 'N/A';
-    const cgpa = (student.CGPA !== null && student.CGPA !== undefined) ? Number(student.CGPA).toFixed(2) : 'N/A';
-
-    return `
-    <div class="student-data-row" data-enrollment="${student.Enrollment}">
-        <div class="unskew-wrapper">
-            <div class="studentinfo-data-container">
-                <div class="name-data">${student.Name}</div>
-                <div class="enrollment-data">${student.Enrollment}</div>
-            </div>
-            <div class="subject-data-container" style="--num-subjects: ${ALL_SUBJECTS.length};">
-                ${subjectsHtml}
-            </div>
-            <div class="grades-data-container">
-                <div class="sgpa-data">${sgpa}</div>
-                <div class="cgpa-data">${cgpa}</div>
-            </div>
-        </div>
-    </div>`;
-}
-
 function renderStudentRows(arrayToRender, isGrouped = false) {
     const body = document.getElementById("student-list-body");
     if (!arrayToRender || arrayToRender.length === 0) {
@@ -951,7 +746,56 @@ function renderStudentRows(arrayToRender, isGrouped = false) {
     }
     body.innerHTML = allRowsHtml;
 }
+function getStudentRowHtml(student) {
+    const subjectsHtml = ALL_SUBJECTS.map(subjectKey => `<div class="subject-data">${student[subjectKey] || '-'}</div>`).join('');
+    const sgpa = (student.SGPA !== null && student.SGPA !== undefined) ? Number(student.SGPA).toFixed(2) : 'N/A';
+    const cgpa = (student.CGPA !== null && student.CGPA !== undefined) ? Number(student.CGPA).toFixed(2) : 'N/A';
 
+    return `
+    <div class="student-data-row" data-enrollment="${student.Enrollment}">
+        <div class="unskew-wrapper">
+            <div class="studentinfo-data-container">
+                <div class="name-data">${student.Name}</div>
+                <div class="enrollment-data">${student.Enrollment}</div>
+            </div>
+            <div class="subject-data-container" style="--num-subjects: ${ALL_SUBJECTS.length};">
+                ${subjectsHtml}
+            </div>
+            <div class="grades-data-container">
+                <div class="sgpa-data">${sgpa}</div>
+                <div class="cgpa-data">${cgpa}</div>
+            </div>
+        </div>
+    </div>`;
+}
+function buildOverallAnalysis() {
+    document.querySelector('.analytics-header').textContent = 'OVERALL ANALYSIS';
+
+    const analyticsBody = document.getElementById('analytics-body');
+    analyticsBody.innerHTML = `
+        <div id="pass-fail-container" class="pass-fail-container"></div>
+        <div id="top-students-sgpa-container" class="top-students-container"></div>
+        <div id="top-students-cgpa-container" class="top-students-container"></div>
+    `;
+
+    createPassFailCards(GLOBAL_ANALYTICS_DATA);
+    createTopStudentsList(GLOBAL_TOP_PERFORMERS_SGPA, GLOBAL_TOP_PERFORMERS_CGPA);
+
+    animateCountUp('percent-pass', GLOBAL_ANALYTICS_DATA.pass_percentage);
+    animateCountUp('percent-promoted', GLOBAL_ANALYTICS_DATA.promoted_percentage);
+    animateCountUp('percent-fail', GLOBAL_ANALYTICS_DATA.fail_percentage);
+
+    const topPerformerSgpaContainer = document.getElementById('top-students-sgpa-container');
+    const topPerformerCgpaContainer = document.getElementById('top-students-cgpa-container');
+
+    topPerformerSgpaContainer.classList.remove('start-top-performer-animation');
+    topPerformerCgpaContainer.classList.remove('start-top-performer-animation');
+
+    requestAnimationFrame(() => {
+        topPerformerSgpaContainer.classList.add('start-top-performer-animation');
+        topPerformerCgpaContainer.classList.add('start-top-performer-animation');
+    });
+}
 function buildStudentAnalysis(student) {
     const firstName = student.Name.split(' ')[0];
     document.querySelector('.analytics-header').textContent = `${firstName}'s Performance Analysis`;
@@ -1009,112 +853,6 @@ function buildStudentAnalysis(student) {
         </div>
     `;
 }
-
-function buildOverallAnalysis() {
-    document.querySelector('.analytics-header').textContent = 'OVERALL ANALYSIS';
-
-    const analyticsBody = document.getElementById('analytics-body');
-    analyticsBody.innerHTML = `
-        <div id="pass-fail-container" class="pass-fail-container"></div>
-        <div id="top-students-sgpa-container" class="top-students-container"></div>
-        <div id="top-students-cgpa-container" class="top-students-container"></div>
-    `;
-
-    createPassFailCards(GLOBAL_ANALYTICS_DATA);
-    createTopStudentsList(GLOBAL_TOP_PERFORMERS_SGPA, GLOBAL_TOP_PERFORMERS_CGPA);
-
-    animateCountUp('percent-pass', GLOBAL_ANALYTICS_DATA.pass_percentage);
-    animateCountUp('percent-promoted', GLOBAL_ANALYTICS_DATA.promoted_percentage);
-    animateCountUp('percent-fail', GLOBAL_ANALYTICS_DATA.fail_percentage);
-
-    const topPerformerSgpaContainer = document.getElementById('top-students-sgpa-container');
-    const topPerformerCgpaContainer = document.getElementById('top-students-cgpa-container');
-
-    topPerformerSgpaContainer.classList.remove('start-top-performer-animation');
-    topPerformerCgpaContainer.classList.remove('start-top-performer-animation');
-
-    requestAnimationFrame(() => {
-        topPerformerSgpaContainer.classList.add('start-top-performer-animation');
-        topPerformerCgpaContainer.classList.add('start-top-performer-animation');
-    });
-}
-
-window.buildDashboard = function (jsonData) {
-    try {
-        const data = JSON.parse(jsonData);
-        ALL_STUDENTS = data.students;
-        ALL_SUBJECTS = data.subjects;
-
-        GLOBAL_ANALYTICS_DATA = data.analytics;
-        GLOBAL_SUBJECT_ANALYSIS = data.subject_wise_analysis;
-        GLOBAL_SUBJECT_CODE_MAP = data.subject_map;
-        GLOBAL_TOP_PERFORMERS_SGPA = data.top_performers_sgpa;
-        GLOBAL_TOP_PERFORMERS_CGPA = data.top_performers_cgpa;
-
-        createHeaders(ALL_SUBJECTS);
-        applyAllFilters();
-        buildOverallAnalysis();
-
-        const studentListBody = document.getElementById('student-list-body');
-        studentListBody.classList.remove('animate-slide-up-body');
-        requestAnimationFrame(() => {
-            studentListBody.classList.add('animate-slide-up-body');
-        });
-    }
-    catch (error) {
-        console.error("JavaScript Error building dashboard:", error);
-        document.getElementById("student-list-body").innerHTML = `<div class="loading">Error building dashboard.</div>`;
-    }
-};
-
-function animateCountUp(targetId, finalValue, duration = 1500) {
-    const element = document.getElementById(targetId);
-    if (!element) return;
-
-    let startTime = null;
-
-    function animationLoop(currentTime) {
-        if (startTime === null) {
-            startTime = currentTime;
-        }
-        const elapsedTime = currentTime - startTime;
-
-        if (elapsedTime >= duration) {
-            element.textContent = finalValue.toFixed(1) + "%";
-            return;
-        }
-
-        const progress = elapsedTime / duration;
-        const easeOutProgress = 1 - Math.pow(1 - progress, 6);
-
-        let currentValue = finalValue * easeOutProgress;
-        // currentValue = Math.floor(currentValue / 0.2) * 0.2;
-
-        element.textContent = currentValue.toFixed(1) + "%";
-
-        requestAnimationFrame(animationLoop);
-    }
-
-    requestAnimationFrame(animationLoop);
-}
-
-/**
- * HEADERS
- */
-function createHeaders(subjects) {
-    const container = document.getElementById("subject-header-container");
-    container.style.setProperty('--num-subjects', subjects.length);
-    const html = subjects.map(subjectCode => {
-        const subjectInfo = GLOBAL_SUBJECT_CODE_MAP[subjectCode] || {};
-        const headerText = subjectInfo.short || subjectCode;
-        return `<div class="subject-header">${headerText}</div>`
-    }).join('');
-    container.innerHTML = html;
-}
-
-/**
- * PASS/FAIL
- */
 function createPassFailCards(analytics) {
     const container = document.getElementById("pass-fail-container");
     container.innerHTML = `
@@ -1152,10 +890,6 @@ function createPassFailCards(analytics) {
     </div>
     `;
 }
-
-/**
- * TOP PERFORMER
- */
 function createTopStudentsList(topPerformersSgpa, topPerformersCgpa) {
     // SGPA
     const containerSgpa = document.getElementById("top-students-sgpa-container");
@@ -1189,5 +923,341 @@ function createTopStudentsList(topPerformersSgpa, topPerformersCgpa) {
 }
 
 
+/**
+* SUBJECT SCREEN and SUBJECT DETAILS
+*/
+function renderSubjectRows(subjectData) {
+    const body = document.getElementById("subject-list-body");
+    if (!subjectData || Object.keys(subjectData).length === 0) {
+        body.innerHTML = '<div class="loading">No subject data found.</div>';
+        return;
+    }
+    const allRowsHtml = Object.values(subjectData).map(stats => {
+        return `
+        <div class="subject-data-row" data-subject-code="${stats.code}">
+            <div class="subject-name-container">
+                <div class="subject-name">${stats.name.replace(/_/g, ' ')}</div>
+                <div class="subject-code">${stats.code}</div>
+            </div>
+            <div class="subject-appeared">${stats.appeared}</div>
+            <div class="subject-rate-container">
+                <div id="subject-pass-rate" class="subject-rate-percentage">${formatPercentage(stats.pass_percentage)}</div>
+                <div class="subject-rate-count">${stats.pass_count}</div>
+            </div>
+            <div class="subject-rate-container">
+                <div id="subject-fail-rate" class="subject-rate-percentage">${formatPercentage(stats.fail_percentage)}</div>
+                <div class="subject-rate-count">${stats.fail_count}</div>
+            </div>
+        </div>
+        `;
+    }).join('');
+    body.innerHTML = allRowsHtml;
+}
+function handleSubjectRowClick(event) {
+    const row = event.target.closest('.subject-data-row');
+    if (!row) return;
+    const subjectCode = row.dataset.subjectCode;
+    const selectedSubject = GLOBAL_SUBJECT_ANALYSIS[subjectCode];
+    if (selectedSubject) {
+        displaySubjectDetails(selectedSubject);
+    }
+}
+function displaySubjectDetails(selectedSubject) {
+    subjectListContainer.classList.add('hidden');
+    subjectDetailsContainer.classList.remove('hidden');
+
+    ALL_STUDENTS_FOR_SUBJECT_DETAIL = ALL_STUDENTS;
+    const subjectCode = selectedSubject.code;
+
+    // Subject Name and Code
+    renderSubjectHeader(selectedSubject);
+    // Subject Summary
+    renderSubjectSummary(selectedSubject)
+    // Subject Grade Distribution
+    renderGradeDistribution(selectedSubject);
+    // Subject Student List
+    renderSubjectStudentList(subjectCode, ALL_STUDENTS, 'PASS');
+
+    // PASS-FAIL row click
+    setupSummaryFilterClicks(subjectCode);
+}
+function renderSubjectHeader(selectedSubject) {
+    const nameContainer = document.querySelector('.subject-details-name-container');
+    if (nameContainer) {
+        const titleEl = nameContainer.querySelector('.subject-details-title');
+        const codeEl = nameContainer.querySelector('.subject-details-code');
+        if (titleEl) titleEl.textContent = selectedSubject.name.replace(/_/g, ' ');
+        if (codeEl) codeEl.textContent = selectedSubject.code;
+    }
+}
+function renderSubjectSummary(selectedSubject) {
+    const summaryContainer = document.getElementById('subject-details-summary');
+    if (summaryContainer) {
+        summaryContainer.innerHTML = `
+        <div id="subject-details-summary-row-appeared" class="subject-details-summary-row">
+             <span class="subject-details-summary-label">Appeared</span>
+             <div class="subject-details-summary-value-container">
+                <span class="subject-details-summary-value">${selectedSubject.appeared}</span>
+             </div> 
+        </div>
+        <div class="subject-details-summary-row" data-filter="PASS">
+             <span class="subject-details-summary-label">Pass</span>
+             <div class="subject-details-summary-value-container">
+                <span class="subject-details-summary-value-percentage">${formatPercentage(selectedSubject.pass_percentage)}</span>
+                <span class="subject-details-summary-value-number">${selectedSubject.pass_count}</span>
+             </div>
+        </div>
+        <div class="subject-details-summary-row" data-filter="FAIL">
+             <span class="subject-details-summary-label">Fail</span>
+             <div class="subject-details-summary-value-container">
+                <span class="subject-details-summary-value-percentage">${formatPercentage(selectedSubject.fail_percentage)}</span>
+                <span class="subject-details-summary-value-number">${selectedSubject.fail_count}</span>
+             </div>
+        </div>
+        `;
+    }
+}
+function renderGradeDistribution(selectedSubject) {
+    const subjectCode = selectedSubject.code;
+    const gradeCounts = {};
+    let totalStudentsWithGrade = 0;
+
+    ALL_STUDENTS.forEach(student => {
+        const grade = student[subjectCode];
+        if (grade && (grade !== '-') && (grade !== 'RA')) {
+            gradeCounts[grade] = (gradeCounts[grade] || 0) + 1;
+            totalStudentsWithGrade++;
+        }
+    });
+
+    const gradeRankMap = { 'O': 1, 'A+': 2, 'A': 3, 'B+': 4, 'B': 5, 'C+': 6, 'C': 7, 'D': 8, 'P': 9, 'E': 10, 'F': 11, 'FF': 12 };
+    const uniqueGrades = Object.keys(gradeCounts).sort((a, b) => {
+        return (gradeRankMap[a] || 99) - (gradeRankMap[b] || 99);
+    });
+
+    const gradeDistributionHtml = uniqueGrades.map(grade => {
+        const percentage = (gradeCounts[grade] / totalStudentsWithGrade) * 100;
+        return `
+        <div class="grade-percentage-row">
+            <div class="grade">${grade}</div>
+            <div class="grade-progress-bar-container">
+                <div class="grade-highlighted-progress-bar" style="width: ${formatPercentage(percentage)};"></div>
+            </div>
+            <div class="grade-percentage">${formatPercentage(percentage)}</div>
+        </div>
+        `;
+    }).join('');
+
+    const gradeBody = document.querySelector('#grade-distribution .details-body');
+    if (gradeBody) {
+        gradeBody.innerHTML = gradeDistributionHtml.length > 0 ? gradeDistributionHtml : '<p>No grade data to display.</p>';
+    }
+}
+function setupSummaryFilterClicks(subjectCode) {
+    const summaryRows = document.querySelectorAll('.subject-details-summary-row');
+
+    const passRow = document.querySelector('.subject-details-summary-row:nth-child(2)');
+    if (passRow) {
+        passRow.classList.add('selected-summary-row');
+        passRow.dataset.selected = 'true';
+    }
+
+    for (let i = 1; i < summaryRows.length; i++) {
+        const row = summaryRows[i];
+
+        if (!row.dataset.filter) continue;
+
+        row.onclick = (event) => {
+            const currentFilterType = row.dataset.filter;
+            const isCurrentlySelected = row.classList.contains('selected-summary-row');
+            let newFilter = 'ALL';
+
+            // 1. Reset all rows
+            summaryRows.forEach(r => {
+                r.classList.remove('selected-summary-row');
+                r.dataset.selected = 'false';
+            });
+
+            if (!isCurrentlySelected) {
+                row.classList.add('selected-summary-row');
+                row.dataset.selected = 'true';
+                newFilter = currentFilterType;
+            }
+
+            renderSubjectStudentList(subjectCode, ALL_STUDENTS_FOR_SUBJECT_DETAIL, newFilter);
+        };
+    }
+}
+function renderSubjectStudentList(subjectCode, students, filterType = 'PASS') {
+    const listBody = document.getElementById('subject-student-list-body');
+    if(!listBody) return;
+
+    let filteredStudents = students;
+    const failingGrades = ['RA', 'F', 'FF'];
+
+    if (filterType === 'PASS') {
+        filteredStudents = students.filter(student => !failingGrades.includes(student[subjectCode]));
+    } else if (filterType === 'FAIL') {
+        filteredStudents = students.filter(student => failingGrades.includes(student[subjectCode]));
+    }
+
+    if (filteredStudents.length === 0) {
+        let message = "No students to show.";
+        if (filterType === 'FAIL') {
+            message = "No students failed this subject!";
+        }
+        listBody.innerHTML = `<div class="loading" style="padding: 15px;">${message}</div>`;
+        return;
+    }
+
+    const rowsHtml = filteredStudents.map(student => {
+        const grade = student[subjectCode] || '-';
+
+        return `
+        <div class="subject-student-row">
+            <div class="name-data">${student.Name}</div>
+            <div class="enrollment-data">${student.Enrollment}</div>
+            <div class="student-row-grade">${grade}</div>
+        </div>
+        `;
+    }).join('');
+
+    listBody.innerHTML = rowsHtml;
+}
 
 
+/**
+ * HELPER FUNCTIONS
+ */
+function applyAllFilters() {
+    let filteredStudents = [...ALL_STUDENTS];
+    let isGroupedView = false;
+
+    if (selectedProgramType === 'REGULAR') {
+        filteredStudents = filteredStudents.filter(student => student.Program_Type === 'Regular');
+    } else if (selectedProgramType === 'SPECIALIZATION') {
+        const allSpecializations = ['DS-AI', 'AIML', 'IOT'];
+        if (selectedSpecialization) {
+            filteredStudents = filteredStudents.filter(student => student.Program_Type === selectedSpecialization);
+        } else {
+            filteredStudents = filteredStudents.filter(student => allSpecializations.includes(student.Program_Type));
+            isGroupedView = true;
+        }
+    }
+
+    const query = document.getElementById('search-bar').value.trim().toLowerCase();
+    if (query) {
+        filteredStudents = filteredStudents.filter(student => {
+            return student.Name.toLowerCase().includes(query) || student.Enrollment.toLowerCase().includes(query);
+        });
+        isGroupedView = false;
+    }
+    renderStudentRows(filteredStudents, isGroupedView);
+}
+function navigateTo(viewToShow) {
+    const homeBtn = document.getElementById('top-header-home-btn');
+    const resultBtn = document.getElementById('top-header-result-btn');
+
+    if(viewToShow.toUpperCase() === 'RESULT') {
+        landingViewContainer.classList.add('hidden');
+        resultsViewContainer.classList.remove('hidden');
+        homeBtn.classList.remove('active');
+        resultBtn.classList.add('active');
+    }
+    else {
+        landingViewContainer.classList.remove('hidden');
+        resultsViewContainer.classList.add('hidden');
+        homeBtn.classList.add('active');
+        resultBtn.classList.remove('active');
+    }
+}
+function switchView(view) {
+    if (view === 'RESULT') {
+        studentListContainer.classList.remove('hidden');
+        analyticsContainer.classList.remove('hidden');
+        subjectListContainer.classList.add('hidden');
+        subjectDetailsContainer.classList.add('hidden')
+    } else if (view === 'SUBJECTS') {
+        studentListContainer.classList.add('hidden');
+        analyticsContainer.classList.add('hidden');
+        subjectListContainer.classList.remove('hidden');
+        subjectDetailsContainer.classList.add('hidden');
+
+        if (GLOBAL_SUBJECT_ANALYSIS) {
+            renderSubjectRows(GLOBAL_SUBJECT_ANALYSIS);
+        } else {
+            document.getElementById('subject-list-body').innerHTML = '<div class="loading">No subject data available. Load a semester first.</div>';
+        }
+    }
+}
+function resetLandingPageSelections() {
+    landingSelectedSchool = '';
+    landingSelectedDepartment = '';
+    landingSelectedProgram = '';
+    landingSelectedBatch = '';
+    landingSelectedSemester = '';
+
+    document.getElementById('landing-selected-department-text').textContent = 'Select Department';
+    document.getElementById('landing-selected-program-text').textContent = 'Select Program';
+    document.getElementById('landing-selected-batch-text').textContent = 'Select Batch';
+    document.getElementById('landing-selected-semester-text').textContent = 'Select Semester';
+
+    document.getElementById('landing-program-dropdown-menu').innerHTML = '';
+    document.getElementById('landing-batch-dropdown-menu').innerHTML = '';
+    document.getElementById('landing-semester-dropdown-menu').innerHTML = '';
+}
+function clearDashboardForLoading(message = "Loading student data...") {
+    document.getElementById("student-list-body").innerHTML = `<div class="loading">${message}</div>`;
+    document.getElementById("subject-header-container").innerHTML = '';
+    document.getElementById("analytics-body").innerHTML = '';
+    document.querySelector('.analytics-header').textContent = 'Overall Analysis';
+    selectedRow = null;
+    clearSearch(false);
+    ALL_STUDENTS = [];
+    ALL_SUBJECTS = [];
+    GLOBAL_ANALYTICS_DATA = {};
+    GLOBAL_SUBJECT_ANALYSIS = {};
+    GLOBAL_TOP_PERFORMERS_SGPA = [];
+    GLOBAL_TOP_PERFORMERS_CGPA = [];
+}
+function clearSearch(applyFilters = true) {
+    document.getElementById('search-bar').value = '';
+    document.getElementById('search-clear-btn').style.display = 'none';
+    if (applyFilters) {
+        applyAllFilters();
+    }
+}
+function animateCountUp(targetId, finalValue, duration = 1500) {
+    const element = document.getElementById(targetId);
+    if (!element) return;
+
+    let startTime = null;
+
+    function animationLoop(currentTime) {
+        if (startTime === null) {
+            startTime = currentTime;
+        }
+        const elapsedTime = currentTime - startTime;
+
+        if (elapsedTime >= duration) {
+            element.textContent = finalValue.toFixed(1) + "%";
+            return;
+        }
+
+        const progress = elapsedTime / duration;
+        const easeOutProgress = 1 - Math.pow(1 - progress, 6);
+
+        let currentValue = finalValue * easeOutProgress;
+        // currentValue = Math.floor(currentValue / 0.2) * 0.2;
+
+        element.textContent = currentValue.toFixed(1) + "%";
+
+        requestAnimationFrame(animationLoop);
+    }
+
+    requestAnimationFrame(animationLoop);
+}
+function formatPercentage(num) {
+    const roundedNum = Math.round(num * 100) / 100;
+    return roundedNum.toString() + '%';
+}
