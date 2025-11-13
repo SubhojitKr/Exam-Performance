@@ -1143,6 +1143,67 @@ body {
 
 
 /*
+* SUBJECT DETAILS SUMMARY
+*/
+#subject-details-summary{
+    /*width: 30%;*/
+    min-width: 250px;
+    max-width: 250px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.subject-details-summary-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'Bebas Neue', sans-serif;
+}
+.subject-details-summary-label {
+    font-size: 18px;
+    color: var(--header-color);
+    flex-basis: 40%; /* Give some space to the label */
+    text-align: left;
+}
+.subject-details-summary-value-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    padding: 3px 8px;
+}
+.subject-details-summary-value-percentage {
+    font-size: 18px;
+}
+.subject-details-summary-value-number {
+    font-size: 18px;
+    position: relative;
+    padding-left: 15px;
+}
+.subject-details-summary-value {
+    font-size: 18px;
+}
+.subject-details-summary-value-number::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    width: 3px;
+    background-color: #bcbcbc;
+}
+.subject-details-summary-row:first-child .subject-details-summary-value-number::before {
+    content: none;
+}
+
+
+
+/*
 * GRADE DISTRIBUTION
 */
 #grade-distribution{

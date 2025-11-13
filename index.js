@@ -1,11 +1,12 @@
 
-// Global Variables
+/* Global Variables */
 let ALL_STUDENTS = [];
 let ALL_SUBJECTS = [];
 let GLOBAL_ANALYTICS_DATA = {};
 let GLOBAL_SUBJECT_ANALYSIS = {};
 let GLOBAL_SUBJECT_CODE_MAP = {};
-let GLOBAL_TOP_PERFORMERS = [];
+let GLOBAL_TOP_PERFORMERS_SGPA = [];
+let GLOBAL_TOP_PERFORMERS_CGPA = [];
 let selectedRow = null;
 let DIRECTORY_MAP = {};
 
@@ -671,20 +672,57 @@ function handleSubjectRowClick(event) {
     const row = event.target.closest('.subject-data-row');
     if (!row) return;
     const subjectCode = row.dataset.subjectCode;
-    const subjectData = GLOBAL_SUBJECT_ANALYSIS[subjectCode];
-    if (subjectData) {
-        displaySubjectDetails(subjectData);
+    const selectedSubject = GLOBAL_SUBJECT_ANALYSIS[subjectCode];
+    if (selectedSubject) {
+        displaySubjectDetails(selectedSubject);
     }
 }
 
-function displaySubjectDetails(subjectData) {
+function displaySubjectDetails(selectedSubject) {
     subjectListContainer.classList.add('hidden');
     subjectDetailsContainer.classList.remove('hidden');
 
+    // Subject Name and Code
+    const nameContainer = document.querySelector('.subject-details-name-container');
+    if (nameContainer) {
+        const titleEl = nameContainer.querySelector('.subject-details-title');
+        const codeEl = nameContainer.querySelector('.subject-details-code');
+        if (titleEl) titleEl.textContent = selectedSubject.name.replace(/_/g, ' ');
+        if (codeEl) codeEl.textContent = selectedSubject.code;
+    }
+
+    // Subject Summary
+    const summaryContainer = document.getElementById('subject-details-summary');
+    if (summaryContainer) {
+        summaryContainer.innerHTML = `
+        <div class="subject-details-summary-row">
+             <span class="subject-details-summary-label">Appeared</span>
+             <div class="subject-details-summary-value-container">
+                <span class="subject-details-summary-value">${selectedSubject.appeared}</span>
+             </div> 
+        </div>
+        <div class="subject-details-summary-row">
+             <span class="subject-details-summary-label">Pass</span>
+             <div class="subject-details-summary-value-container">
+                <span id="subject-details-summary-value-percentage" class="subject-details-summary-value-percentage">${formatPercentage(selectedSubject.pass_percentage)}</span>
+                <span id="subject-details-summary-value-number" class="subject-details-summary-value-number">${selectedSubject.pass_count}</span>
+             </div>
+        </div>
+        <div class="subject-details-summary-row">
+             <span class="subject-details-summary-label">Fail</span>
+             <div class="subject-details-summary-value-container">
+                <span id="subject-details-summary-value-percentage" class="subject-details-summary-value-percentage">${formatPercentage(selectedSubject.fail_percentage)}</span>
+                <span id="subject-details-summary-value-number" class="subject-details-summary-value-number">${selectedSubject.fail_count}</span>
+             </div>
+        </div>
+        `;
+    }
+
+    // Subject Grade Distribution
     const gradeCounts = {};
     let totalStudentsWithGrade = 0;
     ALL_STUDENTS.forEach(student => {
-        const grade = student[subjectData.code];
+        const grade = student[selectedSubject.code];
         if (grade && (grade !== '-') && (grade !== 'RA')) {
             gradeCounts[grade] = (gradeCounts[grade] || 0) + 1;
             totalStudentsWithGrade++;
@@ -715,14 +753,6 @@ function displaySubjectDetails(subjectData) {
         </div>
         `;
     }).join('');
-
-    const nameContainer = document.querySelector('.subject-details-name-container');
-    if (nameContainer) {
-        const titleEl = nameContainer.querySelector('.subject-details-title');
-        const codeEl = nameContainer.querySelector('.subject-details-code');
-        if (titleEl) titleEl.textContent = subjectData.name.replace(/_/g, ' ');
-        if (codeEl) codeEl.textContent = subjectData.code;
-    }
 
     const gradeBody = document.querySelector('#grade-distribution .details-body');
     if (gradeBody) {
@@ -852,7 +882,8 @@ function clearDashboardForLoading(message = "Loading student data...") {
     ALL_SUBJECTS = [];
     GLOBAL_ANALYTICS_DATA = {};
     GLOBAL_SUBJECT_ANALYSIS = {};
-    GLOBAL_TOP_PERFORMERS = [];
+    GLOBAL_TOP_PERFORMERS_SGPA = [];
+    GLOBAL_TOP_PERFORMERS_CGPA = [];
 }
 
 window.showLoadingError = function(error) {
@@ -985,21 +1016,26 @@ function buildOverallAnalysis() {
     const analyticsBody = document.getElementById('analytics-body');
     analyticsBody.innerHTML = `
         <div id="pass-fail-container" class="pass-fail-container"></div>
-        <div id="top-students-container" class="top-students-container"></div>
+        <div id="top-students-sgpa-container" class="top-students-container"></div>
+        <div id="top-students-cgpa-container" class="top-students-container"></div>
     `;
 
     createPassFailCards(GLOBAL_ANALYTICS_DATA);
-    createTopStudentsList(GLOBAL_TOP_PERFORMERS);
+    createTopStudentsList(GLOBAL_TOP_PERFORMERS_SGPA, GLOBAL_TOP_PERFORMERS_CGPA);
 
     animateCountUp('percent-pass', GLOBAL_ANALYTICS_DATA.pass_percentage);
     animateCountUp('percent-promoted', GLOBAL_ANALYTICS_DATA.promoted_percentage);
     animateCountUp('percent-fail', GLOBAL_ANALYTICS_DATA.fail_percentage);
 
-    const topPerfContainer = document.getElementById('top-students-container');
-    topPerfContainer.classList.remove('start-top-performer-animation');
+    const topPerformerSgpaContainer = document.getElementById('top-students-sgpa-container');
+    const topPerformerCgpaContainer = document.getElementById('top-students-cgpa-container');
+
+    topPerformerSgpaContainer.classList.remove('start-top-performer-animation');
+    topPerformerCgpaContainer.classList.remove('start-top-performer-animation');
 
     requestAnimationFrame(() => {
-        topPerfContainer.classList.add('start-top-performer-animation');
+        topPerformerSgpaContainer.classList.add('start-top-performer-animation');
+        topPerformerCgpaContainer.classList.add('start-top-performer-animation');
     });
 }
 
@@ -1012,7 +1048,8 @@ window.buildDashboard = function (jsonData) {
         GLOBAL_ANALYTICS_DATA = data.analytics;
         GLOBAL_SUBJECT_ANALYSIS = data.subject_wise_analysis;
         GLOBAL_SUBJECT_CODE_MAP = data.subject_map;
-        GLOBAL_TOP_PERFORMERS = data.top_performers;
+        GLOBAL_TOP_PERFORMERS_SGPA = data.top_performers_sgpa;
+        GLOBAL_TOP_PERFORMERS_CGPA = data.top_performers_cgpa;
 
         createHeaders(ALL_SUBJECTS);
         applyAllFilters();
@@ -1119,9 +1156,10 @@ function createPassFailCards(analytics) {
 /**
  * TOP PERFORMER
  */
-function createTopStudentsList(topPerformers) {
-    const container = document.getElementById("top-students-container");
-    const performersHtml = topPerformers.map((student, index) => {
+function createTopStudentsList(topPerformersSgpa, topPerformersCgpa) {
+    // SGPA
+    const containerSgpa = document.getElementById("top-students-sgpa-container");
+    const sgpaPerformersHtml = topPerformersSgpa.map((student, index) => {
         return `
         <div class="top-performer-item">
             <div class="rank-box">#${index + 1}</div>
@@ -1132,7 +1170,22 @@ function createTopStudentsList(topPerformers) {
         </div>
         `;
     }).join('');
-    container.innerHTML = `<div class="analytics-card-title">Top 3 Performers 🏆</div>${performersHtml}`;
+    containerSgpa.innerHTML = `<div class="analytics-card-title">Top 3 Performers by SGPA 🏆</div>${sgpaPerformersHtml}`;
+
+    // CGPA
+    const containerCgpa = document.getElementById("top-students-cgpa-container");
+    const cgpaPerformersHtml = topPerformersCgpa.map((student, index) => {
+        return `
+        <div class="top-performer-item">
+            <div class="rank-box">#${index + 1}</div>
+            <div class="student-info-section">
+                <span class="student-name">${student.Name}</span>
+                <span class="student-sgpa">${student.CGPA.toFixed(2)}</span>
+            </div>
+        </div>
+        `;
+    }).join('');
+    containerCgpa.innerHTML = `<div class="analytics-card-title">Top 3 Performers by CGPA 🏆</div>${cgpaPerformersHtml}`;
 }
 
 

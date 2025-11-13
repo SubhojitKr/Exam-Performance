@@ -88,7 +88,8 @@ def load_semester_data(filepath):
 
         df.fillna('?', inplace=True)
         analytics_data = get_analytics_data(df, subject_columns)
-        top_students_list = get_top_students_sgpa_data(df)
+        top_students_sgpa_list = get_top_students_sgpa_data(df)
+        top_students_cgpa_list = get_top_students_cgpa_data(df)
         subject_wise_analysis = calculate_subject_analysis(df, subject_columns, SUBJECT_CODE_MAP)
 
         all_students_list = df.replace({np.nan: None}).to_dict('records')
@@ -97,7 +98,8 @@ def load_semester_data(filepath):
             "subjects": subject_columns,
             "students": all_students_list,
             "analytics": analytics_data,
-            "top_performers": top_students_list,
+            "top_performers_sgpa": top_students_sgpa_list,
+            "top_performers_cgpa": top_students_cgpa_list,
             'subject_wise_analysis': subject_wise_analysis,
             'subject_map': SUBJECT_CODE_MAP
         }

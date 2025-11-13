@@ -40,7 +40,7 @@
                 <!-- TITLE -->
                 <h1 class="landing-title">STUDENT PERFORMANCE REPORT</h1>
                 <p class="landing-tagline-1">
-                    A CLEAR, SIMPLE, AND EASY WAY TO SEE YOUR RESULTS
+                    A CLEAR AND EASY WAY TO SEE YOUR RESULTS
                 </p>
                 <p class="landing-tagline-2">
                   CHECK YOUR RESULTS, COMPLETELY HASSLE-FREE!
@@ -206,8 +206,6 @@
             <div id="analytics-container" class="analytics-container">
                 <div class="analytics-header">OVERALL ANALYSIS</div>
                 <div id="analytics-body" class="analytics-body">
-                    <div id="pass-fail-container" class="pass-fail-container"></div>
-                    <div id="top-students-container" class="top-students-container"></div>
                 </div>
             </div>
 
@@ -227,13 +225,17 @@
             <!-- SUBJECT DETAILS CONTAINER -->
             <div id="subject-details-container" class="subject-details-container hidden">
                 <div class="subject-details-header">
-                    <div class="subject-details-name-container">  <!-- this will have the subject name and code in column direction both left aligned -->
+                    <div class="subject-details-name-container">  <!-- this will have the subject name and code-->
                         <div class="subject-details-title"></div>
                         <div class="subject-details-code"></div>
                     </div>
-                    <div id="back-to-list-btn" class="back-btn">BACK</div> <!-- tthis will be in most right of the container -->
+                    <div id="back-to-list-btn" class="back-btn">BACK</div>
                 </div>
-                <div id="grade-distribution" class="details-container"> <!--this enire contianer will be in bottom left of the container -->
+
+                <div id="subject-details-summary" class="subject-details-summary">
+                </div>
+
+                <div id="grade-distribution" class="details-container"> <!--this entire container will be in the bottom left of the container -->
                     <div class="details-header"> <!-- for full width bottom border -->
                         <div class="details-title"> GRADE DISTRIBUTION</div> <!-- for black background -->
                     </div>
@@ -241,7 +243,7 @@
                         <!-- here the grade percentage rows will be dynamically added -->
                         <div class="grade-percentage-row">
                             <div class="grade">A+</div>
-                            <div class="grade-progress-bar-container"> <!-- for dark part -->
+                            <div class="grade-progress-bar-container"> <!-- for the dark part -->
                                 <div class="grade-highlighted-progress-bar"></div> <!-- for highlighted part -->
                             </div>
                             <div class="grade-percentage">90%</div>
