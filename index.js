@@ -1035,22 +1035,33 @@ function renderGradeDistribution(selectedSubject) {
         return (gradeRankMap[a] || 99) - (gradeRankMap[b] || 99);
     });
 
-    const gradeDistributionHtml = uniqueGrades.map(grade => {
-        const percentage = (gradeCounts[grade] / totalStudentsWithGrade) * 100;
+    const gradeDistributionContentHtml = uniqueGrades.map(grade => {
+        const count = gradeCounts[grade];
+        const percentage = (count / totalStudentsWithGrade) * 100;
+
         return `
         <div class="grade-percentage-row">
             <div class="grade">${grade}</div>
             <div class="grade-progress-bar-container">
-                <div class="grade-highlighted-progress-bar" style="width: ${formatPercentage(percentage)};"></div>
+                <div class="grade-rate-container">
+                    <span class="grade-percentage">${formatPercentage(percentage)}</span>
+                    <span class="grade-number">${count}</span>
+                </div>
+                <div class="grade-progress-bar-background">
+                    <div class="grade-highlighted-progress-bar" style="width: ${formatPercentage(percentage)};"></div>
+                </div>
             </div>
-            <div class="grade-percentage">${formatPercentage(percentage)}</div>
         </div>
         `;
     }).join('');
 
-    const gradeBody = document.querySelector('#grade-distribution .details-body');
-    if (gradeBody) {
-        gradeBody.innerHTML = gradeDistributionHtml.length > 0 ? gradeDistributionHtml : '<p>No grade data to display.</p>';
+    const contentTarget = document.querySelector('.grade-distribution-content');
+    const contentToInject = gradeDistributionContentHtml.length > 0
+        ? gradeDistributionContentHtml
+        : '<div class="loading" style="padding: 10px;">No grade data to display.</div>';
+
+    if (contentTarget) {
+        contentTarget.innerHTML = contentToInject;
     }
 }
 function setupSummaryFilterClicks(subjectCode) {

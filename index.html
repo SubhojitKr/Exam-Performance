@@ -232,7 +232,7 @@
                     <div id="back-to-list-btn" class="back-btn">BACK</div>
                 </div>
 
-                <div class="subject-details-content-wrapper">
+                <div id="first-subject-details-content-wrapper" class="subject-details-content-wrapper">
                     <!-- Left column -->
                     <div class="subject-details-left-column">
                         <div id="subject-details-summary" class="details-container"></div>
@@ -244,27 +244,25 @@
                             <div class="enrollment-header">Enrollment</div>
                             <div class="right-grade-header">Grade</div>
                         </div>
-                        <div id="subject-student-list-body" class="right-list-body student-list-body-base"></div>
+                        <div id="subject-student-list-body" class="student-list-body-base"></div>
                     </div>
                 </div>
 
 
-                <div id="grade-distribution" class="details-container"> <!--this entire container will be in the bottom left of the container -->
-                    <div class="details-header"> <!-- for full width bottom border -->
-                        <div class="details-title"> GRADE DISTRIBUTION</div> <!-- for black background -->
-                    </div>
-                    <div class="details-body">
-                        <!-- here the grade percentage rows will be dynamically added -->
-                        <div class="grade-percentage-row">
-                            <div class="grade">A+</div>
-                            <div class="grade-progress-bar-container"> <!-- for the dark part -->
-                                <div class="grade-highlighted-progress-bar"></div> <!-- for highlighted part -->
-                            </div>
-                            <div class="grade-percentage">90%</div>
+                <div id="second-subject-details-content-wrapper"  class="subject-details-content-wrapper">
+                    <div class="grade-distribution">
+                        <!-- Title -->
+                        <div class="grade-distribution-title-container">
+                            <div class="details-title-top"> GRADE</div>
+                            <div class="details-title-bottom">DISTRIBUTION</div>
+                        </div>
+                        <div class="grade-distribution-content">
 
                         </div>
                     </div>
                 </div>
+
+
 
             </div>
         </div>

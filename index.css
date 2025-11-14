@@ -1244,11 +1244,11 @@ body {
 
 
 /*==============*/
-.subject-details-content-wrapper {
+#first-subject-details-content-wrapper {
     display: flex;
     gap: 30px;
     flex: 1;
-    min-height: 0;
+    min-height: 395px;
 }
 .subject-details-left-column {
     /*flex: 1;*/
@@ -1287,6 +1287,11 @@ body {
 .student-list-body-base {
     overflow-y: auto;
     flex-grow: 1;
+}
+#subject-student-list-body {
+
+    overflow-y: auto;
+    flex-grow: 1;
     max-height: 360px;
 }
 .subject-student-list-header .name-header,
@@ -1295,7 +1300,6 @@ body {
     display: flex;
     align-items: center;
 }
-
 .subject-student-row {
     display: grid;
     grid-template-columns: var(--name-width) var(--enrollment-width) 120px;
@@ -1327,50 +1331,128 @@ body {
 
 
 
+
+
+
+/* =============================== */
+#second-subject-details-content-wrapper {
+    display: flex;
+    margin-top: 50px;
+}
+/* =============================== */
 /*
 * GRADE DISTRIBUTION
 */
-#grade-distribution{
-    margin-top: auto;
-    width: 30%;
-    min-width: 350px;
+.grade-distribution{
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
     max-width: 600px;
+    padding: 20px;
+}
+.grade-distribution-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    margin-bottom: 20px;
+    font-size: 55px;
+    font-family: 'Bebas Neue', sans-serif;
+    line-height: 1;
+}
+.details-title-top {
+}
+.details-title-bottom {
+    margin-left: 30px;
+}
+.grade-distribution-content {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    border-left: 1px solid #000000;
+    padding-left: 30px;
 }
 .grade-percentage-row {
     display: grid;
-    grid-template-columns: 25px 1fr 55px;
-    align-items: center;
-    gap: 12px;
+    grid-template-columns: 50px 1fr;
+    align-items: end;
     width: 100%;
-
+    position: relative;
     font-family: 'Bebas Neue', 'Open Sans', sans-serif;
-    font-size: 18px;
     color: #000000;
 }
 .grade {
+    position: absolute;
+    top: 33px;
+    transform: translateY(-50%);
+    left: 0;
     display: flex;
-    text-align: left;
-    flex-shrink: 0;
+    justify-content: left;
+    font-size: 32px;
+    color: var(--header-color);
+    align-items: center;
 }
 .grade-progress-bar-container {
-    flex: 1;
-    height: 10px;
+    height: 45px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    grid-column: 2 / 3;
+}
+.grade-percentage-row .grade:first-child {
+    grid-column: 1 / 2;
+}
+.grade-progress-bar-background {
+    width: 100%;
+    height: 13px;
     position: relative;
     background-color: #99B2CE;
     overflow: hidden;
-    box-shadow:  0 2px 6px rgba(0,0,0,0.3);
+    box-shadow:  0 1px 6px rgba(0,0,0,0.5);
+    flex-shrink: 0;
 }
 .grade-highlighted-progress-bar {
+    width: 100%;
     height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
     background-color: #FFE100;
     transition: width 0.4s ease;
     overflow: hidden;
-
+}
+.grade-rate-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+    font-size: 22px;
+    font-weight: 500;
+    flex-shrink: 0;
+    color: #16161D;
 }
 .grade-percentage {
     text-align: right;
 }
-
+.grade-number {
+    text-align: left;
+    white-space: nowrap;
+    position: relative;
+    padding-left: 10px;
+}
+.grade-number::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50%;
+    width: 3px;
+    background-color: #bcbcbc;
+}
 
 
 
@@ -1401,8 +1483,6 @@ body {
     opacity: 1;
     transform: translateY(0);
 }
-
-
 .specialization-group-header {
     align-self: flex-start;
     font-size: 14px;
@@ -1415,7 +1495,6 @@ body {
     top: 0;
     z-index: 10;
 }
-
 .specialization-group-header:first-child {
     margin-top: 0;
 }
