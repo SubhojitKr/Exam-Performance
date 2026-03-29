@@ -764,18 +764,6 @@ function createPerformanceClassificationHeaders(subjects) {
         return `<div class="subject-header">${info.short || code}</div>`;
     }).join('');
 }
-function renderPerformanceClassificationRows(studentsArray) {
-    const body = document.getElementById("performance-classification-student-list-body");
-    if (!body) return;
-
-    if (studentsArray.length === 0) {
-        body.innerHTML = '<div class="loading">No students found in this category.</div>';
-        return;
-    }
-
-    // Using the EXACT same row function as requested
-    body.innerHTML = studentsArray.map(student => getStudentRowHtml(student)).join('');
-}
 function getStudentPerformanceCategory(student) {
     const pointMap = { "A+": 10, "A": 9, "B+": 8, "B": 7, "C+": 6, "C": 5, "F": 0, "FF": 0, "RA": 0, "AB": 0 };
     const failingGrades = ["F", "FF", "RA", "AB", "UFM"];
@@ -824,14 +812,6 @@ function filterPerformanceClassification(category) {
         body.innerHTML = filtered.map(student => getStudentRowHtml(student)).join('');
     }
 }
-function getRequiredScore(cat) {
-    const scores = { "EXCELLENT": "90%+", "VERY GOOD": "80%+", "GOOD": "70%+", "ABOVE AVERAGE": "60%+", "AVERAGE": "50%+" };
-    return scores[cat] || "passing";
-}
-
-
-
-
 function renderStudentRows(arrayToRender, isGrouped = false) {
     const body = document.getElementById("student-list-body");
     if (!arrayToRender || arrayToRender.length === 0) {
