@@ -9,11 +9,11 @@ try:
     subject_map_dict = {}
 
     for index, row in map_df.iterrows():
-        subject_code = str(row['code'])
+        subject_code = str(row['subject_code'])
 
         subject_info = {
-            "name": str(row['name']),
-            "short": str(row['short'])
+            "name": str(row['subject_name']),
+            "short": str(row['short_name'])
         }
 
         subject_map_dict[subject_code] = subject_info

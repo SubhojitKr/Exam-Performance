@@ -1,8 +1,8 @@
-import pandas as pd # data processing
+import pandas as pd             # data processing
 import numpy as np
-import json # for reading JSON files
-from js import console # provides access to the browser's JS console
-from pyscript import window # provides access to the browser's global window object, used it to call functions defined in JS
+import json                     # for reading JSON files
+from js import console          # provides access to the browser's JS console
+from pyscript import window     # provides access to the browser's global window object, used it to call functions defined in JS
 
 SUBJECT_CODE_MAP = {}
 
@@ -84,7 +84,8 @@ def load_semester_data(filepath):
         df = pd.read_csv(filepath).replace(np.nan, None)
 
         # excluding columns that are not subject
-        subject_columns = [c for c in df.columns if c not in ['Name', 'Enrollment', 'SGPA', 'CGPA', 'Result', 'Gender', 'Performance', 'Program_Type']]
+        exclude_columns = ['Name', 'Enrollment', 'SGPA', 'CGPA', 'Result', 'Gender', 'Performance', 'Program_Type']
+        subject_columns = [c for c in df.columns if c not in exclude_columns]
 
         df.fillna('?', inplace=True)
         analytics_data = get_analytics_data(df, subject_columns)
@@ -120,7 +121,6 @@ def main():
     except Exception as e:
         console.error(f"Python Error during initialization: {str(e)}")
         window.showLoadingError("Could not load the directory map file.")
-
 
 
 """ 

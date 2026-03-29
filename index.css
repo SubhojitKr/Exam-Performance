@@ -311,7 +311,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 2px;
-    height: 468px;
+    height: 539px;
     overflow-y: auto;
 }
 .student-list-header, .student-data-row {
@@ -329,7 +329,7 @@ body {
     font-size: var(--header-font-size);
     color: white;
 }
-.unskew-wrapper {
+.row-content-wrapper {
     display: contents;
 }
 .student-data-row {
@@ -350,13 +350,11 @@ body {
 .selected-student-row {
     background-color: #16161D;
     color: #FFD700FF;
-    transform: skewX(-7deg);
 }
 .selected-student-row:hover {
     background-color: #16161D;
 }
 .selected-student-row .unskew-wrapper {
-    transform: skewX(7deg);
 }
 .studentinfo-header-container, .studentinfo-data-container {
     display: grid;
@@ -1289,7 +1287,6 @@ body {
     flex-grow: 1;
 }
 #subject-student-list-body {
-
     overflow-y: auto;
     flex-grow: 1;
     max-height: 360px;
@@ -1499,10 +1496,45 @@ body {
     margin-top: 0;
 }
 
+/*
+* Performance Classification
+*/
+.performance-classification-container {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 50px;
+}
 
+.performance-classification-content {
+    width: 90%;
+    max-width: 1600px;
+    margin-top: 15px;
+}
 
+#performance-classification-tool-container .selection-tool-item {
+    opacity: 1;
+    transform: translateX(0);
+    margin-bottom: 10px;
+}
 
+#performance-classification-student-list-body {
+    height: 400px;
+}
+#performance-classification-title{
+    margin-bottom:-5px
+}
+#performance-classification-tagline-1{
+    margin-bottom: 15px;
+    text-align: center;
+}
 
+#performance-classification-tagline-2{
+    margin-bottom: 5px;
+    text-align: center;
+}
 
 
 

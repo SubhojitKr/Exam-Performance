@@ -40,7 +40,6 @@ let subjectListContainer = null;
 let subjectDetailsContainer = null;
 
 
-
 document.addEventListener('DOMContentLoaded', () => {
     const schoolMenu = document.getElementById('department-dropdown-menu');
     const deptSubmenu = document.getElementById('department-submenu');
@@ -471,12 +470,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+
+
+    const perfPanel = document.getElementById('performance-classification-tool-container');
+    const tagline2 = document.getElementById('performance-classification-tagline-2');
+
+    const categoryRanges = {
+        "EXCELLENT": "90% and above",
+        "VERY GOOD": "80% - 90%",
+        "GOOD": "70% - 79%",
+        "ABOVE AVERAGE": "60% - 69%",
+        "AVERAGE": "50% - 59%",
+        "FAIL": "Subject Backlog"
+    };
+
+    perfPanel.addEventListener('click', (event) => {
+        const item = event.target.closest('.selection-tool-item');
+        if (!item) return;
+
+        const category = item.textContent.trim();
+
+        perfPanel.querySelectorAll('.selection-tool-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+
+        if (tagline2) {
+            tagline2.textContent = categoryRanges[category] || "";
+        }
+
+        filterPerformanceClassification(category);
+    });
+
+
     /*
     * DEBUG CODE
     */
 
 });
-
 
 /**
  * PYTHON CALLS
@@ -514,16 +543,25 @@ window.buildDashboard = function (jsonData) {
         GLOBAL_TOP_PERFORMERS_CGPA = data.top_performers_cgpa;
 
         createHeaders(ALL_SUBJECTS);
-        applyAllFilters();
+        createPerformanceClassificationHeaders(ALL_SUBJECTS);
+
+        applyAllFilters(); /* this function applies filter and calls renderStudentRows() */
         buildOverallAnalysis();
+
+        const excelBtn = Array.from(document.querySelectorAll('#performance-classification-tool-container .selection-tool-item'))
+            .find(el => el.textContent.trim() === "EXCELLENT");
+
+        if (excelBtn) {
+            excelBtn.click();
+        }
 
         const studentListBody = document.getElementById('student-list-body');
         studentListBody.classList.remove('animate-slide-up-body');
         requestAnimationFrame(() => {
             studentListBody.classList.add('animate-slide-up-body');
         });
-    }
-    catch (error) {
+
+    } catch (error) {
         console.error("JavaScript Error building dashboard:", error);
         document.getElementById("student-list-body").innerHTML = `<div class="loading">Error building dashboard.</div>`;
     }
@@ -716,6 +754,84 @@ function createHeaders(subjects) {
     }).join('');
     container.innerHTML = html;
 }
+function createPerformanceClassificationHeaders(subjects) {
+    const container = document.getElementById("performance-classification-subject-header-container");
+    if (!container) return;
+
+    container.style.setProperty('--num-subjects', subjects.length);
+    container.innerHTML = subjects.map(code => {
+        const info = GLOBAL_SUBJECT_CODE_MAP[code] || {};
+        return `<div class="subject-header">${info.short || code}</div>`;
+    }).join('');
+}
+function renderPerformanceClassificationRows(studentsArray) {
+    const body = document.getElementById("performance-classification-student-list-body");
+    if (!body) return;
+
+    if (studentsArray.length === 0) {
+        body.innerHTML = '<div class="loading">No students found in this category.</div>';
+        return;
+    }
+
+    // Using the EXACT same row function as requested
+    body.innerHTML = studentsArray.map(student => getStudentRowHtml(student)).join('');
+}
+function getStudentPerformanceCategory(student) {
+    const pointMap = { "A+": 10, "A": 9, "B+": 8, "B": 7, "C+": 6, "C": 5, "F": 0, "FF": 0, "RA": 0, "AB": 0 };
+    const failingGrades = ["F", "FF", "RA", "AB", "UFM"];
+
+    let totalPoints = 0;
+    let hasFailedSubject = false;
+    let actualSubjectCount = 0;
+
+    ALL_SUBJECTS.forEach(sub => {
+        const grade = student[sub];
+
+        if (!grade || grade === '-' || grade === '?') return;
+
+        totalPoints += (pointMap[grade] || 0);
+        actualSubjectCount++;
+
+        if (failingGrades.includes(grade)) {
+            hasFailedSubject = true;
+        }
+    });
+
+    if (hasFailedSubject || actualSubjectCount === 0) return "FAIL";
+
+    const averageGradePoint = totalPoints / actualSubjectCount;
+    const percentage = averageGradePoint * 10;
+
+    if (percentage >= 90) return "EXCELLENT";      // 90 and above
+    if (percentage >= 80) return "VERY GOOD";      // 80 - 89
+    if (percentage >= 70) return "GOOD";           // 70 - 79
+    if (percentage >= 60) return "ABOVE AVERAGE";  // 60 - 69
+    if (percentage >= 50) return "AVERAGE";        // 50 - 59
+
+    return "FAIL";
+}
+function filterPerformanceClassification(category) {
+    const filtered = ALL_STUDENTS.filter(student => {
+        return getStudentPerformanceCategory(student) === category;
+    });
+
+    const body = document.getElementById("performance-classification-student-list-body");
+    if (!body) return;
+
+    if (filtered.length === 0) {
+        body.innerHTML = `<div class="loading">No students found in ${category}.</div>`;
+    } else {
+        body.innerHTML = filtered.map(student => getStudentRowHtml(student)).join('');
+    }
+}
+function getRequiredScore(cat) {
+    const scores = { "EXCELLENT": "90%+", "VERY GOOD": "80%+", "GOOD": "70%+", "ABOVE AVERAGE": "60%+", "AVERAGE": "50%+" };
+    return scores[cat] || "passing";
+}
+
+
+
+
 function renderStudentRows(arrayToRender, isGrouped = false) {
     const body = document.getElementById("student-list-body");
     if (!arrayToRender || arrayToRender.length === 0) {
@@ -748,12 +864,17 @@ function renderStudentRows(arrayToRender, isGrouped = false) {
 }
 function getStudentRowHtml(student) {
     const subjectsHtml = ALL_SUBJECTS.map(subjectKey => `<div class="subject-data">${student[subjectKey] || '-'}</div>`).join('');
-    const sgpa = (student.SGPA !== null && student.SGPA !== undefined) ? Number(student.SGPA).toFixed(2) : 'N/A';
-    const cgpa = (student.CGPA !== null && student.CGPA !== undefined) ? Number(student.CGPA).toFixed(2) : 'N/A';
+
+    const sgpa = (student.SGPA !== null && student.SGPA !== undefined)
+        ? Number(student.SGPA).toFixed(2)
+        : 'N/A';
+    const cgpa = (student.CGPA !== null && student.CGPA !== undefined)
+        ? Number(student.CGPA).toFixed(2)
+        : 'N/A';
 
     return `
     <div class="student-data-row" data-enrollment="${student.Enrollment}">
-        <div class="unskew-wrapper">
+        <div class="row-content-wrapper">
             <div class="studentinfo-data-container">
                 <div class="name-data">${student.Name}</div>
                 <div class="enrollment-data">${student.Enrollment}</div>
@@ -927,9 +1048,9 @@ function createTopStudentsList(topPerformersSgpa, topPerformersCgpa) {
 * SUBJECT SCREEN and SUBJECT DETAILS
 */
 function renderSubjectRows(subjectData) {
-    const body = document.getElementById("subject-list-body");
+    const listbody = document.getElementById("subject-list-body");
     if (!subjectData || Object.keys(subjectData).length === 0) {
-        body.innerHTML = '<div class="loading">No subject data found.</div>';
+        listbody.innerHTML = '<div class="loading">No subject data found.</div>';
         return;
     }
     const allRowsHtml = Object.values(subjectData).map(stats => {
@@ -951,7 +1072,7 @@ function renderSubjectRows(subjectData) {
         </div>
         `;
     }).join('');
-    body.innerHTML = allRowsHtml;
+    listbody.innerHTML = allRowsHtml;
 }
 function handleSubjectRowClick(event) {
     const row = event.target.closest('.subject-data-row');
@@ -1030,7 +1151,10 @@ function renderGradeDistribution(selectedSubject) {
         }
     });
 
-    const gradeRankMap = { 'O': 1, 'A+': 2, 'A': 3, 'B+': 4, 'B': 5, 'C+': 6, 'C': 7, 'D': 8, 'P': 9, 'E': 10, 'F': 11, 'FF': 12 };
+    const gradeRankMap = {
+        'O': 1, 'A+': 2, 'A': 3, 'B+': 4, 'B': 5, 'C+': 6,
+        'C': 7, 'D': 8, 'P': 9, 'E': 10, 'F': 11, 'FF': 12
+    };
     const uniqueGrades = Object.keys(gradeCounts).sort((a, b) => {
         return (gradeRankMap[a] || 99) - (gradeRankMap[b] || 99);
     });
@@ -1038,7 +1162,6 @@ function renderGradeDistribution(selectedSubject) {
     const gradeDistributionContentHtml = uniqueGrades.map(grade => {
         const count = gradeCounts[grade];
         const percentage = (count / totalStudentsWithGrade) * 100;
-
         return `
         <div class="grade-percentage-row">
             <div class="grade">${grade}</div>
@@ -1197,7 +1320,8 @@ function switchView(view) {
         if (GLOBAL_SUBJECT_ANALYSIS) {
             renderSubjectRows(GLOBAL_SUBJECT_ANALYSIS);
         } else {
-            document.getElementById('subject-list-body').innerHTML = '<div class="loading">No subject data available. Load a semester first.</div>';
+            document.getElementById('subject-list-body').innerHTML =
+                '<div class="loading">No subject data available. Load a semester first.</div>';
         }
     }
 }
@@ -1238,35 +1362,23 @@ function clearSearch(applyFilters = true) {
         applyAllFilters();
     }
 }
-function animateCountUp(targetId, finalValue, duration = 1500) {
+function animateCountUp(targetId, finalValue, duration = 1000) {
     const element = document.getElementById(targetId);
     if (!element) return;
+    const startTime = performance.now();
 
-    let startTime = null;
-
-    function animationLoop(currentTime) {
-        if (startTime === null) {
-            startTime = currentTime;
-        }
+    const step = (currentTime) => {
         const elapsedTime = currentTime - startTime;
+        const progress = Math.min(elapsedTime / duration, 1);
 
-        if (elapsedTime >= duration) {
-            element.textContent = finalValue.toFixed(1) + "%";
-            return;
+        const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        element.textContent = (finalValue * ease).toFixed(1) + "%";
+
+        if(progress < 1){
+            requestAnimationFrame(step);
         }
-
-        const progress = elapsedTime / duration;
-        const easeOutProgress = 1 - Math.pow(1 - progress, 6);
-
-        let currentValue = finalValue * easeOutProgress;
-        // currentValue = Math.floor(currentValue / 0.2) * 0.2;
-
-        element.textContent = currentValue.toFixed(1) + "%";
-
-        requestAnimationFrame(animationLoop);
-    }
-
-    requestAnimationFrame(animationLoop);
+    };
+    requestAnimationFrame(step);
 }
 function formatPercentage(num) {
     const roundedNum = Math.round(num * 100) / 100;

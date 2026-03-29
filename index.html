@@ -20,7 +20,7 @@
 
 <header class="top-header">
     <div class="top-header-container">
-        <div class="top-header-title">MINOR PROJECT</div>
+        <div class="top-header-title">MAJOR PROJECT</div>
         <nav class="top-header-nav">
             <button id="top-header-home-btn" class="top-header-nav-button active">HOME</button>
             <button id="top-header-result-btn" class="top-header-nav-button">RESULT</button>
@@ -182,6 +182,7 @@
             </div>
 
         </div>
+
         <!-- CONTENT -->
         <div class="content-row">
             <!-- STUDENT LIST CONTAINER -->
@@ -248,7 +249,6 @@
                     </div>
                 </div>
 
-
                 <div id="second-subject-details-content-wrapper"  class="subject-details-content-wrapper">
                     <div class="grade-distribution">
                         <!-- Title -->
@@ -261,11 +261,54 @@
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
+
+        <div class="performance-classification-container">
+            <h1 id="performance-classification-title" class="landing-title">
+                PERFORMANCE CLASSIFICATION
+            </h1>
+
+            <p id="performance-classification-tagline-1" class="landing-tagline-1">
+                Based on grading standards
+            </p>
+
+            <p id="performance-classification-tagline-2" class="landing-tagline-2">
+                A - A+
+            </p>
+
+            <div id="performance-classification-tool-container" class="selection-tool-container">
+                <div class="selection-tool-item">EXCELLENT</div>
+                <div class="selection-tool-item">VERY GOOD</div>
+                <div class="selection-tool-item">GOOD</div>
+                <div class="selection-tool-item">ABOVE AVERAGE</div>
+                <div class="selection-tool-item">AVERAGE</div>
+                <div class="selection-tool-item">FAIL</div>
+            </div>
+
+
+            <div class="performance-classification-content">
+                <div id="performance-classification-student-list-container" class="student-list-container">
+                    <div id="performance-classification-student-list-header" class="student-list-header">
+                        <div class="studentinfo-header-container">
+                            <div class="name-header">Name</div>
+                            <div class="enrollment-header">Enrollment</div>
+                        </div>
+                        <div id="performance-classification-subject-header-container" class="subject-header-container"></div>
+                        <div class="grades-header-container">
+                            <div class="sgpa-header">SGPA</div>
+                            <div class="cgpa-header">CGPA</div>
+                        </div>
+                    </div>
+                    <div id="performance-classification-student-list-body" class="student-list-body">
+                        <div class="loading">Loading students data...</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
 </main>
@@ -278,9 +321,9 @@
     files = [
     "directory_map.json",
     "subjects_code_map.json",
-    "Datasets/Engineering_and_IT/Computer_Science_and_IT/B_Tech_in_CSE/22-26/1st_sem_result.csv",
-    "Datasets/Engineering_and_IT/Computer_Science_and_IT/B_Tech_in_CSE/22-26/3rd_sem_result.csv",
-    "Datasets/Engineering_and_IT/Computer_Science_and_IT/B_Tech_in_CSE/22-26/6th_sem_result.csv"
+    "Datasets/Engineering_and_IT/Computer_Science_and_IT/B_Tech_in_CSE/2022-2026/1st_sem_result.csv",
+    "Datasets/Engineering_and_IT/Computer_Science_and_IT/B_Tech_in_CSE/2022-2026/3rd_sem_result.csv",
+    "Datasets/Engineering_and_IT/Computer_Science_and_IT/B_Tech_in_CSE/2022-2026/6th_sem_result.csv"
     ]
 </py-config>
 <py-script src="Backend/main.py"></py-script>
