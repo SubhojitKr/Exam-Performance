@@ -1004,12 +1004,12 @@ function buildStudentAnalysis(student) {
                         <div class="student-score-fill" style="width: ${studentWidth}%; height: 100%; background: ${currSGPA >= batchAvg ? '#FFE100' : '#ffc107'}; border-radius: 10px; transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); position: absolute; z-index: 1;"></div>
 
                         <div class="student-marker" style="position: absolute; top: -4px; left: ${studentWidth}%; width: 3px; height: 18px; background: #16161D; border-radius: 2px; transform: translateX(-50%); transition: left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 3;">
-                             <span style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 8px; font-weight: bold; color: #16161D;">YOU</span>
+                             <!--<span style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 8px; font-weight: bold; color: #16161D;">YOU</span>-->
                              <span style="position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 900; color: white; background: #16161D; padding: 1px 5px; border-radius: 3px; white-space: nowrap;">${currSGPA.toFixed(2)}</span>
                         </div>
                     </div>
                 </div>
-
+                
             </div>
         </div>`;
 }
