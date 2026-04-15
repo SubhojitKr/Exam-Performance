@@ -839,6 +839,85 @@ body {
 
 
 
+
+.styled-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.detail-box {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #fcfcfc;
+    border: 1px solid #eee;
+    border-left: 3px solid #16161D; /* Accent line */
+}
+
+.detail-label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    color: #888;
+    letter-spacing: 0.4px;
+    margin-bottom: 4px;
+}
+
+.detail-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: #16161D;
+    line-height: 1;
+}
+
+.detail-value.highlight { color: #16161D; background: #FFE100; padding: 2px 5px; width: fit-content; }
+.detail-value.standout { color: #000; letter-spacing: 1px; }
+.detail-value.passed { color: #24A84C; }
+.detail-value.promoted { color: #d5a822; }
+.detail-value.failed { color: #AE3C3C; }
+
+.detail-value small {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10px;
+    color: #aaa;
+}
+
+/* Styled Arrears List */
+.styled-arrears-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.arrear-item-styled {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #AE3C3C;
+    background: #fff5f5;
+    padding: 6px 12px;
+    border-left: 3px solid #AE3C3C;
+}
+
+.no-backlog-message {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    color: #24A84C;
+    font-weight: 600;
+}
+
+
+
+
+
+
+
+
 /*
 *  TOOLS_CONTAINER
 */

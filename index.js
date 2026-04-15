@@ -913,14 +913,24 @@ function buildStudentAnalysis(student) {
     const sortedStudents = [...ALL_STUDENTS].sort((a, b) => b.SGPA - a.SGPA);
     const rank = sortedStudents.findIndex(s => s.Enrollment === student.Enrollment) + 1;
 
-    // Merit and Average Logic
     const meritCategory = getStudentPerformanceCategory(student);
     const allSgpas = ALL_STUDENTS.map(s => parseFloat(s.SGPA)).filter(s => !isNaN(s));
     const batchAvg = allSgpas.length > 0 ? allSgpas.reduce((a, b) => a + b, 0) / allSgpas.length : 0;
     const diffFromAvg = (currSGPA - batchAvg).toFixed(2);
     const studentWidth = Math.min((currSGPA / 10) * 100, 100);
 
-    // grade dist.
+    // backlog list
+    const arrearsList = ALL_SUBJECTS.filter(code => failingGrades.includes(student[code]));
+    const arrearsHtml = arrearsList.length > 0
+        ? arrearsList.map(code => {
+            const info = GLOBAL_SUBJECT_CODE_MAP[code] || {};
+            const shortName = info.short || "N/A";
+            const subjectName = info.name || "N/A";
+            return `<li class="arrear-item-styled">${code} - ${subjectName}</li>`;
+        }).join('')
+        : '<li class="no-backlog-message">No Backlogs Found</li>';
+
+    // grade dist
     const gradeOrder = ['O', 'A+', 'A', 'B+', 'B', 'C+', 'C', 'D', 'P', 'F', 'FF'];
     const gradeCounts = {};
     let totalGraded = 0;
@@ -939,97 +949,63 @@ function buildStudentAnalysis(student) {
             <div class="mini-dist-row">
                 <div class="mini-dist-grade">${grade}</div>
                 <div class="mini-dist-bar-wrapper">
-                    <div class="mini-dist-label"><span>${gradeCounts[grade]} Subject(s)</span><span>${Math.round(pct)}%</span></div>
+                    <div class="mini-dist-label"><span>${gradeCounts[grade]} Subjects</span><span>${Math.round(pct)}%</span></div>
                     <div class="mini-dist-bar-bg"><div class="mini-dist-bar-fill" style="width: ${pct}%"></div></div>
                 </div>
             </div>`;
     }).join('');
 
-    // backlog list
-    const arrearsHtml = ALL_SUBJECTS.filter(sub => failingGrades.includes(student[sub])).length > 0
-        ? ALL_SUBJECTS.filter(sub => failingGrades.includes(student[sub])).map(s => `<li class="arrear-item">${s}</li>`).join('')
-        : '<li style="color: #24A84C; font-size: 13px; list-style:none; font-family: \'Open Sans\';">✔ No Backlogs Found</li>';
-
-
     analyticsBody.innerHTML = `
         <div class="student-analysis-container">
             <div class="analysis-card">
                 
-                <div class="analysis-stat-row">
-                    <span>Performance:</span>
-                    <span class="stat-value-main" style="color: #16161D">${meritCategory}</span>
-                </div>
-                <div class="analysis-stat-row">
-                    <span>Result Status:</span>
-                    <span class="stat-value-main ${statusClass}">${statusText}</span>
-                </div>
-                <div class="analysis-stat-row">
-                    <span>Current SGPA:</span>
-                    <span class="stat-value-main">${currSGPA.toFixed(2)}</span>
-                </div>
-                <div class="analysis-stat-row">
-                    <span>Batch Rank:</span>
-                    <span class="stat-value-main">#${rank} / ${ALL_STUDENTS.length}</span>
+                <div class="styled-details-grid">
+                    <div class="detail-box">
+                        <span class="detail-label">MERIT STANDING</span>
+                        <span class="detail-value standout">${meritCategory}</span>
+                    </div>
+                    <div class="detail-box">
+                        <span class="detail-label">RESULT STATUS</span>
+                        <span class="detail-value ${statusClass}">${statusText.toUpperCase()}</span>
+                    </div>
+                    <div class="detail-box">
+                        <span class="detail-label">CURRENT SGPA</span>
+                        <span class="detail-value highlight">${currSGPA.toFixed(2)}</span>
+                    </div>
+                    <div class="detail-box">
+                        <span class="detail-label">BATCH RANK</span>
+                        <span class="detail-value">#${rank} <small>/ ${ALL_STUDENTS.length}</small></span>
+                    </div>
                 </div>
 
-                <div class="mini-dist-container" style="margin-top:25px;">
+                <div class="mini-dist-container" style="margin-top:30px;">
                     <div class="mini-dist-title">Active Backlogs (${failCount})</div>
-                    <ul class="arrears-list" style="margin-top: 10px;">
+                    <ul class="styled-arrears-list">
                         ${arrearsHtml}
                     </ul>
                 </div>
 
-                <div class="mini-dist-container" style="margin-top:25px;">
+                <div class="mini-dist-container" style="margin-top:30px;">
                     <div class="mini-dist-title">Semester Grade Distribution</div>
-                    ${distRowsHtml || '<div class="loading">No grade data available.</div>'}
+                    <div class="mini-dist-body">
+                        ${distRowsHtml || '<div class="loading">No grade data available.</div>'}
+                    </div>
                 </div>
 
-                <div class="benchmark-container" style="margin-top: 35px; padding: 15px 12px 25px 12px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px;">
+                <div class="benchmark-container" style="margin-top: 40px; padding: 15px 12px 25px 12px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px;">
                     <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; margin-bottom: 15px; font-family: 'Open Sans';">
                         <span style="color: #495057;">CLASS AVG: ${batchAvg.toFixed(2)}</span>
-                        <span style="color: ${diffFromAvg >= 0 ? '#24A84C' : '#e67e22'}">
-                            ${diffFromAvg >= 0 ? '▲ +' : '▼ '}${Math.abs(diffFromAvg)} pts
+                        <span style="color: ${diffFromAvg >= 0 ? '#24A84C' : '#AE3C3C'}">
+                            ${diffFromAvg >= 0 ? '▲ +' : '▼ -'}${Math.abs(diffFromAvg)} pts
                         </span>
                     </div>
                     
                     <div class="benchmark-bar-bg" style="height: 10px; background: #dee2e6; position: relative; border-radius: 10px; overflow: visible;">
-                        
-                        <div class="student-score-fill" style="
-                            width: ${studentWidth}%; 
-                            height: 100%; 
-                            background: ${currSGPA >= batchAvg ? '#FFE100' : '#ffc107'}; 
-                            border-radius: 10px;
-                            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-                            position: absolute;
-                            z-index: 1;
-                        "></div>
+                        <div class="student-score-fill" style="width: ${studentWidth}%; height: 100%; background: ${currSGPA >= batchAvg ? '#FFE100' : '#ffc107'}; border-radius: 10px; transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); position: absolute; z-index: 1;"></div>
 
-                        <div class="student-marker" style="
-                            position: absolute; 
-                            top: -4px; 
-                            left: ${studentWidth}%; 
-                            width: 3px; 
-                            height: 18px; 
-                            background: #16161D; 
-                            border-radius: 2px;
-                            transform: translateX(-50%);
-                            transition: left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-                            z-index: 3;
-                        ">
-                             <!--<span style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 8px; font-weight: bold; color: #16161D;">YOU</span>-->
-                             <span style="
-                                position: absolute; 
-                                bottom: -18px; 
-                                left: 50%; 
-                                transform: translateX(-50%); 
-                                font-size: 10px; 
-                                font-weight: 900; 
-                                color: white;
-                                background: #16161D;
-                                padding: 1px 5px;
-                                border-radius: 3px;
-                                white-space: nowrap;
-                            ">${currSGPA.toFixed(2)}</span>
+                        <div class="student-marker" style="position: absolute; top: -4px; left: ${studentWidth}%; width: 3px; height: 18px; background: #16161D; border-radius: 2px; transform: translateX(-50%); transition: left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 3;">
+                             <span style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 8px; font-weight: bold; color: #16161D;">YOU</span>
+                             <span style="position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 900; color: white; background: #16161D; padding: 1px 5px; border-radius: 3px; white-space: nowrap;">${currSGPA.toFixed(2)}</span>
                         </div>
                     </div>
                 </div>
@@ -1161,7 +1137,6 @@ function displaySubjectDetails(selectedSubject) {
     renderGradeDistribution(selectedSubject);
     // Subject Student List
     renderSubjectStudentList(subjectCode, ALL_STUDENTS, 'PASS');
-
     // PASS-FAIL row click
     setupSummaryFilterClicks(subjectCode);
 }
