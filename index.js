@@ -903,22 +903,13 @@ function buildStudentAnalysis(student) {
 
     const analyticsBody = document.getElementById('analytics-body');
 
-    const failingGrades = ['F', 'FF'];
+    // 1. Existing Logic for Status and Backlogs
+    const failingGrades = ['F', 'FF', 'RA'];
     const subjectGrades = ALL_SUBJECTS.map(sub => student[sub]);
     const failCount = subjectGrades.filter(grade => failingGrades.includes(grade)).length;
 
-    let statusText = '';
-    let statusClass = '';
-    if (failCount === 0) {
-        statusText = 'Pass';
-        statusClass = 'passed';
-    } else if (failCount <= 5) {
-        statusText = 'Promoted';
-        statusClass = 'promoted';
-    } else {
-        statusText = 'Fail';
-        statusClass = 'failed';
-    }
+    let statusText = failCount === 0 ? 'Pass' : (failCount <= 5 ? 'Promoted' : 'Fail');
+    let statusClass = failCount === 0 ? 'passed' : (failCount <= 5 ? 'promoted' : 'failed');
 
     const sortedStudents = [...ALL_STUDENTS].sort((a, b) => b.SGPA - a.SGPA);
     const rank = sortedStudents.findIndex(s => s.Enrollment === student.Enrollment) + 1;
@@ -928,6 +919,41 @@ function buildStudentAnalysis(student) {
         ? arrearsList.map(sub => `<li class="arrear-item">${sub}</li>`).join('')
         : '<li>No Backlog</li>';
 
+    // 2. NEW: Mini Grade Distribution Logic
+    const gradeCounts = {};
+    const gradeOrder = ['O', 'A+', 'A', 'B+', 'B', 'C+', 'C', 'D', 'P', 'F', 'FF'];
+    let totalGradedSubjects = 0;
+
+    ALL_SUBJECTS.forEach(sub => {
+        const g = student[sub];
+        if (g && g !== '-' && g !== '?') {
+            gradeCounts[g] = (gradeCounts[g] || 0) + 1;
+            totalGradedSubjects++;
+        }
+    });
+
+    const distRowsHtml = gradeOrder.map(grade => {
+        if (!gradeCounts[grade]) return ''; // Only show grades the student actually got
+        const count = gradeCounts[grade];
+        const percentage = (count / totalGradedSubjects) * 100;
+
+        return `
+            <div class="mini-dist-row">
+                <div class="mini-dist-grade">${grade}</div>
+                <div class="mini-dist-bar-wrapper">
+                    <div class="mini-dist-label">
+                        <span>${count} Subject(s)</span>
+                        <span>${Math.round(percentage)}%</span>
+                    </div>
+                    <div class="mini-dist-bar-bg">
+                        <div class="mini-dist-bar-fill" style="width: ${percentage}%"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    // 3. Combine everything into the sidebar
     analyticsBody.innerHTML = `
         <div class="student-analysis-container">
             <div class="analysis-card">
@@ -943,13 +969,18 @@ function buildStudentAnalysis(student) {
                     <span>Class Rank:</span>
                     <span class="stat-value-main">#${rank}</span>
                 </div>
-                <div class="analysis-stat-row">
-                    <span>Backlogs: (${failCount}):</span>
-                    
+                
+                <div class="analysis-stat-row" style="border-bottom: none; margin-top: 10px;">
+                    <span>Backlogs: (${failCount})</span>
                 </div>
                 <ul class="arrears-list">
                     ${arrearsHtml}
                 </ul>
+
+                <div class="mini-dist-container">
+                    <div class="mini-dist-title">Grade Distribution</div>
+                    ${distRowsHtml || '<div class="loading">No grade data.</div>'}
+                </div>
             </div>
         </div>
     `;
