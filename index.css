@@ -778,6 +778,63 @@ body {
     color: #555;
     font-weight: 600;
 }
+/* Highlights and Benchmarks */
+.analysis-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.highlight-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.highlight-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #666;
+    font-weight: 700;
+}
+
+.highlight-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: #16161D;
+}
+
+.highlight-value.strength { color: #24A84C; }
+.highlight-value.weakness { color: #AE3C3C; }
+
+.benchmark-container {
+    margin-top: 15px;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    color: #555;
+}
+
+.benchmark-bar-bg {
+    height: 4px;
+    background: #e1e4ea;
+    margin: 8px 0;
+    position: relative;
+}
+
+.benchmark-marker {
+    position: absolute;
+    top: -4px;
+    width: 2px;
+    height: 12px;
+    background: #000;
+}
 
 
 

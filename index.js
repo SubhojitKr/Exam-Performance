@@ -900,10 +900,9 @@ function buildOverallAnalysis() {
 function buildStudentAnalysis(student) {
     const firstName = student.Name.split(' ')[0];
     document.querySelector('.analytics-header').textContent = `${firstName}'s Performance Analysis`;
-
     const analyticsBody = document.getElementById('analytics-body');
 
-    // 1. Existing Logic for Status and Backlogs
+    const currSGPA = parseFloat(student.SGPA) || 0;
     const failingGrades = ['F', 'FF', 'RA'];
     const subjectGrades = ALL_SUBJECTS.map(sub => student[sub]);
     const failCount = subjectGrades.filter(grade => failingGrades.includes(grade)).length;
@@ -914,76 +913,129 @@ function buildStudentAnalysis(student) {
     const sortedStudents = [...ALL_STUDENTS].sort((a, b) => b.SGPA - a.SGPA);
     const rank = sortedStudents.findIndex(s => s.Enrollment === student.Enrollment) + 1;
 
-    const arrearsList = ALL_SUBJECTS.filter(sub => failingGrades.includes(student[sub]));
-    const arrearsHtml = arrearsList.length > 0
-        ? arrearsList.map(sub => `<li class="arrear-item">${sub}</li>`).join('')
-        : '<li>No Backlog</li>';
+    // Merit and Average Logic
+    const meritCategory = getStudentPerformanceCategory(student);
+    const allSgpas = ALL_STUDENTS.map(s => parseFloat(s.SGPA)).filter(s => !isNaN(s));
+    const batchAvg = allSgpas.length > 0 ? allSgpas.reduce((a, b) => a + b, 0) / allSgpas.length : 0;
+    const diffFromAvg = (currSGPA - batchAvg).toFixed(2);
+    const studentWidth = Math.min((currSGPA / 10) * 100, 100);
 
-    // 2. NEW: Mini Grade Distribution Logic
-    const gradeCounts = {};
+    // grade dist.
     const gradeOrder = ['O', 'A+', 'A', 'B+', 'B', 'C+', 'C', 'D', 'P', 'F', 'FF'];
-    let totalGradedSubjects = 0;
-
+    const gradeCounts = {};
+    let totalGraded = 0;
     ALL_SUBJECTS.forEach(sub => {
         const g = student[sub];
         if (g && g !== '-' && g !== '?') {
             gradeCounts[g] = (gradeCounts[g] || 0) + 1;
-            totalGradedSubjects++;
+            totalGraded++;
         }
     });
 
     const distRowsHtml = gradeOrder.map(grade => {
-        if (!gradeCounts[grade]) return ''; // Only show grades the student actually got
-        const count = gradeCounts[grade];
-        const percentage = (count / totalGradedSubjects) * 100;
-
+        if (!gradeCounts[grade]) return '';
+        const pct = (gradeCounts[grade] / totalGraded) * 100;
         return `
             <div class="mini-dist-row">
                 <div class="mini-dist-grade">${grade}</div>
                 <div class="mini-dist-bar-wrapper">
-                    <div class="mini-dist-label">
-                        <span>${count} Subject(s)</span>
-                        <span>${Math.round(percentage)}%</span>
-                    </div>
-                    <div class="mini-dist-bar-bg">
-                        <div class="mini-dist-bar-fill" style="width: ${percentage}%"></div>
-                    </div>
+                    <div class="mini-dist-label"><span>${gradeCounts[grade]} Subject(s)</span><span>${Math.round(pct)}%</span></div>
+                    <div class="mini-dist-bar-bg"><div class="mini-dist-bar-fill" style="width: ${pct}%"></div></div>
                 </div>
-            </div>
-        `;
+            </div>`;
     }).join('');
 
-    // 3. Combine everything into the sidebar
+    // backlog list
+    const arrearsHtml = ALL_SUBJECTS.filter(sub => failingGrades.includes(student[sub])).length > 0
+        ? ALL_SUBJECTS.filter(sub => failingGrades.includes(student[sub])).map(s => `<li class="arrear-item">${s}</li>`).join('')
+        : '<li style="color: #24A84C; font-size: 13px; list-style:none; font-family: \'Open Sans\';">✔ No Backlogs Found</li>';
+
+
     analyticsBody.innerHTML = `
         <div class="student-analysis-container">
             <div class="analysis-card">
+                
                 <div class="analysis-stat-row">
-                    <span>Status:</span>
+                    <span>Performance:</span>
+                    <span class="stat-value-main" style="color: #16161D">${meritCategory}</span>
+                </div>
+                <div class="analysis-stat-row">
+                    <span>Result Status:</span>
                     <span class="stat-value-main ${statusClass}">${statusText}</span>
                 </div>
                 <div class="analysis-stat-row">
-                    <span>SGPA:</span>
-                    <span class="stat-value-main">${Number(student.SGPA).toFixed(2)}</span>
+                    <span>Current SGPA:</span>
+                    <span class="stat-value-main">${currSGPA.toFixed(2)}</span>
                 </div>
                 <div class="analysis-stat-row">
-                    <span>Class Rank:</span>
-                    <span class="stat-value-main">#${rank}</span>
+                    <span>Batch Rank:</span>
+                    <span class="stat-value-main">#${rank} / ${ALL_STUDENTS.length}</span>
                 </div>
-                
-                <div class="analysis-stat-row" style="border-bottom: none; margin-top: 10px;">
-                    <span>Backlogs: (${failCount})</span>
-                </div>
-                <ul class="arrears-list">
-                    ${arrearsHtml}
-                </ul>
 
-                <div class="mini-dist-container">
-                    <div class="mini-dist-title">Grade Distribution</div>
-                    ${distRowsHtml || '<div class="loading">No grade data.</div>'}
+                <div class="mini-dist-container" style="margin-top:25px;">
+                    <div class="mini-dist-title">Active Backlogs (${failCount})</div>
+                    <ul class="arrears-list" style="margin-top: 10px;">
+                        ${arrearsHtml}
+                    </ul>
                 </div>
+
+                <div class="mini-dist-container" style="margin-top:25px;">
+                    <div class="mini-dist-title">Semester Grade Distribution</div>
+                    ${distRowsHtml || '<div class="loading">No grade data available.</div>'}
+                </div>
+
+                <div class="benchmark-container" style="margin-top: 35px; padding: 15px 12px 25px 12px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; margin-bottom: 15px; font-family: 'Open Sans';">
+                        <span style="color: #495057;">CLASS AVG: ${batchAvg.toFixed(2)}</span>
+                        <span style="color: ${diffFromAvg >= 0 ? '#24A84C' : '#e67e22'}">
+                            ${diffFromAvg >= 0 ? '▲ +' : '▼ '}${Math.abs(diffFromAvg)} pts
+                        </span>
+                    </div>
+                    
+                    <div class="benchmark-bar-bg" style="height: 10px; background: #dee2e6; position: relative; border-radius: 10px; overflow: visible;">
+                        
+                        <div class="student-score-fill" style="
+                            width: ${studentWidth}%; 
+                            height: 100%; 
+                            background: ${currSGPA >= batchAvg ? '#FFE100' : '#ffc107'}; 
+                            border-radius: 10px;
+                            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+                            position: absolute;
+                            z-index: 1;
+                        "></div>
+
+                        <div class="student-marker" style="
+                            position: absolute; 
+                            top: -4px; 
+                            left: ${studentWidth}%; 
+                            width: 3px; 
+                            height: 18px; 
+                            background: #16161D; 
+                            border-radius: 2px;
+                            transform: translateX(-50%);
+                            transition: left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+                            z-index: 3;
+                        ">
+                             <!--<span style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 8px; font-weight: bold; color: #16161D;">YOU</span>-->
+                             <span style="
+                                position: absolute; 
+                                bottom: -18px; 
+                                left: 50%; 
+                                transform: translateX(-50%); 
+                                font-size: 10px; 
+                                font-weight: 900; 
+                                color: white;
+                                background: #16161D;
+                                padding: 1px 5px;
+                                border-radius: 3px;
+                                white-space: nowrap;
+                            ">${currSGPA.toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    `;
+        </div>`;
 }
 function createPassFailCards(analytics) {
     const container = document.getElementById("pass-fail-container");
